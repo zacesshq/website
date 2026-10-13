@@ -126,6 +126,6 @@
     if (isOpen() && !event.target.closest(".site-header")) set(false);
   });
   // the wide layout has no menu, so nothing is left open behind it
-  var wide = window.matchMedia("(min-width: 62rem)");
+  var wide = window.matchMedia("(min-width: 68rem)");
   if (wide.addEventListener) wide.addEventListener("change", function (m) { if (m.matches) set(false); });
 })();

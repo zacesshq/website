@@ -9,7 +9,7 @@ import PageHead from "../../components/PageHead.astro";
   <PageHead
     eyebrow="How it works"
     title="From any page to notes you can read"
-    lead="Every file you bring to Zacess goes through the same steps on your device. The original is never changed. Nothing leaves your device unless you choose a cloud feature."
+    lead="Every file you bring to Zacess goes through the same steps. The original is never changed."
   />
 
   <section aria-labelledby="pipeline-title">
@@ -23,7 +23,7 @@ import PageHead from "../../components/PageHead.astro";
         </li>
         <li>
           <h3>Find the text</h3>
-          <p>If the file has a text layer, the text is read directly, with the position and size of every piece. If it does not, such as a photo or a scan, the text is recognised on your device by OCR.</p>
+          <p>If the file has a text layer, the text is read directly, with the position and size of every piece. If it does not, such as a photo or a scan, the text is recognised by OCR.</p>
           <p>Recognised words carry a confidence score. Doubtful words are marked for checking, with a stricter bar for numbers, units and symbols.</p>
         </li>
         <li>
@@ -67,15 +67,15 @@ import PageHead from "../../components/PageHead.astro";
     <div class="wrap prose">
       <h2 id="offline-title">Offline first</h2>
       <p>Zacess is built to work with no connection at all. Text recognition, transcription, your reading profile, your library and every export run on your device. You can use it on a train, in a lecture theatre with poor signal or with your Wi-Fi switched off.</p>
-      <p>In the browser version the core runs in your browser as WebAssembly, with pdf.js for PDFs and tesseract.js for OCR, so even there your files stay on your device.</p>
-      <p>When a cloud feature is added later it will be optional and labelled. It will show exactly what would leave your device before it starts. Read more on the <a href="/privacy/">privacy page</a>.</p>
+      <p>In the browser version the core runs in your browser as WebAssembly, with pdf.js for PDFs and tesseract.js for OCR, so it works the same way there.</p>
+      <p>When a cloud feature is added later it will be optional and labelled. Read more on the <a href="/privacy/">privacy page</a>.</p>
     </div>
   </section>
 
   <section id="library" class="band" aria-labelledby="library-title">
     <div class="wrap prose">
       <h2 id="library-title">The library</h2>
-      <p>Your documents, notes, reading profiles, recordings, flashcard decks, study plans and clips all live in one library on your device. It is a single SQLite file that is written safely, so a crash in the middle of a save never corrupts it.</p>
+      <p>Your documents, notes, reading profiles, recordings, flashcard decks, study plans and clips all live in one library. It is a single SQLite file that is written safely, so a crash in the middle of a save never corrupts it.</p>
       <h3>Versions</h3>
       <p>Every change is saved straight away and every version is kept. You can read any earlier version and restore it. Restoring saves it as a new version, so history is never rewritten and you can always undo a restore.</p>
       <h3>The bin</h3>

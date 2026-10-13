@@ -101,14 +101,17 @@ a:hover { text-decoration-thickness: 0.16em; }
 .js .site-nav a { display: block; padding: 0.75rem 0 0.75rem 1rem; }
 .js .site-nav a[aria-current="page"]::after { left: 0; right: auto; top: 0.65rem; bottom: 0.65rem; width: 0.25rem; height: auto; }
 
-/* wide screens: logo, centred navigation and the colour mode button on one row. 62rem is where the
-   six links fit centred with room for the logo on one side and the widest mode name on the other */
-@media (min-width: 62rem) {
+/* the link to the app leaves the site, so it carries an arrow as well as its words */
+.nav-app svg { width: 0.85em; height: 0.85em; margin-left: 0.2rem; vertical-align: -0.05em; }
+
+/* wide screens: logo, centred navigation and the colour mode button on one row. 68rem is where the
+   seven links fit centred with room for the logo on one side and the widest mode name on the other */
+@media (min-width: 68rem) {
   .header-inner { grid-template-columns: 1fr auto 1fr; column-gap: 1rem; }
   .brand img { height: 2.25rem; }
   .js .menu-toggle { display: none; }
   .site-nav, .js .site-nav { grid-column: 2; grid-row: 1; display: block; padding: 0; max-height: none; overflow: visible; }
-  .site-nav ul, .js .site-nav ul { flex-direction: row; flex-wrap: nowrap; gap: 0 1.4rem; font-size: 1.05rem; }
+  .site-nav ul, .js .site-nav ul { flex-direction: row; flex-wrap: nowrap; gap: 0 1.2rem; font-size: 1.05rem; }
   .js .site-nav li { border-top: 0; }
   .js .site-nav a { display: inline-block; padding: 0.55rem 0 0.7rem; }
   .js .site-nav a[aria-current="page"]::after { left: 0; right: 0; top: auto; bottom: 0.2rem; width: auto; height: 0.22rem; }
@@ -156,6 +159,7 @@ mark { background: linear-gradient(transparent 12%, var(--mark) 12%, var(--mark)
 .lead { font-size: clamp(1.2rem, 2.4vw, 1.4rem); max-width: 40rem; margin: 0 0 0.75rem; }
 .said { color: var(--muted); margin: 0 0 2rem; }
 .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.actions-note { margin: 0.9rem 0 0; max-width: 40rem; font-size: 1rem; color: var(--muted); }
 .button {
   display: inline-block; padding: 0.8rem 1.3rem; border-radius: 8px; font-weight: 700; text-decoration: none;
   border: 2px solid var(--text); color: var(--text); background: transparent;
@@ -291,6 +295,12 @@ thead th { background: var(--band); }
    for reduced motion and for print */
 .tagline { font-size: clamp(1.15rem, 2.2vw, 1.3rem); font-weight: 700; margin: 0 0 0.75rem; }
 .tagline .w { padding: 0 0.1em; border-radius: 3px; }
+.read-toggle {
+  margin-left: 0.5rem; min-height: 2.75rem; min-width: 2.75rem; padding: 0 0.8rem; vertical-align: middle;
+  font: inherit; font-size: 0.85rem; font-weight: 700; color: var(--text); background: none;
+  border: 1px solid var(--line); border-radius: 8px; cursor: pointer;
+}
+.read-toggle:hover { text-decoration: underline; }
 @media (prefers-reduced-motion: no-preference) {
   .tagline .w { transition: background-color 0.2s ease, color 0.2s ease; }
   .tagline.reading .w { color: var(--muted); }
@@ -327,4 +337,61 @@ thead th { background: var(--band); }
 }
 .footer-brand img { height: 2rem; width: auto; }
 .js .site-nav a:focus-visible { outline-offset: -3px; }
-@media (min-width: 62rem) { .js .site-nav a:focus-visible { outline-offset: 3px; } }
+@media (min-width: 68rem) { .js .site-nav a:focus-visible { outline-offset: 3px; } }
+
+/* phones and tablets. Links that stand on their own line are at least 44 pixels tall, so a finger
+   finds them; the highlight band stays the height of the text because it is drawn in the content box.
+   Links inside a sentence keep their normal size */
+.more a, .toc a, .footer-col a, .footer-bottom a, .big-link a, .contact-list p > a, .roadmap p > a[href^="#"] {
+  display: inline-block; min-width: 2.75rem; min-height: 2.75rem; padding-top: 0.45rem; padding-bottom: 0.45rem;
+  background-clip: content-box;
+}
+.footer-col li { margin: 0; }
+.toc ul { gap: 0 1.5rem; }
+.brand { min-height: 2.75rem; align-items: center; }
+/* below 23rem only the mark of the logo shows; the image is cropped rather than the link, so the
+   link keeps a 44 pixel target */
+@media (max-width: 22.99rem) {
+  .brand { width: auto; min-width: 2.75rem; overflow: visible; }
+  .brand img { width: 1.5rem; height: 2rem; object-fit: cover; object-position: left center; }
+}
+/* the gutters clear the notch and rounded corners when a phone is held sideways (viewport-fit=cover) */
+.wrap { padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
+@media (min-width: 48rem) {
+  .wrap { padding-left: max(2rem, env(safe-area-inset-left)); padding-right: max(2rem, env(safe-area-inset-right)); }
+}
+.site-header { padding-top: env(safe-area-inset-top); }
+.site-footer { padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
+/* the dynamic viewport height, so the open menu still scrolls to its end while the address bar shows */
+.js .site-nav.open { max-height: calc(100dvh - 4.5rem - env(safe-area-inset-top)); }
+/* on a small phone the hero buttons stack at full width, one clear target each */
+@media (max-width: 29.99rem) {
+  .actions { flex-direction: column; }
+  .actions .button { text-align: center; }
+}
+/* below 27rem the tagline and its pause button never share a line, so the button starts its own
+   line flush with the text instead of indented under it */
+@media (max-width: 26.99rem) {
+  .read-toggle { display: block; margin: 0.5rem 0 0; }
+}
+/* the header row measures itself in em, so it answers large text as well as zoom and narrow screens,
+   which a media query cannot see: first the logo shows only its mark, then the colour mode button
+   drops its name and at the very narrowest the Menu button and the chevron go to icons. Every name
+   is still read out */
+.header-inner { container-type: inline-size; container-name: header; }
+@container header (max-width: 18.5em) {
+  .brand { width: auto; min-width: 2.75rem; overflow: visible; }
+  .brand img { width: 1.5rem; height: 2rem; object-fit: cover; object-position: left center; }
+}
+@container header (max-width: 15em) {
+  .theme-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+@container header (max-width: 11em) {
+  .menu-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .theme-button .chev { display: none; }
+  .menu-toggle, .theme-button { justify-content: center; min-width: 2.75rem; padding-left: 0.5rem; padding-right: 0.5rem; }
+}
+/* a long address can break, so it never pushes the page sideways at large text */
+.big-link a, .contact-list p > a { max-width: 100%; overflow-wrap: anywhere; }
+/* a list item that is only a link is a standalone target too */
+.doc li > a:only-child, .prose li > a:only-child { display: inline-block; min-height: 2.75rem; padding-top: 0.45rem; padding-bottom: 0.45rem; }

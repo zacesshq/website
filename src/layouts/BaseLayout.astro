@@ -23,6 +23,8 @@ const orgJson = JSON.stringify({
   email: SITE.email,
   sameAs: [SITE.github],
 });
+// cookie-free visit counts (see the privacy page); the id comes from the build environment
+const beacon = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 ---
 <!doctype html>
 <html lang="en-GB">
@@ -61,5 +63,8 @@ const orgJson = JSON.stringify({
 <Footer />
 <script is:inline src="/theme.js" defer></script>
 <script is:inline src="/motion.js" defer></script>
+{beacon && (
+  <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: beacon })}></script>
+)}
 </body>
 </html>

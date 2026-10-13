@@ -10,7 +10,7 @@ into notes in your own reading profile.
 
 - [Astro](https://astro.build), as a static site with no server
 - Hand-drawn inline SVG icons and the Atkinson Hyperlegible typeface (SIL Open Font Licence)
-- Hosted on Cloudflare Pages
+- Hosted on Cloudflare as static assets (see `wrangler.jsonc`); no server code runs
 
 ## Working on it
 
@@ -19,6 +19,7 @@ npm install
 npm run dev      # local preview
 npm run build    # static site in dist/
 npm run verify   # headings, links, writing style and the security headers
+npx wrangler deploy --autoconfig=false   # publish dist/ as static assets on Cloudflare
 ```
 
 Every page meets WCAG 2.2 AA with text at 7:1 contrast or higher, works fully from the keyboard and

@@ -1,0 +1,33 @@
+---
+import { FOOTER_COLUMNS, SITE } from "../site";
+const path = Astro.url.pathname;
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img class="logo logo-light" src="/assets/brand/zacess-lockup-light.svg" alt="Zacess" width="110" height="32">
+        <img class="logo logo-dark" src="/assets/brand/zacess-lockup-dark.svg" alt="Zacess" width="110" height="32">
+        <p class="footer-tagline">Make every page accessible.</p>
+        <p>A free, open-source reader that turns study material into notes in your own reading profile.</p>
+        <p>Said like "success": za-SESS.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
+        {FOOTER_COLUMNS.map((col) => (
+          <div class="footer-col">
+            <h2>{col.title}</h2>
+            <ul>
+              {col.links.map((item) => (
+                <li><a href={item.href} aria-current={path === item.href ? "page" : undefined}>{item.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>Zacess is free and open source under AGPL-3.0.</p>
+      <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+    </div>
+  </div>
+</footer>

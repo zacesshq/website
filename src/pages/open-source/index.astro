@@ -1,0 +1,84 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHead from "../../components/PageHead.astro";
+import { SITE } from "../../site";
+---
+<BaseLayout
+  title="Open source"
+  description="Zacess will be open source under the AGPL-3.0 licence, with everything that runs on your device free for good. How it is licensed, what stays free, where the code will be published and how to help now."
+>
+  <PageHead
+    eyebrow="Open source"
+    title="Free, open and built in the open"
+    lead="Everything that runs on your device is free, for good. The code will be open under the AGPL-3.0 licence, so anyone can check how it works and nobody can take it and close it."
+  />
+
+  <section aria-labelledby="licence-title">
+    <div class="wrap prose">
+      <h2 id="licence-title">The licence: AGPL-3.0</h2>
+      <p>Zacess is licensed under the GNU Affero General Public License, version 3. In plain words:</p>
+      <ul>
+        <li>Anyone can read the code, run it, change it and share it.</li>
+        <li>Anyone who shares a changed version must share their changes under the same licence.</li>
+        <li>Anyone who runs a changed version as an online service must publish their changes too. This is what the "Affero" part adds.</li>
+      </ul>
+      <h3>Why we chose it</h3>
+      <p>Accessibility tools are often expensive, tied to one platform or locked to dedicated hardware. We want Zacess to stay free and open for everyone who needs it. The AGPL means nobody can take the code, close it and sell it back to the students it was built for. It also means that anyone, including universities and disabled users, can check exactly what Zacess does with their files.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="free-title">
+    <div class="wrap prose">
+      <h2 id="free-title">What stays free forever</h2>
+      <p>Everything that runs on your device is free and will never sit behind a paywall:</p>
+      <ul>
+        <li>reading in your profile</li>
+        <li>text recognition (OCR)</li>
+        <li>read aloud</li>
+        <li>lecture recording and transcription</li>
+        <li>the magnifier</li>
+        <li>every export</li>
+        <li>flashcards and study tools</li>
+      </ul>
+      <p>An optional paid tier is planned for things that cost money to run on a server: cloud voices, cloud processing, storage for syncing across devices and, later, optional cloud AI helpers. Universities will be able to buy licences with lecturer mode and admin tools. The money funds development, along with open-source grants. You never need the paid tier to use Zacess.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="code-title">
+    <div class="wrap prose">
+      <h2 id="code-title">Where the code will be</h2>
+      <p>The code will be published in the public repository <a href={SITE.repo}>zacesshq/zacess on GitHub</a> with the first release. Issues and pull requests will open there at the same time.</p>
+      <p>Until then, questions, ideas and feedback go to <a href={SITE.discussions}>Zacess Discussions on GitHub</a> or to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="help-title">
+    <div class="wrap">
+      <h2 id="help-title">How to help now</h2>
+      <p class="intro">You do not need to write code to help shape Zacess. The most useful thing right now is hearing from the people it is for.</p>
+      <ul class="features">
+        <li>
+          <h3>Tell us what is hard to read</h3>
+          <p>Which slides, handouts, textbooks or web pages give you trouble and why. Examples of real material are the best way to test Zacess.</p>
+        </li>
+        <li>
+          <h3>Share your reading setup</h3>
+          <p>The fonts, sizes, colours and tools you use today. Tell us what each one does well or badly. This shapes the reading profiles and presets.</p>
+        </li>
+        <li>
+          <h3>Suggest ideas</h3>
+          <p>A feature that would change how you study or something in the roadmap you would put first.</p>
+        </li>
+        <li>
+          <h3>Give feedback on this site</h3>
+          <p>If anything here is unclear or hard to use, tell us. An accessibility problem is a bug.</p>
+        </li>
+      </ul>
+      <p class="more"><a href={SITE.discussions}>Join Zacess Discussions on GitHub</a></p>
+      <div class="note">
+        <h3>Code contributions</h3>
+        <p>Code contributions open after the first release, when the code is published.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

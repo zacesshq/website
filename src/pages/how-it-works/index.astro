@@ -1,0 +1,121 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHead from "../../components/PageHead.astro";
+---
+<BaseLayout
+  title="How it works"
+  description="How Zacess turns a page into notes in your reading profile: text layer or on-device OCR, layout and reading order, one document model, your profile applied as a view and accessible outputs. Offline first, with a library that keeps every version."
+>
+  <PageHead
+    eyebrow="How it works"
+    title="From any page to notes you can read"
+    lead="Every file you bring to Zacess goes through the same steps on your device. The original is never changed. Nothing leaves your device unless you choose a cloud feature."
+  />
+
+  <section aria-labelledby="pipeline-title">
+    <div class="wrap">
+      <h2 id="pipeline-title">The pipeline, step by step</h2>
+      <p class="intro">This diagram is written as a numbered list so it reads the same to everyone. Each step passes its result to the next.</p>
+      <ol class="pipeline" aria-label="The Zacess document pipeline, in six steps">
+        <li>
+          <h3>Bring a page</h3>
+          <p>A PDF, a photo of a handout, a scanned textbook page, a projected slide, a whiteboard or a web page. Today the core reads PDFs, images, saved web pages and text. Word files come with the browser version and PowerPoint files later.</p>
+        </li>
+        <li>
+          <h3>Find the text</h3>
+          <p>If the file has a text layer, the text is read directly, with the position and size of every piece. If it does not, such as a photo or a scan, the text is recognised on your device by OCR.</p>
+          <p>Recognised words carry a confidence score. Doubtful words are marked for checking, with a stricter bar for numbers, units and symbols.</p>
+        </li>
+        <li>
+          <h3>Work out the layout and reading order</h3>
+          <p>Text is grouped into lines and blocks. Columns are found and read in the right order. Headings, lists, tables, subscripts, superscripts and equations are detected. Page numbers are set aside.</p>
+        </li>
+        <li>
+          <h3>Build one document</h3>
+          <p>Everything becomes one Zacess document: headings, paragraphs, lists, tables, images, equations and page breaks, in reading order. Every piece remembers where it sits on the original page, so you can always go back to the source.</p>
+        </li>
+        <li>
+          <h3>Apply your reading profile as a view</h3>
+          <p>Your profile decides how the document looks: font, size, spacing, line length, contrast and the reading ruler. It is applied as a view over the document, so the original always stays exactly as imported. Change your profile and every document follows.</p>
+        </li>
+        <li>
+          <h3>Read, listen, study or export</h3>
+          <p>Read it in your profile, have it read aloud, make flashcards from it or export it as accessible HTML, EPUB 3 or a braille-ready file.</p>
+        </li>
+      </ol>
+      <div class="note">
+        <p>The core engine does steps 1 to 6 today for PDFs, images, web pages and text. Word import, read aloud and the reading view you will use on screen come with the browser version. PowerPoint import comes later. The <a href="/features/">features page</a> has the detail on each.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="model-title">
+    <div class="wrap prose">
+      <h2 id="model-title">The document model</h2>
+      <p>The document model is the centre of Zacess. Every importer produces one and every view and export reads one. Because there is only one, a fix to how tables are read improves every format at once.</p>
+      <ul>
+        <li><strong>Blocks in reading order.</strong> Headings with their levels, paragraphs, quotations, code, lists with nesting, tables with header cells, images with their descriptions, equations with LaTeX and MathML plus page breaks.</li>
+        <li><strong>Runs of text.</strong> Each piece of text keeps its confidence score, whether you have confirmed or corrected it and the original recognised text, so a correction is always one step from the original.</li>
+        <li><strong>A link back to the page.</strong> Every block and every recognised run records its page and the region it came from.</li>
+        <li><strong>Help kept apart from content.</strong> Anything an optional helper adds, such as a description, sits beside the block it describes, labelled with what made it. It is never mixed into the original.</li>
+        <li><strong>A documented, versioned format.</strong> Documents are saved as JSON with a schema version. Older files are upgraded when opened and a file from a newer version is refused rather than misread.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="offline-title">
+    <div class="wrap prose">
+      <h2 id="offline-title">Offline first</h2>
+      <p>Zacess is built to work with no connection at all. Text recognition, transcription, your reading profile, your library and every export run on your device. You can use it on a train, in a lecture theatre with poor signal or with your Wi-Fi switched off.</p>
+      <p>In the browser version the core runs in your browser as WebAssembly, with pdf.js for PDFs and tesseract.js for OCR, so even there your files stay on your device.</p>
+      <p>When a cloud feature is added later it will be optional and labelled. It will show exactly what would leave your device before it starts. Read more on the <a href="/privacy/">privacy page</a>.</p>
+    </div>
+  </section>
+
+  <section id="library" class="band" aria-labelledby="library-title">
+    <div class="wrap prose">
+      <h2 id="library-title">The library</h2>
+      <p>Your documents, notes, reading profiles, recordings, flashcard decks, study plans and clips all live in one library on your device. It is a single SQLite file that is written safely, so a crash in the middle of a save never corrupts it.</p>
+      <h3>Versions</h3>
+      <p>Every change is saved straight away and every version is kept. You can read any earlier version and restore it. Restoring saves it as a new version, so history is never rewritten and you can always undo a restore.</p>
+      <h3>The bin</h3>
+      <p>Deleting something moves it to the bin, where it stays for 30 days and can be restored. After that it is removed with all its versions. You can also empty an item from the bin straight away. Storage use is always shown, so you know how much space your library takes.</p>
+      <h3>Backups</h3>
+      <p>A backup is a complete copy of your library file that opens like any other library.</p>
+      <h3>Sync, when it comes</h3>
+      <p>Sync between your devices arrives in v3. Its rules are already decided and built into the core, so they can be tested before sync is promised:</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="sync-caption">
+        <table>
+          <caption id="sync-caption">What happens when the same thing changes on two devices</caption>
+          <thead>
+            <tr><th scope="col">Situation</th><th scope="col">What Zacess does</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">The same note is edited on two devices</th><td>The edits are merged automatically.</td></tr>
+            <tr><th scope="row">A note is deleted on one device and edited offline on another</th><td>The edit wins, the note is restored and both devices say so.</td></tr>
+            <tr><th scope="row">The same profile setting is changed on two devices</th><td>The latest change wins and the older value is kept in history.</td></tr>
+            <tr><th scope="row">A large file, such as a recording, changes on two devices</th><td>Both copies are kept and you choose.</td></tr>
+            <tr><th scope="row">Storage is full</th><td>Sync pauses with a clear message. Nothing is deleted automatically.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Every item shows where it stands: saved on this device, syncing, synced or needs attention.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="formats-title">
+    <div class="wrap prose">
+      <h2 id="formats-title">Open formats</h2>
+      <p>Your notes are yours. You can export the whole library, including the bin and every version, at any time:</p>
+      <ul>
+        <li>documents as document JSON and as accessible HTML pages</li>
+        <li>notes as Markdown</li>
+        <li>reading profiles as JSON</li>
+        <li>flashcard decks as JSON, Anki text and a Notion CSV</li>
+        <li>study plans, recordings and clips as JSON</li>
+        <li>a manifest that lists every item and every version</li>
+      </ul>
+      <p>An export can be read back into any Zacess library without making duplicates. Every format is documented, so other tools can read your notes too.</p>
+    </div>
+  </section>
+</BaseLayout>

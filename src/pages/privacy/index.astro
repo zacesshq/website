@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHead from "../../components/PageHead.astro";
+import { SITE } from "../../site";
+---
+<BaseLayout
+  title="Privacy"
+  description="Zacess is private by default: your files stay on your device, there is no account to make and any future cloud feature is optional and labelled. This page also covers this website, which uses no cookies, tracking or advertising and counts visits with Cloudflare Web Analytics."
+>
+  <PageHead
+    eyebrow="Privacy"
+    title="Private by default"
+    lead="Zacess works on your device. Your files are not uploaded, there is no account to make and it keeps working offline."
+  />
+
+  <section aria-labelledby="app-title">
+    <div class="wrap prose">
+      <h2 id="app-title">Zacess and your files</h2>
+      <p>Lecture slides, notes and recordings can say a lot about you, including your access needs. So Zacess is designed to keep them with you.</p>
+      <ul>
+        <li><strong>Nothing is uploaded.</strong> Opening a file, recognising its text, transcribing a lecture, applying your reading profile and exporting all happen on your device.</li>
+        <li><strong>No account needed.</strong> Zacess works fully without one. An optional account to sync your library across your devices comes with sync in v3. You will never need one to read, listen or study.</li>
+        <li><strong>Works offline.</strong> Everything that runs on your device keeps working with no connection.</li>
+        <li><strong>Nothing fetched behind your back.</strong> When you clip a web page, Zacess reads only what you sent. It never downloads linked pages, images or scripts.</li>
+        <li><strong>Transcription stays local.</strong> The transcription engine refuses any recogniser that would send audio off your device, so a cloud service cannot be plugged in by mistake.</li>
+        <li><strong>You can leave any time.</strong> Export your whole library in open formats whenever you like.</li>
+      </ul>
+      <p>We also plan to encrypt your library on your device, to encrypt backups and to document how long every kind of data is kept and how it is deleted. Those are not built yet.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="cloud-title">
+    <div class="wrap prose">
+      <h2 id="cloud-title">Rules for any future cloud feature</h2>
+      <p>Some jobs, such as cloud voices, heavy processing of very messy scans and storage for sync, may one day use a server. Any cloud feature will follow these rules:</p>
+      <ol>
+        <li><strong>Optional.</strong> Off unless you turn it on. Everything that runs on your device stays free and keeps working without it.</li>
+        <li><strong>Labelled.</strong> Anything made in the cloud says so.</li>
+        <li><strong>Shown first.</strong> Before any cloud task starts, Zacess shows which tasks run on your device, which need a server and exactly what data would leave your device.</li>
+        <li><strong>Part of the paid tier.</strong> Cloud features cost money to run, so they belong to the optional paid tier. The free core never depends on them.</li>
+      </ol>
+      <p>Sync between your devices is planned with end-to-end encryption as the goal.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="ai-title">
+    <div class="wrap prose">
+      <h2 id="ai-title">AI comes last and is always labelled</h2>
+      <p>Optional AI helpers, such as diagram descriptions or explaining a passage more simply, are planned for v4, the last phase. They follow fixed rules:</p>
+      <ol>
+        <li><strong>The original is the source of truth.</strong> Help sits beside the original, labelled. It never replaces it.</li>
+        <li><strong>Off by default.</strong> Nothing that changes content runs until you turn it on.</li>
+        <li><strong>On your device first.</strong> Models that run on your device are always tried first. The cloud is used only for heavy jobs, only in the paid tier and only if you allow it.</li>
+        <li><strong>Never silently changing numbers or formulas.</strong> An equation is never rewritten. A simpler version that changes any number, unit or symbol is refused. Where a mistake could mislead, the original is always shown alongside.</li>
+      </ol>
+      <p>The two helpers already in the core use no AI model at all: one splits long sentences and swaps academic words for plainer ones while leaving every number untouched. The other reads the text in a diagram without guessing what the picture shows. Both are off until you turn them on and both label their results.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="site-title">
+    <div class="wrap prose">
+      <h2 id="site-title">This website</h2>
+      <p>This notice covers zacess.com.</p>
+      <ul>
+        <li><strong>No cookies.</strong> The site sets none.</li>
+        <li><strong>No tracking and no advertising.</strong> There are no advertising or tracking scripts and no third-party embeds.</li>
+        <li><strong>Counting visits.</strong> We use Cloudflare Web Analytics to count visits. It uses no cookies, stores nothing on your device and does not build a profile of you or follow you across sites. It records page views, the page you came from, your browser and your country, in aggregate. Cloudflare does not store IP addresses for these analytics.</li>
+        <li><strong>One local setting.</strong> If you choose Light or Dark mode, that choice is saved in your browser's local storage so the next page opens in the same mode. It never leaves your browser. Choosing System removes it.</li>
+        <li><strong>Self-hosted fonts.</strong> The Atkinson Hyperlegible typeface is served from this site, so no font service sees your visit.</li>
+        <li><strong>Hosting.</strong> The site is hosted on Cloudflare. Like any web host, Cloudflare may process request logs, such as IP addresses, to deliver the site and keep it secure.</li>
+        <li><strong>Links out.</strong> Links to GitHub take you to GitHub, whose own privacy policy applies there.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="questions-title">
+    <div class="wrap prose">
+      <h2 id="questions-title">Questions about privacy</h2>
+      <p>Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> with any question about privacy or your data. To report a security problem, please email us privately rather than posting it in public; the <a href="/security/">security page</a> explains how.</p>
+      <p>Last updated on 13 October 2026.</p>
+    </div>
+  </section>
+</BaseLayout>

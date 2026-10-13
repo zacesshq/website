@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SITE } from "../../site";
+---
+<BaseLayout
+  title="Security"
+  description="How to report a security vulnerability in Zacess privately, what to include, what is in scope and our safe harbour for good-faith research."
+>
+  <div class="doc">
+    <div class="wrap">
+      <h1>Security</h1>
+      <p>We take the security of Zacess and the people who use it seriously. If you find a vulnerability, please tell us privately so we can fix it before anyone else finds it.</p>
+      <p>Zacess is pre-release. Today that means this website. The browser version and the published code will follow.</p>
+
+      <h2>How to report a vulnerability</h2>
+      <p>Email <a href={`mailto:${SITE.email}?subject=Security%20report`}>{SITE.email}</a> with "Security report" in the subject.</p>
+      <p>Please do not open a public issue or discussion for a security problem. Public posts can put people at risk before a fix is ready.</p>
+
+      <h2>What to include</h2>
+      <ul>
+        <li>what you found and where: the address, page or part of the code</li>
+        <li>the steps to reproduce it, as simply as you can</li>
+        <li>what an attacker could do with it</li>
+        <li>any proof of concept, screenshots or logs that help</li>
+        <li>how you would like to be credited, if at all</li>
+      </ul>
+
+      <h2>What happens next</h2>
+      <ul>
+        <li>We will reply within a few working days to confirm we have your report.</li>
+        <li>We will keep you updated while we investigate and fix it.</li>
+        <li>We will let you know when it is fixed and agree with you when it can be made public.</li>
+        <li>With your permission, we will thank you by name when the fix is announced.</li>
+      </ul>
+
+      <h2>Scope</h2>
+      <p>In scope:</p>
+      <ul>
+        <li>this website, zacess.com</li>
+        <li>the browser version at app.zacess.com, once it exists</li>
+        <li>the Zacess code, once it is published at <a href={SITE.repo}>zacesshq/zacess on GitHub</a></li>
+      </ul>
+      <p>Out of scope: services run by others, such as GitHub and Cloudflare, which have their own reporting routes. Reports from automated scanners with no demonstrated impact are also out of scope.</p>
+
+      <h2>Safe harbour</h2>
+      <p>If you act in good faith, we will not take legal action against you or ask anyone else to. Acting in good faith means that you:</p>
+      <ul>
+        <li>only test against what is in scope</li>
+        <li>avoid harm to people's privacy, data and access to the service, including denial of service and spam</li>
+        <li>stop as soon as you reach anyone else's data, keep nothing and tell us</li>
+        <li>give us a reasonable time to fix the problem before you share anything about it</li>
+        <li>do not ask for payment in return for not disclosing a problem</li>
+      </ul>
+      <p>We do not run a paid bug bounty. We are grateful for every report and will credit you if you would like.</p>
+
+      <p>A machine-readable version of this contact is at <a href="/.well-known/security.txt">/.well-known/security.txt</a>.</p>
+      <p>Last updated on 13 October 2026.</p>
+    </div>
+  </div>
+</BaseLayout>

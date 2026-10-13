@@ -1,0 +1,122 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../site";
+---
+<BaseLayout
+  title="Zacess: make every page accessible"
+  description="Zacess is a free, open-source reader that turns slides, PDFs, handouts, whiteboards and web pages into notes in your own reading profile. Read, listen and learn your way, on your own device."
+>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Pre-release: the browser version comes first</p>
+      <h1 id="hero-title">Make every page <mark>accessible.</mark></h1>
+      <p class="lead">Zacess is a free, open-source reader that turns slides, PDFs, handouts, whiteboards and web pages into notes in your own reading profile. Read, listen and learn your way, on your own device.</p>
+      <p class="tagline" data-read><span class="w">Read.</span> <span class="w">Listen.</span> <span class="w">Learn.</span> <span class="w">Your</span> <span class="w">way.</span></p>
+      <p class="said">Zacess is said like "success": za-SESS.</p>
+      <div class="actions">
+        <a class="button primary" href={SITE.discussions}>Join the discussion</a>
+        <a class="button" href={SITE.github}>Follow on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="what-title">
+    <div class="wrap">
+      <h2 id="what-title">What it does</h2>
+      <p class="intro">One app in place of the separate reader, magnifier, recorder and study tools many students juggle today. The engine behind it is built and tested; the screens that put it in your hands come next.</p>
+      <ul class="features">
+        <li>
+          <h3>Your reading profile</h3>
+          <p>Contrast, size, spacing, column width and colours set once and kept. Presets for low vision, dyslexia, reduced visual clutter and screen readers. Nothing changes without you.</p>
+        </li>
+        <li>
+          <h3>Text from any page</h3>
+          <p>Text is taken from the file where it exists and recognised on your device where it does not. Doubtful words, numbers and symbols are marked so you can check them.</p>
+        </li>
+        <li>
+          <h3>Lectures in one place</h3>
+          <p>Slides and whiteboards captured without repeats, the recording and its transcript on one timeline you can search.</p>
+        </li>
+        <li>
+          <h3>Study that fits</h3>
+          <p>Flashcards that space themselves out, reading goals with no streak pressure and export to Anki and Notion.</p>
+        </li>
+        <li>
+          <h3>Two languages side by side</h3>
+          <p>The original beside its translation, keeping your place when you switch, with right-to-left scripts laid out the right way.</p>
+        </li>
+        <li>
+          <h3>Take it anywhere</h3>
+          <p>Export to accessible HTML, EPUB 3 and braille-ready files. Your notes stay yours, in open formats.</p>
+        </li>
+      </ul>
+      <p class="more"><a href="/features/">See every feature and whether it is built yet</a></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="how-title">
+    <div class="wrap">
+      <h2 id="how-title">How it works</h2>
+      <ol class="steps">
+        <li><h3>Bring any page</h3><p>A PDF, a photo of a handout, a projected slide, a whiteboard or a web page.</p></li>
+        <li><h3>Zacess rebuilds it</h3><p>It finds the text, the headings and the reading order and keeps equations and tables intact.</p></li>
+        <li><h3>Read it your way</h3><p>See it in your profile, listen to it, study from it or export it. The original is never changed.</p></li>
+      </ol>
+      <p class="more"><a href="/how-it-works/">Follow a page through Zacess step by step</a></p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="private-title">
+    <div class="wrap two">
+      <div>
+        <h2 id="private-title">Private by default</h2>
+        <p>Zacess works on your device. Your files are not uploaded, there is no account to make and it keeps working offline. Any cloud feature will always be optional, clearly labelled and show you what would leave your device first.</p>
+        <p class="more"><a href="/privacy/">Read how Zacess handles your files and data</a></p>
+      </div>
+      <div>
+        <h2 id="roadmap-title">Roadmap</h2>
+        <p>The core that does the real work is built and tested. Next is the browser version, where everything runs on your device. The apps for Windows, macOS, Linux, iOS and Android follow on the same core.</p>
+        <p class="more"><a href="/roadmap/">See the roadmap from v0 to v4</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="open-title">
+    <div class="wrap two">
+      <div>
+        <h2 id="open-title">Free and open source</h2>
+        <p>Everything that runs on your device is free, for good. The code will be open under the AGPL-3.0 licence, so anyone can check how it works and nobody can take it and close it.</p>
+        <p>We are building in the open on GitHub. Share what you find hard to read, the tools you use today and what would help.</p>
+        <p class="more"><a href="/open-source/">How Zacess stays free and how to help</a></p>
+      </div>
+      <div>
+        <h2 id="a11y-title">Accessibility first</h2>
+        <p>WCAG 2.2 AA is our minimum everywhere, with AAA contrast in the reading view. Zacess is designed for screen readers and works fully from the keyboard. Colour is never the only signal and motion follows your settings.</p>
+        <p class="more"><a href="/accessibility/">Read our accessibility statement</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="more-title">
+    <div class="wrap">
+      <h2 id="more-title">Find out more</h2>
+      <ul class="features">
+        <li>
+          <h3>About Zacess</h3>
+          <p>Why it exists, who it is for and where the name comes from.</p>
+          <p class="more"><a href="/about/">About Zacess</a></p>
+        </li>
+        <li>
+          <h3>Questions and answers</h3>
+          <p>Cost, devices, languages, offline use, braille and universities.</p>
+          <p class="more"><a href="/faq/">Read the FAQ</a></p>
+        </li>
+        <li>
+          <h3>Get in touch</h3>
+          <p>Feedback, accessibility problems, security reports and enquiries.</p>
+          <p class="more"><a href="/contact/">Contact Zacess</a></p>
+        </li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

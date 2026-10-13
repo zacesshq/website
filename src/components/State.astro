@@ -1,0 +1,12 @@
+---
+// three states, each said in words with its own shape beside it: filled, half filled or hollow
+type Status = "built" | "browser" | "later";
+interface Props { status: Status; note?: string }
+const { status, note } = Astro.props;
+const LABELS: Record<Status, string> = {
+  built: "Built in the core today",
+  browser: "Coming with the browser version",
+  later: "Later",
+};
+---
+<p class={`state ${status}`}>{LABELS[status]}{note && `: ${note}`}</p>

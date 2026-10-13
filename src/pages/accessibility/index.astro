@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SITE } from "../../site";
+---
+<BaseLayout
+  title="Accessibility statement"
+  description="The Zacess accessibility statement: WCAG 2.2 AA as the minimum with AAA contrast in the reading view, how this website meets it, the assistive technologies we will test with, known limitations and how to report a problem."
+>
+  <div class="doc">
+    <div class="wrap">
+      <h1>Accessibility statement</h1>
+      <p>Accessibility is the reason Zacess exists, so it is part of every decision rather than a check at the end. This statement covers this website and sets out the standard every part of Zacess is held to.</p>
+
+      <h2>Our standard</h2>
+      <ul>
+        <li>WCAG 2.2 level AA is the minimum everywhere, with AAA contrast (7:1 or higher) in the reading view.</li>
+        <li>Everything works from the keyboard, with a visible focus indicator. Zacess is designed for switch access and voice control too.</li>
+        <li>Every control has a label and every image has alt text or a description.</li>
+        <li>Colour is never the only way information is shown.</li>
+        <li>Motion follows your reduced motion setting.</li>
+        <li>Light and dark modes follow your system. You can also choose one yourself.</li>
+        <li>An accessibility problem is treated as a bug, not a feature request.</li>
+      </ul>
+
+      <h2>How Zacess is built for it</h2>
+      <ul>
+        <li>The interface is real HTML rather than a painted canvas, so screen readers and braille displays can work with it.</li>
+        <li>Every contrast theme in the reading view meets AAA contrast. A test checks each one on every change.</li>
+        <li>Exported HTML is checked against WCAG 2.2 AA by automated tests on every change. EPUB exports are checked with EPUBCheck.</li>
+        <li>Text that may have been misread is marked with a dotted underline as well as a highlight and is announced to screen readers as unclear.</li>
+        <li>Reading profiles never change silently. Any suggested change is shown for you to accept or refuse.</li>
+        <li>Zacess will be able to show what is inaccessible about a document, such as missing headings, missing image descriptions or a confusing reading order. It will also preview a document as a screen reader would.</li>
+      </ul>
+
+      <h2>This website</h2>
+      <p>This site uses real headings and landmarks, a skip link, text at 7:1 contrast or higher and the Atkinson Hyperlegible typeface, designed by the Braille Institute for low-vision readers. It works without JavaScript. Our own small scripts drive the colour mode control, which offers System, Light and Dark as labelled buttons that say which one is selected, the menu button on small screens and some gentle motion that switches off when you ask for reduced motion. Cloudflare Web Analytics adds its own script to count visits, as the <a href="/privacy/">privacy page</a> explains.</p>
+      <p>Links open in the same tab, link text says where it goes and the layout works at 400% zoom and on narrow phone screens without scrolling sideways.</p>
+
+      <h2>Assistive technology we will test with</h2>
+      <p>We plan to test every part of Zacess with:</p>
+      <ul>
+        <li>VoiceOver on macOS and iOS</li>
+        <li>TalkBack on Android</li>
+        <li>NVDA and JAWS on Windows</li>
+        <li>Orca on Linux</li>
+        <li>braille displays and embossers, for the braille-ready files</li>
+      </ul>
+      <p>This testing has not been done yet because nothing has been released. Results will be published here as each part of Zacess is released.</p>
+
+      <h2>Testing with disabled people</h2>
+      <p>Automated checks are not enough. Before each phase ships, it will be tested by people with different access needs, including people with low vision, blind people using a screen reader and people with dyslexia, ADHD or hearing loss. Their feedback decides what changes before release. If you would like to take part, email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+
+      <h2>Known limitations</h2>
+      <p>Zacess is pre-release, so the browser version and the apps have not been tested with users yet. Some limits in the core are already known:</p>
+      <ul>
+        <li>A table whose cells wrap onto several lines or whose columns do not line up is read as paragraphs.</li>
+        <li>Joined handwriting and dark blackboards cannot be read yet. A page that could not be read is marked rather than passed off as notes.</li>
+        <li>Braille-ready files have not yet been read on a physical braille display or embossed.</li>
+        <li>Slide capture has been tested with a simulated camera, not yet with a real phone and projector.</li>
+      </ul>
+      <p>We will list every known issue here, with what we are doing about it, before each release. A full conformance report, listing the assistive technologies supported, test results and the issues being worked on, will be published with the first release.</p>
+
+      <h2>Tell us about a problem</h2>
+      <p>If anything here is hard to use, please tell us at <a href={`mailto:${SITE.email}`}>{SITE.email}</a> or in <a href={SITE.discussions}>Zacess Discussions on GitHub</a>. Say what you were trying to do and what happened. You never need to share a diagnosis or any personal detail.</p>
+
+      <p>Last reviewed on 13 October 2026.</p>
+    </div>
+  </div>
+</BaseLayout>

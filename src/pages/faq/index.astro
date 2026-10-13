@@ -1,0 +1,121 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHead from "../../components/PageHead.astro";
+import { SITE } from "../../site";
+---
+<BaseLayout
+  title="Questions and answers"
+  description="Answers to common questions about Zacess: cost, when you can use it, accounts, devices, languages, offline use, your files, braille, universities, funding and how to report a problem."
+>
+  <PageHead
+    eyebrow="FAQ"
+    title="Questions and answers"
+    lead="Short answers to the questions we hear most. Select a question to open its answer."
+  />
+
+  <section aria-label="Questions">
+    <div class="wrap faq">
+      <h2 id="using">Using Zacess</h2>
+
+      <details>
+        <summary>Is it free?</summary>
+        <div>
+          <p>Yes. Everything that runs on your device is free, for good: reading in your profile, text recognition, read aloud, lecture recording and transcription, the magnifier, every export and the study tools. The code will be open source under the AGPL-3.0 licence.</p>
+          <p>An optional paid tier is planned later for things that cost money to run on a server, such as cloud voices. You will never need it. See <a href="/open-source/">what stays free</a>.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>When can I use it?</summary>
+        <div>
+          <p>Not quite yet. Zacess is pre-release and nothing is ready to install. The core engine is built and tested. The browser version comes first: open PDFs, images, Word files and web pages, read them in your profile, listen to them, zoom in and export them as accessible HTML, EPUB 3 or braille-ready files, all on your device with no account. Apps for Windows, macOS, Linux, iOS and Android follow later. We have not set dates. Follow <a href={SITE.discussions}>Zacess Discussions on GitHub</a> to hear when each one is ready. You can also see <a href="/roadmap/">the roadmap</a>.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Do I need an account?</summary>
+        <div>
+          <p>No. Zacess works fully without one. An optional account to sync your library across your devices comes later with sync, in v3. It will never be required to read, listen or study.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Which devices will it work on?</summary>
+        <div>
+          <p>The plan covers:</p>
+          <ul>
+            <li>Chrome, Edge, Safari and Firefox, as a web app you can install</li>
+            <li>Windows, macOS and Linux, as a desktop app</li>
+            <li>iPhone, iPad and Android, as a mobile app</li>
+            <li>Chromebooks, through the web app or the Android app</li>
+            <li>a browser extension for Chrome, Edge, Firefox and Safari</li>
+          </ul>
+          <p>Zacess works with hardware you already own. There is nothing extra to buy.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Which languages does it support?</summary>
+        <div>
+          <p>Text recognition on your device covers over 100 languages. Voices for reading aloud are planned to cover over 100 languages too. You can read the original and a translation side by side. Right-to-left scripts such as Arabic, Hebrew and Urdu are supported in the reading view from v2.</p>
+          <p>The interface will be translated from launch, starting with English and then the languages most common among UK students.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Does it work offline?</summary>
+        <div>
+          <p>Yes. Zacess is offline first. Recognising text, transcribing lectures, reading in your profile, your library and every export all work with no connection. <a href="/how-it-works/">How Zacess works</a> explains more.</p>
+        </div>
+      </details>
+
+      <h2 id="files">Your files</h2>
+
+      <details>
+        <summary>What happens to my files?</summary>
+        <div>
+          <p>They stay on your device. Zacess does not upload them. The original you import is never changed: your profile is applied as a view over it. Every change is saved with its version history, deleted items wait in a bin for 30 days and you can export your whole library in open formats at any time. Read <a href="/privacy/">the privacy page</a> for the full detail.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Does it support braille?</summary>
+        <div>
+          <p>Yes. Zacess can export braille-ready BRF files in Unified English Braille grade 1 or grade 2 for braille displays and embossers. This is built in the core and still to be tested on a physical display and embosser. The interface is real HTML, so screen readers and braille displays can work with it directly.</p>
+        </div>
+      </details>
+
+      <h2 id="institutions">Universities and funding</h2>
+
+      <details>
+        <summary>Can my university use it?</summary>
+        <div>
+          <p>Every student can use the free version on their own. Support for institutions comes later, in v3: university licences, lecturer mode that sends a live slide feed to every student in their own profile, connections to systems such as Blackboard, Moodle and Canvas and help with deployment. If your university is interested, email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>How is it funded?</summary>
+        <div>
+          <p>The free core is cheap to run because the work happens on your device, not on our servers. Development will be funded from three sources: an optional paid tier for cloud extras, university licences and open-source accessibility grants. We will publish a page explaining what stays free, what cloud services cost to run and how paid features fund development.</p>
+        </div>
+      </details>
+
+      <h2 id="problems">Reporting problems</h2>
+
+      <details>
+        <summary>How do I report an accessibility problem?</summary>
+        <div>
+          <p>Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> or post in <a href={SITE.discussions}>Zacess Discussions on GitHub</a>. Say what you were trying to do and what happened. You never need to share a diagnosis or any personal detail. We treat an accessibility problem as a bug. Our <a href="/accessibility/">accessibility statement</a> has more.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>How do I report a security issue?</summary>
+        <div>
+          <p>Please report it privately by email to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>, not in public issues or Discussions. Include what you found and how to reproduce it. Our <a href="/security/">security page</a> explains what to include and what is in scope.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+</BaseLayout>

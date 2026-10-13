@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SITE } from "../../site";
+---
+<BaseLayout
+  title="Credits and licences"
+  description="Credits and licences for zacess.com: the Atkinson Hyperlegible typeface, the icons, Astro, Cloudflare hosting and the AGPL-3.0 licence for the Zacess code."
+>
+  <div class="doc">
+    <div class="wrap">
+      <h1>Credits and licences</h1>
+      <p>This website is built on the work of others. Thank you to everyone below.</p>
+
+      <h2>Typeface: Atkinson Hyperlegible</h2>
+      <p>The text on this site is set in Atkinson Hyperlegible, designed by the Braille Institute of America for readers with low vision. Its letters are drawn to be told apart easily, which is why we chose it.</p>
+      <ul>
+        <li><a href="https://www.brailleinstitute.org/freefont/">Atkinson Hyperlegible on the Braille Institute website</a></li>
+        <li>Licensed under the SIL Open Font License, version 1.1: <a href="https://openfontlicense.org/open-font-license-official-text/">read the font licence</a></li>
+      </ul>
+      <p>The font files are served from this site, so no font service sees your visit.</p>
+
+      <h2>Icons</h2>
+      <p>The few icons on this site, such as the monitor, sun and moon in the colour mode control and the three lines on the Menu button, are simple shapes drawn by hand as inline SVG for this site. No icon library is used.</p>
+
+      <h2>Built with Astro</h2>
+      <p>The site is built with <a href="https://astro.build/">Astro</a>, an open-source framework released under the MIT licence. It turns our pages into plain static HTML, with almost no JavaScript.</p>
+
+      <h2>Hosted on Cloudflare</h2>
+      <p>The site is hosted on <a href="https://www.cloudflare.com/">Cloudflare</a>, which also provides the Web Analytics we use to count visits. The <a href="/privacy/">privacy page</a> explains what that means for you.</p>
+
+      <h2>The Zacess code</h2>
+      <p>Zacess is free software under the <a href="https://www.gnu.org/licenses/agpl-3.0.html">GNU Affero General Public License, version 3</a>. The code will be published at <a href={SITE.repo}>zacesshq/zacess on GitHub</a> with the first release. The apps will credit the open-source projects they build on, such as Tesseract, pdf.js and liblouis, when they are released.</p>
+    </div>
+  </div>
+</BaseLayout>

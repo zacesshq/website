@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHead from "../../components/PageHead.astro";
+import { SITE } from "../../site";
+---
+<BaseLayout
+  title="Contact"
+  description="How to contact Zacess: email contact@zacess.com, join the discussion on GitHub, report a security issue privately or tell us about an accessibility problem."
+>
+  <PageHead
+    eyebrow="Contact"
+    title="Get in touch"
+    lead="We read every message. Pick the route that fits what you want to say."
+  >
+    <p class="big-link"><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+  </PageHead>
+
+  <section aria-labelledby="routes-title">
+    <div class="wrap">
+      <h2 id="routes-title" class="vh">Ways to contact us</h2>
+      <ul class="contact-list">
+        <li>
+          <h3>Questions, ideas and feedback</h3>
+          <p>Ask a question, suggest a feature or tell us what you find hard to read. Discussions are public, so others can join in.</p>
+          <p><a href={SITE.discussions}>Zacess Discussions on GitHub</a></p>
+        </li>
+        <li>
+          <h3>Accessibility problems</h3>
+          <p>If anything on this site or in Zacess is hard to use, tell us what you were trying to do and what happened. You never need to share a diagnosis or any personal detail.</p>
+          <p><a href={`mailto:${SITE.email}?subject=Accessibility%20problem`}>Email us about an accessibility problem</a></p>
+        </li>
+        <li>
+          <h3>Security reports</h3>
+          <p>Please report a security issue privately by email, never in public Discussions. Include what you found and how to reproduce it.</p>
+          <p><a href={`mailto:${SITE.email}?subject=Security%20report`}>Email a security report</a></p>
+          <p><a href="/security/">Read how to report a security issue</a></p>
+        </li>
+        <li>
+          <h3>Privacy questions</h3>
+          <p>Ask anything about your data or this website.</p>
+          <p><a href={`mailto:${SITE.email}?subject=Privacy%20question`}>Email a privacy question</a></p>
+        </li>
+        <li>
+          <h3>Press enquiries</h3>
+          <p>For interviews, articles or anything else for the press.</p>
+          <p><a href={`mailto:${SITE.email}?subject=Press%20enquiry`}>Email a press enquiry</a></p>
+        </li>
+        <li>
+          <h3>Universities and colleges</h3>
+          <p>Interested in Zacess for your students or in a pilot when institutional support arrives? We would like to hear from you.</p>
+          <p><a href={`mailto:${SITE.email}?subject=University%20enquiry`}>Email a university enquiry</a></p>
+        </li>
+      </ul>
+      <div class="note">
+        <h3>Follow along</h3>
+        <p>For news and releases, follow <a href={SITE.github}>Zacess on GitHub</a>.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

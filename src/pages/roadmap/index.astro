@@ -1,0 +1,129 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHead from "../../components/PageHead.astro";
+import State from "../../components/State.astro";
+import { SITE } from "../../site";
+---
+<BaseLayout
+  title="Roadmap"
+  description="The Zacess roadmap: the website now, a browser version next with everything on your device, then apps for every platform. Five phases from v0 to v4, each with an honest status."
+>
+  <PageHead
+    eyebrow="Roadmap"
+    title="Where Zacess is going"
+    lead="The core that does the real work is built and tested. Next is putting it in people's hands, one useful step at a time."
+  />
+
+  <section aria-labelledby="order-title">
+    <div class="wrap">
+      <h2 id="order-title">What comes next</h2>
+      <p class="intro">Nothing is ready to install yet. This is the order things will arrive in.</p>
+      <ol class="roadmap">
+        <li class="current">
+          <p class="when">Now</p>
+          <h3>This website</h3>
+          <p>What Zacess is, how it works, how to follow along and our accessibility statement.</p>
+        </li>
+        <li>
+          <p class="when">Next</p>
+          <h3>The browser version</h3>
+          <p>Open a file in your browser, read it in your profile, listen to it and export it. Everything happens on your device, with no account and no upload.</p>
+          <p><a href="#browser-title">What the browser version will include</a></p>
+        </li>
+        <li>
+          <p class="when">Later</p>
+          <h3>The apps</h3>
+          <p>Windows, macOS, Linux, iOS and Android, built on the same core, with lecture capture on your phone, the share sheet, a desktop shortcut and a browser extension.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="browser-title">
+    <div class="wrap prose">
+      <h2 id="browser-title">What the browser version will include</h2>
+      <p>The browser version is the next release. The core runs in your browser as WebAssembly, with pdf.js for PDFs and tesseract.js for text recognition. It will include:</p>
+      <ul>
+        <li><strong>Open your material:</strong> PDFs, images with text recognition on your device, Word files and web pages.</li>
+        <li><strong>Reading profiles:</strong> the presets, your own profiles and the contrast themes.</li>
+        <li><strong>Read aloud:</strong> whole documents with the voices built into your browser and device.</li>
+        <li><strong>Magnifier and zoom:</strong> through your reading profile and your browser's own zoom.</li>
+        <li><strong>Export:</strong> accessible HTML, EPUB 3 and braille-ready files.</li>
+        <li><strong>Everything on your device:</strong> no account and no upload.</li>
+      </ul>
+      <p>You will be able to install it like an app. The <a href="/features/">features page</a> marks everything that comes with it.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="phases-title">
+    <div class="wrap">
+      <h2 id="phases-title">The five phases</h2>
+      <p class="intro">Each phase is useful on its own: v0 can help real students without lecture recording, sync or AI. Every phase is tested with people who have different access needs before it ships.</p>
+      <ol class="roadmap wide">
+        <li>
+          <p class="when">v0</p>
+          <h3>Make documents readable</h3>
+          <State status="built" note="most of v0, with the rest in the browser version or later" />
+          <ul>
+            <li>Import PDFs and images, with OCR on your device where there is no text layer. Built in the core.</li>
+            <li>Confidence marking, correction and comparison with the original. Marking and correction are built; side-by-side comparison comes later.</li>
+            <li>Reading profiles with presets and light and dark high-contrast themes. Built in the core.</li>
+            <li>A reliable local library with autosave, version history, storage use, backup and restore. Built in the core.</li>
+            <li>Accessible HTML and EPUB 3 exports. Built in the core.</li>
+            <li>Word import, magnification basics and read aloud. Coming with the browser version.</li>
+            <li>PowerPoint import, the full set of personal audio controls and DOCX and MP3 exports. Later.</li>
+          </ul>
+        </li>
+        <li>
+          <p class="when">v1</p>
+          <h3>Make lectures accessible</h3>
+          <State status="built" note="the camera, microphone and screens come later with the apps" />
+          <ul>
+            <li>Slide capture from the projector that skips repeats.</li>
+            <li>Audio recording that survives a crash or a flat battery.</li>
+            <li>Transcription and live captions on your device.</li>
+            <li>Searchable transcripts, bookmarks, chapter markers and one timeline where you can jump to any sentence or slide.</li>
+          </ul>
+        </li>
+        <li>
+          <p class="when">v2</p>
+          <h3>Make learning easier</h3>
+          <State status="built" note="much of v2, with the rest later" />
+          <ul>
+            <li>Built in the core: FSRS flashcards, reading goals with no streak pressure, revision paths, Anki and Notion export, whiteboard capture with every version kept, maths and engineering mode, universal capture, bilingual reading and braille-ready output.</li>
+            <li>Later: joined handwriting, advanced equation recognition, the browser extension, right-to-left layout in the reading view and more interface languages.</li>
+          </ul>
+        </li>
+        <li>
+          <p class="when">v3</p>
+          <h3>Connect students and institutions</h3>
+          <State status="later" note="the sync rules are already built in the core" />
+          <ul>
+            <li>Sync across your devices, with an optional account to sync your library across the apps and the website. Zacess works fully without one and an account is never required.</li>
+            <li>Accessible collaboration with permission controls, keeping your own profile separate from the shared source.</li>
+            <li>Lecturer mode: a live slide feed that every student receives in their own profile.</li>
+            <li>Connections to Blackboard, Moodle, Canvas, OneDrive and Google Drive, one at a time.</li>
+            <li>University deployment and the optional paid tier.</li>
+          </ul>
+        </li>
+        <li>
+          <p class="when">v4</p>
+          <h3>Add optional intelligence</h3>
+          <State status="later" />
+          <ul>
+            <li>Diagram descriptions, "explain simply", answers about your own lectures with their sources, outlines, quizzes and flashcards, OCR clean-up and glossaries.</li>
+            <li>Models on your device first, the cloud only for heavy jobs in the paid tier, always optional and labelled. See <a href="/privacy/#ai-title">the AI rules</a>.</li>
+            <li>The groundwork is in the core already: searching your own material with sources plus two helpers that use no AI model.</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="follow-title">
+    <div class="wrap prose">
+      <h2 id="follow-title">Follow along</h2>
+      <p>News and releases are posted in <a href={SITE.discussions}>Zacess Discussions on GitHub</a>. Ideas for the roadmap are welcome there too.</p>
+    </div>
+  </section>
+</BaseLayout>

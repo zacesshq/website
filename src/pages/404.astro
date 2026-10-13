@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+<BaseLayout title="Page not found" description="That page does not exist on zacess.com." canonical={false} noindex>
+  <div class="doc">
+    <div class="wrap">
+      <h1>Page not found</h1>
+      <p>That page does not exist. It may have moved while Zacess is being built.</p>
+      <p>Try one of these instead:</p>
+      <ul>
+        <li><a href="/">Go to the Zacess home page</a></li>
+        <li><a href="/features/">See what Zacess does</a></li>
+        <li><a href="/faq/">Read the questions and answers</a></li>
+        <li><a href="/contact/">Contact us about a broken link</a></li>
+      </ul>
+    </div>
+  </div>
+</BaseLayout>

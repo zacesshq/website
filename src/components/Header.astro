@@ -1,0 +1,25 @@
+---
+import { MAIN_NAV } from "../site";
+import ThemeSwitch from "./ThemeSwitch.astro";
+const path = Astro.url.pathname;
+---
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/" aria-label="Zacess home">
+      <img class="logo logo-light" src="/assets/brand/zacess-lockup-light.svg" alt="" width="124" height="36">
+      <img class="logo logo-dark" src="/assets/brand/zacess-lockup-dark.svg" alt="" width="124" height="36">
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      Menu
+    </button>
+    <nav class="site-nav" id="site-menu" aria-label="Main">
+      <ul>
+        {MAIN_NAV.map((item) => (
+          <li><a href={item.href} aria-current={path === item.href ? "page" : undefined}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <ThemeSwitch />
+  </div>
+</header>

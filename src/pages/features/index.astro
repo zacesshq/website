@@ -1,0 +1,366 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHead from "../../components/PageHead.astro";
+import State from "../../components/State.astro";
+
+const groups = [
+  { id: "reading", label: "Reading" },
+  { id: "getting-text", label: "Getting text" },
+  { id: "lectures", label: "Lectures" },
+  { id: "study", label: "Study" },
+  { id: "languages", label: "Languages" },
+  { id: "output", label: "Output" },
+  { id: "capture", label: "Capture" },
+  { id: "library", label: "Your library" },
+];
+---
+<BaseLayout
+  title="Features"
+  description="Every Zacess feature in detail: reading profiles, text from any page, lectures, study, languages, accessible output and capture, with an honest note of what is built today and what is coming."
+>
+  <PageHead
+    eyebrow="Features"
+    title="Everything Zacess does and what is built yet"
+    lead="Zacess takes the pages you need to read and rebuilds them for the way you read. Here is every feature in detail, grouped by what it helps you do."
+  >
+    <div class="note">
+      <h2 class="h3-size">How to read the labels</h2>
+      <ul class="legend">
+        <li><State status="built" /></li>
+        <li><State status="browser" /></li>
+        <li><State status="later" /></li>
+      </ul>
+      <ul>
+        <li><strong>Built in the core today</strong> (filled square): the engine that does the work is written and tested. Zacess is pre-release, so you cannot install it yet. The browser version is the first place you will be able to use these features.</li>
+        <li><strong>Coming with the browser version</strong> (half-filled square): not built yet and planned for the browser version, the next release.</li>
+        <li><strong>Later</strong> (hollow square): planned for after the browser version, mostly in the apps or a later phase.</li>
+      </ul>
+    </div>
+    <nav class="toc" aria-labelledby="toc-title">
+      <h2 id="toc-title">On this page</h2>
+      <ul>
+        {groups.map((g) => <li><a href={`#${g.id}`}>{g.label}</a></li>)}
+      </ul>
+    </nav>
+  </PageHead>
+
+  <section id="reading" aria-labelledby="reading-title">
+    <div class="wrap">
+      <h2 id="reading-title">Reading</h2>
+      <p class="intro">The same page, laid out the way you read best, every time.</p>
+      <ul class="features">
+        <li>
+          <h3>Reading profiles</h3>
+          <State status="built" />
+          <p>A reading profile is how you want every document laid out: font, text size, line spacing, paragraph spacing, letter spacing, line length, contrast, cursor size and whether decoration is shown. Set it once and every page you open follows it.</p>
+          <p>Applying a profile never alters the document. It is a view over the original, so the page you imported stays exactly as it was.</p>
+        </li>
+        <li>
+          <h3>Presets to start from</h3>
+          <State status="built" />
+          <p>Four presets give you a sensible starting point:</p>
+          <ul>
+            <li>Low Vision: Atkinson Hyperlegible at 24 point, yellow on black, an extra large cursor and a reading ruler.</li>
+            <li>Dyslexia-Friendly: Lexend at 16 point with wide spacing, black on cream and a two-line reading ruler.</li>
+            <li>Reduced Visual Clutter: decoration hidden, with dark text on a light background.</li>
+            <li>Screen Reader: a clean structure with decoration hidden and no ruler.</li>
+          </ul>
+          <p>Every preset uses one column and no motion. Change any setting and save it under your own name.</p>
+        </li>
+        <li>
+          <h3>Several profiles of your own</h3>
+          <State status="built" />
+          <p>Keep as many named profiles as you need, for example one for lectures, one for revision and one for long reading. Export a profile to a file to back it up or share it, then import it again on another device.</p>
+        </li>
+        <li>
+          <h3>Nothing changes behind your back</h3>
+          <State status="built" />
+          <p>Your settings never change silently. When Zacess has a suggestion it shows each setting it would change, with the old and the new value. You accept or refuse it.</p>
+        </li>
+        <li>
+          <h3>Contrast themes</h3>
+          <State status="built" />
+          <p>Four themes: dark on light, light on dark, yellow on black and black on cream. Every one meets WCAG AAA contrast (7:1 or higher) for body text, links and the highlight on text that needs checking. A test checks each theme on every change.</p>
+        </li>
+        <li>
+          <h3>Reading ruler</h3>
+          <State status="browser" note="the setting is built in the core today" />
+          <p>A band that follows the line you are reading, covering one to five lines, placed where you want it on the screen. The setting is part of every profile today. The ruler itself is drawn by the reading view, which arrives with the browser version.</p>
+        </li>
+        <li>
+          <h3>Read aloud</h3>
+          <State status="browser" />
+          <p>Listen to a whole document with the speech voices built into your browser and device, through the browser's own Web Speech API. Zacess does not send your text anywhere itself. Choose the voice and set the speed, plus the pitch where your browser supports it, with the words highlighted as they are read where the voice reports its place.</p>
+          <p>Some browsers also offer online voices alongside the ones on your device. Zacess will prefer voices that run on your device.</p>
+          <p>Repeating a sentence, skipping by paragraph and a pronunciation dictionary for technical terms, names and abbreviations come later, along with natural offline voices in the apps.</p>
+          <p>The part that turns equations into natural speech is already built: see <a href="#maths">maths and engineering mode</a>.</p>
+        </li>
+        <li>
+          <h3>Magnifier and zoom</h3>
+          <State status="browser" />
+          <p>Make the text as large as you need through your reading profile, which reflows the page into one column so you never scroll sideways. Zacess also works with your browser's own zoom, with layouts that reflow rather than spill off the side of the screen. Magnification basics are part of the browser version too.</p>
+        </li>
+        <li>
+          <h3>Phone magnifier</h3>
+          <State status="later" />
+          <p>In the phone apps, a live magnifier with freeze frame will read the frozen frame aloud and works with a cheap phone stand. It is a flexible alternative for the tasks it supports, not a replacement for specialist hardware.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="getting-text" class="band" aria-labelledby="getting-text-title">
+    <div class="wrap">
+      <h2 id="getting-text-title">Getting text</h2>
+      <p class="intro">Before a page can be read your way, Zacess has to find its text, its structure and its reading order. It never pretends to be surer than it is.</p>
+      <ul class="features">
+        <li>
+          <h3>PDF text layers</h3>
+          <State status="built" />
+          <p>When a PDF already holds text, Zacess reads it directly, with the position, size and weight of every piece, including subset and two-byte fonts. Encrypted PDFs are refused with a clear message rather than opened empty. A page with no text layer is passed to OCR.</p>
+        </li>
+        <li>
+          <h3>OCR on your device</h3>
+          <State status="built" />
+          <p>Photos, scans and pages with no text layer are recognised on your device with Tesseract 5, an open-source engine that knows over 100 languages. Nothing leaves your machine. In the browser version the same engine runs as WebAssembly, so the results and the checks match.</p>
+        </li>
+        <li>
+          <h3>Confidence marking you can check</h3>
+          <State status="built" />
+          <p>Every recognised word carries a confidence score. An ordinary word below 80% is marked for checking. A number, operator, unit or symbol is held to a stricter 95%, because a misread digit or sign changes the meaning and nothing in the sentence gives it away.</p>
+          <p>You can confirm a marked word or correct it. A correction keeps the recognised text one step away and a checked word is never marked again. Marks are announced to screen readers and shown with a dotted underline as well as a highlight, so colour is never the only signal.</p>
+        </li>
+        <li>
+          <h3>Headings, lists and reading order</h3>
+          <State status="built" />
+          <p>Layout analysis groups text into lines and blocks, finds columns and reads each one top to bottom, detects headings and their levels, rebuilds bulleted and numbered lists with their nesting, keeps subscripts and superscripts and drops repeated page numbers. Words split by a hyphen at the end of a line are joined back together.</p>
+        </li>
+        <li id="maths">
+          <h3>Maths and engineering mode</h3>
+          <State status="built" />
+          <p>Equations are kept as structure, not flattened into text. They are rebuilt as LaTeX and exported as MathML, read the way a lecturer would say them ("V out equals I R", "4.7 kilo-ohms", "12 plus or minus 5 percent") and can be stepped through part by part from the keyboard. Circuit and maths symbols keep their confidence scores.</p>
+          <p>An advanced mode with stronger equation recognition is planned for v2.</p>
+        </li>
+        <li>
+          <h3>Tables</h3>
+          <State status="built" />
+          <p>Rows of short, aligned cells become real tables with header cells, so a screen reader can tell you which column you are in. A table whose cells wrap onto several lines or whose columns do not line up is read as paragraphs for now.</p>
+        </li>
+        <li>
+          <h3>Word files</h3>
+          <State status="browser" />
+          <p>Open a Word (.docx) file and Zacess converts it in your browser into the same document model as every other file, keeping its headings, lists and tables. Today the core reads PDFs, images, saved web pages and text files.</p>
+        </li>
+        <li>
+          <h3>PowerPoint files</h3>
+          <State status="later" />
+          <p>Importing PowerPoint files directly comes after the browser version. Until then, slides saved as a PDF open like any other PDF.</p>
+        </li>
+        <li>
+          <h3>Comparing with the original</h3>
+          <State status="later" />
+          <p>Every piece of text already remembers where it sits on the original page. The reading view will use this to show the original image beside any word you are checking, one tap away.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="lectures" aria-labelledby="lectures-title">
+    <div class="wrap">
+      <h2 id="lectures-title">Lectures</h2>
+      <p class="intro">Everything from one lecture on one clock: the slides, the board, what was said and your notes. The engine is built; the camera, microphone and screens arrive with the apps.</p>
+      <ul class="features">
+        <li>
+          <h3>Slide capture</h3>
+          <State status="built" />
+          <p>Point a phone at the projector and Zacess keeps each new slide once. Repeats are dropped and the clearest frame is kept. A bullet appearing is a new step of the same slide, not a new slide. Going back to an earlier slide is recognised. Frames caught halfway through a fade or with a lens cap on are ignored.</p>
+          <p>It is tested with a simulated camera. Testing with a real phone and projector is still to do.</p>
+        </li>
+        <li>
+          <h3>Whiteboards and handwritten pages</h3>
+          <State status="built" />
+          <p>Photos of a whiteboard are compared on the ink alone, so a change of light or a shaky hand is not a change. Writing added, rubbed out or rewritten becomes a new version and every earlier version is kept. A person standing in front of the board is not counted as a change.</p>
+          <p>Neat handwriting is read; joined handwriting and dark blackboards are not handled yet. A page that could not be read is marked rather than passed off as notes.</p>
+        </li>
+        <li>
+          <h3>Recording</h3>
+          <State status="built" />
+          <p>Recordings are saved in short pieces as you go, so a crash, a closed app or a flat battery loses at most the last few seconds. Pause and resume as often as you like. If the device runs out of space the recording stops cleanly and keeps what it has.</p>
+        </li>
+        <li>
+          <h3>Transcription and live captions</h3>
+          <State status="built" />
+          <p>Speech is turned into text on your device with whisper.cpp. Zacess refuses any recogniser that would send audio away. Live captions follow broadcast subtitle guidelines for line length and reading speed, words the recogniser was unsure of are marked like OCR text and transcripts export as WebVTT and SubRip captions.</p>
+        </li>
+        <li>
+          <h3>One timeline</h3>
+          <State status="built" />
+          <p>The recording, the transcript, the slides, the board photos, your bookmarks and chapters sit on one clock. Search across all of them at once and jump to the exact word that was said. Chapters are found from new boards and long pauses. Any chapter you add yourself is never moved.</p>
+        </li>
+        <li>
+          <h3>Lecturer mode</h3>
+          <State status="later" note="v3" />
+          <p>A lecturer shares a live slide feed and every student receives it in their own reading profile as the lecture happens.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="study" class="band" aria-labelledby="study-title">
+    <div class="wrap">
+      <h2 id="study-title">Study</h2>
+      <p class="intro">Revision tools that fit around you, with no guilt built in.</p>
+      <ul class="features">
+        <li>
+          <h3>Flashcards with FSRS</h3>
+          <State status="built" />
+          <p>Make a card straight from any part of a document and it remembers where it came from, so you can always open the source. Cards are scheduled with FSRS-5, the Free Spaced Repetition Scheduler, which spaces each review for the chance of remembering you choose (90% unless you change it).</p>
+        </li>
+        <li>
+          <h3>Revision paths</h3>
+          <State status="built" />
+          <p>A path is built from a document's headings: read each section, review the cards made from it, then recap the headings at the end. Zacess keeps your place and shows how far along you are.</p>
+        </li>
+        <li>
+          <h3>Goals with no streak pressure</h3>
+          <State status="built" />
+          <p>Set a goal in minutes, sections, pages or cards, for today or for a rolling week, so a quiet day never resets anything. At most one reminder a day says what is ready and ends with "Any amount counts." The words streak, missed, broke, lost, behind, failed, must and late are never used. A test checks that.</p>
+        </li>
+        <li>
+          <h3>Anki and Notion export</h3>
+          <State status="built" />
+          <p>Export a deck as Anki text that imports into the right deck and updates the same notes when you import again. Export to Notion as a database CSV. A revision path exports as a checklist with the steps you have done already ticked.</p>
+        </li>
+        <li>
+          <h3>Search your own material</h3>
+          <State status="built" />
+          <p>Ask a question and get the passages from your own documents and boards that answer it, in their original words, each saying the document and page it came from. Nothing is generated or made up: if your material does not cover the question, Zacess says so.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="languages" aria-labelledby="languages-title">
+    <div class="wrap">
+      <h2 id="languages-title">Languages</h2>
+      <p class="intro">Reading in a second language or in a script that runs right to left should not mean losing your place.</p>
+      <ul class="features">
+        <li>
+          <h3>Bilingual reading</h3>
+          <State status="built" />
+          <p>A translation is kept beside the original block by block. The original is never replaced. Switching language keeps the sentence you were on. Equations are left as they are. A translation whose numbers do not match the original is flagged until someone checks it.</p>
+          <p>You can bring a translation you already have, such as a translated handout, paragraph by paragraph.</p>
+        </li>
+        <li>
+          <h3>Machine translation</h3>
+          <State status="later" />
+          <p>Translation engines will follow the same rules as every optional helper: off until you turn them on, on your device first and labelled with what made them. Translation that runs on your device is arriving in some browsers but not all, so it is planned for later rather than promised in the browser version.</p>
+        </li>
+        <li>
+          <h3>Right to left</h3>
+          <State status="built" />
+          <p>Zacess knows which languages and scripts run right to left, including Arabic, Hebrew, Persian and Urdu. It marks each side of a bilingual view with its direction. Laying them out right to left in the reading view comes later, in v2.</p>
+        </li>
+        <li>
+          <h3>Interface translations</h3>
+          <State status="later" />
+          <p>The interface will be translated through Crowdin, starting with English and then the languages most common among UK students.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="output" class="band" aria-labelledby="output-title">
+    <div class="wrap">
+      <h2 id="output-title">Output</h2>
+      <p class="intro">Take your documents anywhere, in formats that keep their structure.</p>
+      <ul class="features">
+        <li>
+          <h3>Accessible HTML</h3>
+          <State status="built" />
+          <p>One standalone page with your profile's styles, real headings that never skip a level, lists, tables with header cells, MathML equations, described images and page markers a screen reader can move between. Every export is checked against WCAG 2.2 AA with automated tests on every change.</p>
+        </li>
+        <li>
+          <h3>EPUB 3</h3>
+          <State status="built" />
+          <p>An ebook with a table of contents, a page list, MathML and accessibility metadata, checked with EPUBCheck with warnings treated as failures.</p>
+        </li>
+        <li>
+          <h3>Braille-ready files</h3>
+          <State status="built" />
+          <p>BRF files for braille displays and embossers in Unified English Braille grade 1 or grade 2, made with liblouis, with the line length and page size your device uses. Headings, lists, tables and equations follow transcriber conventions. Text that needs checking is preceded by a transcriber's note.</p>
+          <p>The files have not yet been read on a physical braille display or embossed. That test is still to do.</p>
+        </li>
+        <li>
+          <h3>Word and audio</h3>
+          <State status="later" />
+          <p>DOCX and MP3 exports come after the browser version.</p>
+        </li>
+        <li>
+          <h3>Accessibility checks on any document</h3>
+          <State status="later" />
+          <p>Inspect a document's structure, find missing headings or image descriptions, spot reading order problems and hear it as a screen reader would. Zacess will show what is inaccessible, not only change how it looks.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="capture" aria-labelledby="capture-title">
+    <div class="wrap">
+      <h2 id="capture-title">Capture</h2>
+      <p class="intro">Send anything you need to read straight to your library's inbox.</p>
+      <ul class="features">
+        <li>
+          <h3>Web clips</h3>
+          <State status="built" />
+          <p>A web page becomes a clean document that keeps its headings, paragraphs, lists, tables, links, image descriptions, code and quotations. Menus, adverts, cookie notices and other page clutter are left out. Every clip remembers where it came from and when.</p>
+        </li>
+        <li>
+          <h3>Shared text, images and files</h3>
+          <State status="built" />
+          <p>Text becomes paragraphs and lists, images go through OCR and files go through the importer for their type. The same thing captured twice within ten minutes is kept once.</p>
+        </li>
+        <li>
+          <h3>Nothing fetched, nothing sent</h3>
+          <State status="built" />
+          <p>Zacess reads only what you send it. It never downloads a linked page, image or script. A clip goes no further than your library unless you export it.</p>
+        </li>
+        <li>
+          <h3>Browser extension, share sheet, clipboard and shortcut</h3>
+          <State status="later" />
+          <p>The ways in come with the apps: a browser extension for Chrome, Edge, Firefox and Safari, the share sheet on iOS and Android, the clipboard and a desktop shortcut.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="library" class="band" aria-labelledby="library-title">
+    <div class="wrap">
+      <h2 id="library-title">Your library</h2>
+      <p class="intro">If you rely on Zacess for your notes, it must never lose them.</p>
+      <ul class="features">
+        <li>
+          <h3>Autosave and version history</h3>
+          <State status="built" />
+          <p>Every change is saved and every version is kept. Restoring an earlier version saves it as a new one, so you can always undo the restore too.</p>
+        </li>
+        <li>
+          <h3>A bin and backups</h3>
+          <State status="built" />
+          <p>Deleted items wait in the bin for 30 days. A backup is a complete copy of your library that opens like any other.</p>
+        </li>
+        <li>
+          <h3>Leave any time</h3>
+          <State status="built" />
+          <p>Export your whole library, with its history, in documented open formats: JSON, Markdown, accessible HTML, Anki text and CSV.</p>
+        </li>
+        <li>
+          <h3>Sync across your devices</h3>
+          <State status="later" note="v3, with the sync rules already built in the core" />
+          <p>The rules for syncing are decided and built before sync is promised. Sync will be optional and Zacess works fully without it.</p>
+        </li>
+      </ul>
+      <p class="more"><a href="/how-it-works/#library">How the library and sync rules work</a></p>
+    </div>
+  </section>
+</BaseLayout>

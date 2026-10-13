@@ -1,0 +1,97 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHead from "../../components/PageHead.astro";
+---
+<BaseLayout
+  title="About"
+  description="Why Zacess exists, who it is for, what makes it different and where the name comes from: access and success, both from the Latin cēdō, to go."
+>
+  <PageHead
+    eyebrow="About"
+    title="Why Zacess exists"
+    lead="Lecture slides, scanned handouts, textbook pages and whiteboards are often unreadable for the people who need them most. Zacess is here to change that."
+  />
+
+  <section aria-labelledby="mission-title">
+    <div class="wrap prose">
+      <h2 id="mission-title">Our mission</h2>
+      <p>Make every page accessible. Zacess turns anything you need to read into structured, high-contrast notes in your own reading profile, reads them aloud and keeps them as study material that works offline on every device.</p>
+      <p>Today many students piece together four or five separate tools: a document reader, a magnifier, a lecture recorder, a literacy tool and a study app. Many of them are paid, desktop only or tied to dedicated hardware. Zacess brings those jobs together in one free, open-source app.</p>
+      <p>Our values are simple: open source, accessibility first and local first.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="who-title">
+    <div class="wrap">
+      <h2 id="who-title">Who it is for</h2>
+      <p class="intro">Zacess is for anyone who finds pages hard to read and for everyone who studies.</p>
+      <ul class="features">
+        <li>
+          <h3>People with low vision</h3>
+          <p>Including monocular vision: high contrast, large text, one column, no motion and magnification.</p>
+        </li>
+        <li>
+          <h3>Blind people</h3>
+          <p>A clean structure that works with screen readers and braille displays.</p>
+        </li>
+        <li>
+          <h3>People with dyslexia or visual stress</h3>
+          <p>Fonts, spacing, colour overlays and read aloud.</p>
+        </li>
+        <li>
+          <h3>People with ADHD</h3>
+          <p>Focus mode, a reading ruler, content in manageable chunks and timers.</p>
+        </li>
+        <li>
+          <h3>People with hearing loss</h3>
+          <p>Live captions and transcripts of lectures.</p>
+        </li>
+        <li>
+          <h3>International students</h3>
+          <p>Read aloud plus a translation beside the original.</p>
+        </li>
+        <li>
+          <h3>Everyone studying</h3>
+          <p>Readable slides on time, lecture notes lined up with the recording and revision tools.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="different-title">
+    <div class="wrap prose">
+      <h2 id="different-title">What makes Zacess different</h2>
+      <p>Zacess is not a collection of accessibility tools. It takes inaccessible material and turns it into accessible, reusable study material that follows you across devices.</p>
+      <ul>
+        <li><strong>It converts, not only records.</strong> Lecture recorders organise slides you import by hand. Zacess rebuilds the slides themselves into a structure you can read.</li>
+        <li><strong>It restructures, not only magnifies.</strong> A magnifier makes the screen bigger. Zacess rebuilds the page in one column, in your profile.</li>
+        <li><strong>OCR you can trust.</strong> Anything it is unsure of is marked for you to check, with a stricter bar for numbers and symbols.</li>
+        <li><strong>Maths and engineering kept intact.</strong> Equations, subscripts, circuit symbols and technical tables survive and are read aloud naturally.</li>
+        <li><strong>Lectures on one timeline.</strong> Slides, the board, the recording, the transcript and your notes, all lined up.</li>
+        <li><strong>Private by default.</strong> Your files stay on your device. See <a href="/privacy/">how Zacess handles privacy</a>.</li>
+        <li><strong>Free and open source.</strong> The core never sits behind a paywall. See <a href="/open-source/">how Zacess stays free</a>.</li>
+      </ul>
+      <p>Zacess is a flexible alternative for the tasks it supports. It does not promise to replace every piece of specialist assistive hardware.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="name-title">
+    <div class="wrap prose">
+      <h2 id="name-title">The name</h2>
+      <p>Zacess (said like "success": za-SESS) brings two words together.</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="name-caption">
+        <table>
+          <caption id="name-caption">Where the two words in Zacess come from</caption>
+          <thead>
+            <tr><th scope="col">Part</th><th scope="col">From</th><th scope="col">Meaning</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">access</th><td>Latin <i lang="la">accessus</i>, from <i lang="la">ad</i> "to, toward" and <i lang="la">cēdō</i> "go, move"</td><td>Getting to the page</td></tr>
+            <tr><th scope="row">success</th><td>Latin <i lang="la">successus</i>, from <i lang="la">sub</i> "next to" and <i lang="la">cēdō</i> "go, move"</td><td>Getting through it</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><i>Access</i> and <i>success</i> share the same Latin root, <i lang="la">cēdō</i>, "to go". That is the idea behind Zacess: every reader should be able to reach a page and then get through it, in the way that works for them. <strong>Make every page accessible.</strong></p>
+    </div>
+  </section>
+</BaseLayout>

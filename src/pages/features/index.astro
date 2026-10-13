@@ -120,9 +120,9 @@ const groups = [
           <p>When a PDF already holds text, Zacess reads it directly, with the position, size and weight of every piece, including subset and two-byte fonts. Encrypted PDFs are refused with a clear message rather than opened empty. A page with no text layer is passed to OCR.</p>
         </li>
         <li>
-          <h3>OCR on your device</h3>
+          <h3>Text recognition (OCR)</h3>
           <State status="built" />
-          <p>Photos, scans and pages with no text layer are recognised on your device with Tesseract 5, an open-source engine that knows over 100 languages. Nothing leaves your machine. In the browser version the same engine runs as WebAssembly, so the results and the checks match.</p>
+          <p>Photos, scans and pages with no text layer are recognised with Tesseract 5, an open-source engine that knows over 100 languages. In the browser version the same engine runs as WebAssembly, so the results and the checks match.</p>
         </li>
         <li>
           <h3>Confidence marking you can check</h3>
@@ -190,7 +190,7 @@ const groups = [
         <li>
           <h3>Transcription and live captions</h3>
           <State status="built" />
-          <p>Speech is turned into text on your device with whisper.cpp. Zacess refuses any recogniser that would send audio away. Live captions follow broadcast subtitle guidelines for line length and reading speed, words the recogniser was unsure of are marked like OCR text and transcripts export as WebVTT and SubRip captions.</p>
+          <p>Speech is turned into text by whisper.cpp, an open-source recogniser that needs no connection. Live captions follow broadcast subtitle guidelines for line length and reading speed, words the recogniser was unsure of are marked like OCR text and transcripts export as WebVTT and SubRip captions.</p>
         </li>
         <li>
           <h3>One timeline</h3>

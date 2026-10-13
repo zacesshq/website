@@ -7,6 +7,10 @@
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
   },
+  "routes": [
+    { "pattern": "zacess.com", "custom_domain": true },
+    { "pattern": "www.zacess.com", "custom_domain": true }
+  ],
   "workers_dev": true,
   "preview_urls": false
 }

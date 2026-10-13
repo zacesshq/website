@@ -1,0 +1,5 @@
+# CODEOWNERS
+# Every file in this repository is owned by the maintainers team.
+# This file exists so that any pull request automatically requests a review.
+
+* @zacesshq/maintainers

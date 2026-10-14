@@ -1,0 +1,139 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHead from "../../components/PageHead.astro";
+import { SITE } from "../../site";
+import data from "../../data/themes.json";
+import { SAMPLES } from "../../data/samples";
+import { render, THEME_IDS, THEME_NAMES } from "../../lib/highlight";
+
+const REPO = "https://github.com/zacesshq/themes";
+const RELEASES = `${REPO}/releases`;
+const tree = (path: string) => `${REPO}/tree/main/${path}`;
+const ratio = (n: number) => `${(Math.floor(n * 10) / 10).toFixed(1)}:1`;
+
+const FOR: Record<string, string> = {
+  light: "Everyday reading in a bright room",
+  dark: "Everyday reading in a dim room",
+  "yellow-on-black": "Low vision",
+  cream: "Dyslexia friendly reading",
+};
+
+const preview = await render("light", "typescript");
+const groups = await Promise.all(
+  SAMPLES.map(async (s) => ({
+    sample: s,
+    blocks: await Promise.all(THEME_IDS.map(async (id) => ({ id, html: await render(id, s.id) }))),
+  })),
+);
+
+const CARDS = [
+  { name: "VS Code", status: "On the VS Code Marketplace", how: "Search for Zacess Themes in the Extensions view or run code --install-extension zacess.zacess-themes, then pick a theme with Preferences: Color Theme.", path: "editors/vscode", links: [{ label: "Zacess Themes on the VS Code Marketplace", url: "https://marketplace.visualstudio.com/items?itemName=zacess.zacess-themes" }] },
+  { name: "Cursor, Windsurf and VSCodium", status: "On Open VSX", how: "Editors built on VS Code that use Open VSX, such as Cursor, Windsurf, VSCodium and Antigravity, find Zacess Themes in their Extensions view.", path: "editors/vscode", links: [{ label: "Zacess Themes on Open VSX", url: "https://open-vsx.org/extension/zacess/zacess-themes" }] },
+  { name: "JetBrains IDEs", status: "JetBrains Marketplace listing in review", how: "Until the listing is approved, install the plugin zip from the latest release with Install Plugin from Disk, then choose a Zacess theme under Appearance. Needs 2025.3 or later.", path: "editors/jetbrains", links: [{ label: "Zacess Themes on the JetBrains Marketplace", url: "https://plugins.jetbrains.com/plugin/35082-zacess-themes" }, { label: "Download the latest release", url: "https://github.com/zacesshq/themes/releases/latest" }] },
+  { name: "Obsidian", status: "In the Obsidian community directory", how: "Open Settings, then Appearance, select Manage under Themes and search for Zacess. Yellow on Black and Cream are offered through the Style Settings plugin.", path: "editors/obsidian", links: [{ label: "Zacess in the Obsidian community directory", url: "https://community.obsidian.md/themes/zacess" }] },
+  { name: "Neovim", status: "Install with any plugin manager", how: "Add zacesshq/zacess.nvim with lazy.nvim or any other plugin manager, then run :colorscheme zacess-dark. Needs termguicolors.", path: "editors/neovim", links: [{ label: "zacess.nvim on GitHub", url: "https://github.com/zacesshq/zacess.nvim" }] },
+  { name: "Zed", status: "Zed extension listing in review", how: "Until it is listed, install the editors/zed folder with Install Dev Extension on the Extensions page, then pick a theme with theme selector: toggle.", path: "editors/zed" },
+  { name: "Sublime Text", status: "Download from the latest release", how: "Put the .sublime-color-scheme files in your Packages/User folder, then choose one with UI: Select Color Scheme. Needs Sublime Text 4.", path: "editors/sublime", links: [{ label: "Download the latest release", url: "https://github.com/zacesshq/themes/releases/latest" }] },
+  { name: "Helix", status: "Download from the latest release", how: "Put the theme files in ~/.config/helix/themes, then set theme = \"zacess_dark\" in config.toml.", path: "editors/helix", links: [{ label: "Download the latest release", url: "https://github.com/zacesshq/themes/releases/latest" }] },
+  { name: "Emacs", status: "Download from the latest release", how: "Put the theme files in your custom-theme-directory, then run (load-theme 'zacess-dark t). Needs Emacs 27 or later.", path: "editors/emacs", links: [{ label: "Download the latest release", url: "https://github.com/zacesshq/themes/releases/latest" }] },
+  { name: "Terminals", status: "Install from the repository", how: "iTerm2, Alacritty, kitty, Ghostty and Windows Terminal, with the steps for each. Terminal text keeps 7:1 contrast too.", path: "editors/terminals" },
+];
+---
+<BaseLayout
+  title="Code themes"
+  description="Four high contrast themes for code editors and terminals in the same colours as the Zacess reader. Try each theme on 20 languages. Every text and syntax colour keeps 7:1 contrast."
+>
+  <link slot="head" rel="stylesheet" href="/themes/code-themes.css">
+  <PageHead
+    eyebrow="Open source"
+    title="Code themes"
+    lead="The four contrast themes from the Zacess reader, for code editors and terminals. Every text and syntax colour keeps at least 7:1 contrast."
+  >
+    <p class="themes-status">We build the themes for VS Code, JetBrains IDEs, Obsidian, Neovim, Zed, Sublime Text, Helix, Emacs and five terminals. They are on the <a href="https://marketplace.visualstudio.com/items?itemName=zacess.zacess-themes">VS Code Marketplace</a> and <a href="https://open-vsx.org/extension/zacess/zacess-themes">Open VSX</a> and in the <a href="https://community.obsidian.md/themes/zacess">Obsidian community directory</a>. Neovim installs them from <a href="https://github.com/zacesshq/zacess.nvim">zacess.nvim</a>. The <a href="https://plugins.jetbrains.com/plugin/35082-zacess-themes">JetBrains Marketplace</a> listing and the Zed extension are in review. Until they are live, install those from the <a href={RELEASES}>releases page</a>. Sublime Text, Helix, Emacs and the terminals install from the releases page or the <a href={REPO}>themes repository</a>.</p>
+  </PageHead>
+
+  <section class="playground" aria-labelledby="try-title">
+    <div class="wrap">
+      <h2 id="try-title">Try a theme</h2>
+      <div class="pg-controls">
+        <div class="pg-field">
+          <label for="pg-theme">Theme</label>
+          <select id="pg-theme">
+            {THEME_IDS.map((id) => <option value={id}>{THEME_NAMES[id]}</option>)}
+          </select>
+        </div>
+        <div class="pg-field">
+          <label for="pg-lang">Language</label>
+          <select id="pg-lang">
+            {SAMPLES.map((s) => <option value={s.id}>{s.name}</option>)}
+          </select>
+        </div>
+      </div>
+      <p id="pg-status" class="vh" aria-live="polite"></p>
+
+      <div id="pg-preview" class="frame frame-light frame-large">
+        <p class="frame-bar" aria-hidden="true" id="pg-title">Zacess Light, TypeScript</p>
+        <Fragment set:html={preview} />
+      </div>
+
+      <div class="pg-facts">
+        {data.themes.map((t) => (
+          <dl class="pg-info" data-theme={t.id} hidden={t.id !== "light"}>
+            <div><dt>Background</dt><dd><span class={`swatch sw-${t.id}-bg`} aria-hidden="true"></span><code>{t.ui.background}</code></dd></div>
+            <div><dt>Text</dt><dd><span class={`swatch sw-${t.id}-fg`} aria-hidden="true"></span><code>{t.ui.foreground}</code></dd></div>
+            <div><dt>Lowest measured contrast</dt><dd>{ratio(t.lowest.anySurface.ratio)}</dd></div>
+            <div><dt>Target</dt><dd>7:1 (WCAG AAA)</dd></div>
+          </dl>
+        ))}
+        <p class="pg-copy-row">
+          <button type="button" id="pg-copy" class="button">Copy the sample</button>
+          <span id="pg-copied" class="pg-copied" aria-live="polite"></span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="grid-title">
+    <div class="wrap">
+      <h2 id="grid-title">All four themes</h2>
+      <p class="intro">The chosen language in every theme, so the four can be compared side by side. The lowest ratio is measured over the selection, the current line and the diff colours, where text is hardest to read.</p>
+      {groups.map(({ sample, blocks }) => (
+        <div class="theme-grid" data-lang={sample.id} hidden={sample.id !== "typescript"}>
+          {blocks.map((b) => {
+            const t = data.themes.find((x) => x.id === b.id)!;
+            return (
+              <figure class={`frame frame-${b.id}`} data-theme={b.id}>
+                <figcaption class="frame-bar">{THEME_NAMES[b.id]}</figcaption>
+                <Fragment set:html={b.html} />
+                <p class="frame-note">{FOR[b.id]}. Lowest contrast {ratio(t.lowest.anySurface.ratio)}.</p>
+              </figure>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section aria-labelledby="install-title">
+    <div class="wrap">
+      <h2 id="install-title">Install</h2>
+      <p class="intro">Packaged files are attached to each release on the <a href={RELEASES}>releases page</a>. Every editor's files can also be taken straight from the <a href={REPO}>themes repository</a>.</p>
+      <ul class="features install-cards">
+        {CARDS.map((c) => (
+          <li>
+            <h3>{c.name}</h3>
+            <p class="install-status">{c.status}</p>
+            <p>{c.how}</p>
+            {c.links?.map((l) => <p class="more"><a href={l.url}>{l.label}</a></p>)}
+            <p class="more"><a href={tree(c.path)}>{c.name} files on GitHub</a></p>
+          </li>
+        ))}
+      </ul>
+      <div class="note">
+        <h3>Something hard to read?</h3>
+        <p>A contrast or readability problem is a bug. Tell us with the <a href={`${REPO}/issues/new?template=readability.yml`}>readability form on GitHub</a> or email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. You never need to share a diagnosis.</p>
+      </div>
+    </div>
+  </section>
+  <script is:inline src="/themes-playground.js" defer></script>
+</BaseLayout>

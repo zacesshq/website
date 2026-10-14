@@ -23,6 +23,7 @@ export const FOOTER_COLUMNS = [
     title: "Product",
     links: [
       { href: SITE.app, label: "Open the app" },
+      { href: "/themes/", label: "Code themes" },
       { href: "/features/", label: "Features" },
       { href: "/how-it-works/", label: "How it works" },
       { href: "/roadmap/", label: "Roadmap" },

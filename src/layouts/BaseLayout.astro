@@ -53,6 +53,7 @@ const beacon = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 <link rel="preload" href="/assets/fonts/atkinson-hyperlegible-700.woff" as="font" type="font/woff" crossorigin>
 <script is:inline>(function(){var r=document.documentElement;r.classList.add("js");try{var t=localStorage.getItem("zacess-theme");if(t==="light"||t==="dark")r.setAttribute("data-theme",t);}catch(e){}})();</script>
 <script type="application/ld+json" set:html={orgJson} />
+<slot name="head" />
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>

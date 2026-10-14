@@ -395,3 +395,46 @@ thead th { background: var(--band); }
 .big-link a, .contact-list p > a { max-width: 100%; overflow-wrap: anywhere; }
 /* a list item that is only a link is a standalone target too */
 .doc li > a:only-child, .prose li > a:only-child { display: inline-block; min-height: 2.75rem; padding-top: 0.45rem; padding-bottom: 0.45rem; }
+
+/* the code themes page: every theme and language is rendered at build time, so the colours come
+   from /themes/code-themes.css rather than inline styles, which the CSP forbids. A long code line
+   scrolls inside its block with a visible scrollbar, so the page itself never moves sideways */
+.themes-status { max-width: 46rem; margin: 1rem 0 0; }
+.playground { padding: 3rem 0; }
+.pg-controls { display: none; flex-wrap: wrap; gap: 1rem 1.5rem; margin: 0 0 1.25rem; }
+.js .pg-controls { display: flex; }
+.pg-field { display: flex; flex-direction: column; gap: 0.3rem; min-width: min(100%, 15rem); flex: 1 1 15rem; max-width: 22rem; }
+.pg-field label { font-weight: 700; }
+.pg-field select {
+  min-height: 2.75rem; padding: 0.4rem 0.75rem; font: inherit; color: var(--text); background: var(--bg);
+  border: 2px solid var(--text); border-radius: 8px; max-width: 100%;
+}
+.frame { border: 2px solid; border-radius: 10px; overflow: hidden; margin: 0; min-width: 0; }
+.frame-bar { margin: 0; padding: 0.5rem 1rem; font-weight: 700; border-bottom: 1px solid; }
+.frame .code-block {
+  margin: 0; padding: 0.9rem 1rem; overflow-x: auto; font: 400 0.95rem/1.6 ui-monospace, "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+  tab-size: 4; scrollbar-width: auto;
+}
+.frame-large .code-block { font-size: 1.05rem; }
+.frame .code-block code { font: inherit; }
+.frame .code-block:focus-visible { outline: 3px solid; outline-offset: -5px; border-radius: 0; }
+.frame .code-block::-webkit-scrollbar { height: 0.75rem; }
+.frame .code-block::-webkit-scrollbar-thumb { border-radius: 6px; }
+.frame-note { margin: 0; padding: 0.5rem 1rem 0.75rem; font-size: 0.95rem; }
+.pg-facts { margin: 1rem 0 0; }
+.pg-info { display: grid; gap: 0.5rem 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); margin: 0 0 1rem; }
+.pg-info[hidden] { display: none; }
+.pg-info dt { font-weight: 700; color: var(--muted); font-size: 0.95rem; }
+.pg-info dd { margin: 0; display: flex; align-items: center; gap: 0.5rem; }
+.swatch { display: inline-block; width: 1.4rem; height: 1.4rem; border: 1px solid var(--text); border-radius: 4px; flex: none; }
+.pg-copy-row { display: none; align-items: center; flex-wrap: wrap; gap: 0.5rem 1rem; margin: 0; }
+.js .pg-copy-row { display: flex; }
+#pg-copy { min-height: 2.75rem; font: inherit; font-weight: 700; cursor: pointer; }
+.pg-copied { color: var(--muted); }
+.theme-grid { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
+.theme-grid[hidden] { display: none; }
+@media (min-width: 60rem) { .theme-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.install-status { margin: 0 0 0.4rem; font-weight: 700; color: var(--muted); }
+@media (forced-colors: active) {
+  .frame, .frame-bar { border-color: CanvasText; }
+}

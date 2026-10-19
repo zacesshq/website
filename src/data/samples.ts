@@ -110,6 +110,8 @@ pub enum Contrast {
     LightOnDark,
     YellowOnBlack,
     BlackOnCream,
+    HighContrastDark,
+    HighContrastLight,
 }
 
 impl Contrast {
@@ -119,6 +121,8 @@ impl Contrast {
             Contrast::LightOnDark => ("#f5f5f5", "#121212"),
             Contrast::YellowOnBlack => ("#ffeb3b", "#000000"),
             Contrast::BlackOnCream => ("#000000", "#fdf6e3"),
+            Contrast::HighContrastDark => ("#ffffff", "#000000"),
+            Contrast::HighContrastLight => ("#000000", "#ffffff"),
         }
     }
 }

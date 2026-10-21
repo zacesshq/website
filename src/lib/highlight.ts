@@ -6,10 +6,12 @@ import yellow from "../data/themes/zacess-yellow-on-black-color-theme.json";
 import cream from "../data/themes/zacess-cream-color-theme.json";
 import hcDark from "../data/themes/zacess-high-contrast-dark-color-theme.json";
 import hcLight from "../data/themes/zacess-high-contrast-light-color-theme.json";
+import dcDark from "../data/themes/zacess-deep-contrast-dark-color-theme.json";
+import dcLight from "../data/themes/zacess-deep-contrast-light-color-theme.json";
 import { SAMPLES } from "../data/samples";
 
 // the generated VS Code theme files, so the page shows exactly the extension's colours; Shiki only
-// knows light and dark, so the two high contrast types are mapped onto those
+// knows light and dark, so the high and deep contrast types are mapped onto those
 const source = [
   { id: "light", json: light },
   { id: "dark", json: dark },
@@ -17,6 +19,8 @@ const source = [
   { id: "cream", json: cream },
   { id: "high-contrast-dark", json: hcDark },
   { id: "high-contrast-light", json: hcLight },
+  { id: "deep-contrast-dark", json: dcDark },
+  { id: "deep-contrast-light", json: dcLight },
 ];
 const asTheme = (id: string, json: { name: string; type: string }) =>
   ({ ...json, name: `zacess-${id}`, type: json.type.toLowerCase().includes("dark") ? "dark" : "light" }) as unknown as ThemeRegistration;

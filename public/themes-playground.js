@@ -1,6 +1,6 @@
 // the code themes playground: every theme and language is already rendered in the page, so the two
 // selects only choose which block is shown. Without this script the page shows Zacess Light with
-// TypeScript and the six theme grid. The selects stay hidden
+// TypeScript and the eight theme grid. The selects stay hidden
 (function () {
   var themeSelect = document.getElementById("pg-theme");
   var langSelect = document.getElementById("pg-lang");

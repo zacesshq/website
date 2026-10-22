@@ -1,0 +1,70 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  # zacesshq/themes sends this from its release workflow once a new version is in the stores
+  repository_dispatch:
+    types: [themes-release]
+  # a safety net for a release whose dispatch was not sent; it deploys only when the version changed
+  schedule:
+    - cron: "17 6 * * *"
+
+permissions:
+  contents: read
+
+# one deploy at a time; a newer run replaces a waiting one rather than racing it
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Sync the latest Zacess Themes release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          # a release dispatch names its tag, so the site never waits on the tags list catching up
+          THEMES_TAG: ${{ github.event.client_payload.tag }}
+        run: |
+          # --strict fails the run instead of quietly deploying the committed copy
+          node scripts/sync-themes.mjs --strict
+          # pins the tag for the sync npm run build repeats, so both use the same release
+          echo "THEMES_TAG=v$(node -p "require('./src/data/themes.json').version")" >> "$GITHUB_ENV"
+      - name: Check, build and verify
+        env:
+          PUBLIC_CF_BEACON_TOKEN: ${{ vars.PUBLIC_CF_BEACON_TOKEN }}
+        run: |
+          npm run check
+          npm run build
+          npm run verify
+      - name: Compare with the live site
+        id: live
+        run: |
+          built=$(cat dist/themes/version.txt)
+          live=$(curl -fsS "https://zacess.com/themes/version.txt?run=$GITHUB_RUN_ID" || true)
+          echo "Built with Zacess Themes $built, the live site has ${live:-no version file}." >> "$GITHUB_STEP_SUMMARY"
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ] && [ "$built" = "$live" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "Skipped the deploy: no new themes release since the last one." >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Deploy to Cloudflare
+        if: steps.live.outputs.skip != 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx --yes wrangler@4.151.3 deploy --autoconfig=false
+          echo "Deployed with Zacess Themes $(cat dist/themes/version.txt)." >> "$GITHUB_STEP_SUMMARY"

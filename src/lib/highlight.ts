@@ -1,27 +1,18 @@
 import { createHighlighter, type ShikiTransformer, type ThemeRegistration } from "shiki";
 import { createHash } from "node:crypto";
-import light from "../data/themes/zacess-light-color-theme.json";
-import dark from "../data/themes/zacess-dark-color-theme.json";
-import yellow from "../data/themes/zacess-yellow-on-black-color-theme.json";
-import cream from "../data/themes/zacess-cream-color-theme.json";
-import hcDark from "../data/themes/zacess-high-contrast-dark-color-theme.json";
-import hcLight from "../data/themes/zacess-high-contrast-light-color-theme.json";
-import dcDark from "../data/themes/zacess-deep-contrast-dark-color-theme.json";
-import dcLight from "../data/themes/zacess-deep-contrast-light-color-theme.json";
+import data from "../data/themes.json";
 import { SAMPLES } from "../data/samples";
 
-// the generated VS Code theme files, so the page shows exactly the extension's colours; Shiki only
-// knows light and dark, so the high and deep contrast types are mapped onto those
-const source = [
-  { id: "light", json: light },
-  { id: "dark", json: dark },
-  { id: "yellow-on-black", json: yellow },
-  { id: "cream", json: cream },
-  { id: "high-contrast-dark", json: hcDark },
-  { id: "high-contrast-light", json: hcLight },
-  { id: "deep-contrast-dark", json: dcDark },
-  { id: "deep-contrast-light", json: dcLight },
-];
+// the generated VS Code theme files, so the page shows exactly the extension's colours; they and
+// themes.json are copied from the latest themes release by scripts/sync-themes.mjs; the order
+// follows themes.json. Shiki only knows light and dark, so the high and deep contrast types are
+// mapped onto those
+const files = import.meta.glob<{ name: string; type: string }>("../data/themes/*-color-theme.json", { eager: true, import: "default" });
+const source = data.themes.map(({ id }) => {
+  const json = files[`../data/themes/zacess-${id}-color-theme.json`];
+  if (!json) throw new Error(`no VS Code theme file for ${id} in src/data/themes`);
+  return { id, json };
+});
 const asTheme = (id: string, json: { name: string; type: string }) =>
   ({ ...json, name: `zacess-${id}`, type: json.type.toLowerCase().includes("dark") ? "dark" : "light" }) as unknown as ThemeRegistration;
 

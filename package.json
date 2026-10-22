@@ -5,6 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "sync-themes": "node scripts/sync-themes.mjs",
+    "prebuild": "node scripts/sync-themes.mjs",
     "build": "astro build",
     "preview": "astro preview --port 8766",
     "check": "astro check",

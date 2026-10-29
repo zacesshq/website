@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "sync-themes": "node scripts/sync-themes.mjs",
-    "prebuild": "node scripts/sync-themes.mjs",
+    "sync-scenes": "node scripts/sync-scenes.mjs",
+    "prebuild": "node scripts/sync-themes.mjs && node scripts/sync-scenes.mjs",
     "build": "astro build",
     "preview": "astro preview --port 8766",
     "check": "astro check",

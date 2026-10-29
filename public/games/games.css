@@ -1,0 +1,46 @@
+/* the terminal games page. The stills are always dark terminals, whatever the site theme */
+.menu-frame { max-width: 56rem; background: #000000; margin: 0 0 2rem; }
+.menu-frame img, .game-grid img, .learn-grid img { display: block; width: 100%; height: auto; background: #000000; }
+
+.game-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); }
+.game-grid > li { margin: 0; display: flex; }
+.game-grid .frame { display: flex; flex-direction: column; width: 100%; background: var(--bg); }
+.game-kind { margin-top: auto; color: var(--muted); }
+/* the jump links and the download links are small text, so each gets a 44 pixel tall target */
+.game-kind a, .builds a, .doc-links a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; }
+
+.play-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); }
+.play-list > li { margin: 0; background: var(--bg); border: 1px solid var(--line); border-top: 4px solid var(--text); border-radius: 10px; padding: 1.25rem 1.25rem 1rem; scroll-margin-top: 5rem; }
+.play-summary { margin: 0 0 0.75rem; color: var(--muted); }
+.play-facts { margin: 0; }
+.play-facts dt { font-weight: 700; margin-top: 0.6rem; }
+.play-facts dd { margin: 0.1rem 0 0; overflow-wrap: anywhere; }
+
+.learn-grid { display: grid; gap: 1.5rem 2rem; grid-template-columns: 1fr; align-items: start; margin: 0 0 3rem; }
+.learn-grid:last-child { margin-bottom: 0; }
+.learn-grid .frame { background: #000000; }
+@media (min-width: 60rem) { .learn-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } }
+.learn-grid h3 { font-size: 1.5rem; }
+.learn-grid p { max-width: 40rem; }
+.tracks { max-width: 26rem; }
+.layouts { margin: 0; padding-left: 1.2rem; }
+.layouts li { margin-bottom: 0.3rem; }
+
+.sizes-heading { margin-top: 2.5rem; }
+.builds td { overflow-wrap: anywhere; }
+.doc-links { margin: 0 0 1.5rem; padding-left: 1.2rem; max-width: 46rem; }
+
+.snippet {
+  margin: 0.75rem 0; padding: 0.9rem 1rem; overflow-x: auto; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--band); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 0.95rem; line-height: 1.45;
+}
+.band .snippet { background: var(--bg); }
+.snippet:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9em; padding: 0.05rem 0.4rem;
+  border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; background: var(--bg); white-space: nowrap;
+}
+@media (forced-colors: active) {
+  .menu-frame, .game-grid img, .learn-grid img { forced-color-adjust: none; }
+  kbd, .snippet, .play-list > li { border-color: CanvasText; }
+}

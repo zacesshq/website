@@ -18,6 +18,8 @@ into notes in your own reading profile.
 npm install
 npm run dev      # local preview
 npm run sync-themes   # copy the latest Zacess Themes release into src/data (build does this too)
+npm run sync-scenes   # the same for Zacess Scenes
+npm run sync-games    # the same for Zacess Games
 npm run build    # static site in dist/
 npm run verify   # headings, links, writing style and the security headers
 npx wrangler deploy --autoconfig=false   # publish dist/ as static assets on Cloudflare
@@ -39,10 +41,20 @@ generates from its palette as `previews/themes.json` plus the VS Code theme file
    offline build still works.
 2. The build publishes the version it used at [`/themes/version.txt`](https://zacess.com/themes/version.txt).
 3. [`deploy.yml`](.github/workflows/deploy.yml) syncs, checks, builds, verifies and deploys to
-   Cloudflare. It runs on every push to `main`, by hand, when the themes release workflow sends a
-   `themes-release` dispatch and once a day. The daily run deploys only when the latest release
-   differs from the version the live site reports, so it catches a release whose dispatch was not
-   sent. In the workflow a failed sync stops the run rather than deploying an old copy.
+   Cloudflare. It runs on every push to `main`, by hand, on a `themes-release`, `scenes-release` or
+   `games-release` dispatch from a release workflow and once a day. The daily run deploys only when
+   a latest release differs from the version the live site reports, so it catches a release whose
+   dispatch was not sent. In the workflow a failed sync stops the run rather than deploying an old
+   copy. The [workflows README](.github/workflows/README.md) has the detail.
+
+The [terminal scenes page](https://zacess.com/scenes/) and the
+[terminal games page](https://zacess.com/games/) work the same way. `scripts/sync-scenes.mjs` copies
+the scene list, stills and demo frames from the newest [zacesshq/scenes](https://github.com/zacesshq/scenes)
+release into `src/data/scenes.json` and `public/scenes/`. `scripts/sync-games.mjs` reads the games,
+their rules and keys, the Learn to Code tracks and the release files from the newest
+[zacesshq/games](https://github.com/zacesshq/games) release into `src/data/games.json` and copies the
+stills into `public/games/images`. Each publishes its version at `/scenes/version.txt` and
+`/games/version.txt`.
 
 The deploy needs the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets. The
 committed copies are refreshed by running `npm run sync-themes` and committing the result, which is

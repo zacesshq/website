@@ -203,12 +203,13 @@ h4 { font-size: 1.05rem; line-height: 1.3; margin: 1rem 0 0.3rem; }
 .legend li { margin: 0; }
 
 .steps { list-style: none; counter-reset: step; margin: 1.5rem 0 2rem; padding: 0; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
-.steps > li { counter-increment: step; padding-left: 3.25rem; position: relative; }
+.steps > li { counter-increment: step; padding-left: 3.25rem; position: relative; min-width: 0; }
 .steps > li::before {
   content: counter(step); position: absolute; left: 0; top: 0; width: 2.4rem; height: 2.4rem; border-radius: 6px;
   display: grid; place-items: center; font-weight: 700; background: var(--mark); color: var(--ink);
 }
-.steps.single { grid-template-columns: 1fr; max-width: 46rem; }
+/* minmax keeps a long command scrolling inside its block instead of widening the page on a phone */
+.steps.single { grid-template-columns: minmax(0, 1fr); max-width: 46rem; }
 .steps ul { margin: 0.25rem 0 0.5rem; padding-left: 1.2rem; }
 .note { border-left: 4px solid var(--text); padding: 0.25rem 0 0.25rem 1.25rem; max-width: 46rem; margin: 2rem 0 0; }
 

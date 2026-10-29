@@ -1,6 +1,49 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { SITE } from "../site";
+import themes from "../data/themes.json";
+import scenes from "../data/scenes.json";
+import games from "../data/games.json";
+import { EDITORS, TERMINALS } from "../data/theme-targets";
+import { words, cap } from "../lib/words";
+
+// the counts come from the synced release data, so each card stays true after a release
+const previewTheme = themes.themes.find((t) => t.id === "deep-contrast-dark") ?? themes.themes[0];
+const scene = scenes.scenes.find((s) => s.id === "koi-pond") ?? scenes.scenes[0];
+// the scene data uses backticks for names; alt text reads them as plain words
+const plain = (s: string) => { const t = s.replace(/`/g, ""); return t.charAt(0).toLowerCase() + t.slice(1); };
+const FAMILY = [
+  {
+    title: "Code themes",
+    line: `${cap(words(themes.themes.length))} high contrast themes for ${words(EDITORS.length)} editors and ${words(TERMINALS.length)} terminals.`,
+    href: "/themes/",
+    link: "See the themes",
+    src: `/themes/images/zacess-${previewTheme.id}.svg`,
+    width: 720,
+    height: 530,
+    alt: `A code sample in ${previewTheme.name}: bold keywords and italic comments in bright colours on black`,
+  },
+  {
+    title: "Terminal scenes",
+    line: `${cap(words(scenes.scenes.length))} calm animated scenes in the terminal plus a build monitor for Rust.`,
+    href: "/scenes/",
+    link: "See the scenes",
+    src: `/scenes/images/${scene.id}.svg`,
+    width: 700,
+    height: 466,
+    alt: `The ${scene.id.replace(/-/g, " ")} scene: ${plain(scene.description)}`,
+  },
+  {
+    title: "Terminal games",
+    line: `${cap(words(games.games.length))} original terminal games with sound and music.`,
+    href: "/games/",
+    link: "See the games",
+    src: games.menu.still,
+    width: games.still.width,
+    height: games.still.height,
+    alt: games.menu.alt,
+  },
+];
 ---
 <BaseLayout
   title="Zacess: make every page accessible"
@@ -118,6 +161,25 @@ import { SITE } from "../site";
           <p>Feedback, accessibility problems, security reports and enquiries.</p>
           <p class="more"><a href="/contact/">Contact Zacess</a></p>
         </li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="family-title">
+    <div class="wrap">
+      <h2 id="family-title">More from Zacess</h2>
+      <p class="intro">We also make free, open-source tools for code editors and terminals in the same high contrast colours as the reader.</p>
+      <ul class="family">
+        {FAMILY.map((f) => (
+          <li class="family-card">
+            <img src={f.src} width={f.width} height={f.height} loading="lazy" alt={f.alt}>
+            <div class="family-body">
+              <h3>{f.title}</h3>
+              <p>{f.line}</p>
+              <p class="more"><a href={f.href}>{f.link}</a></p>
+            </div>
+          </li>
+        ))}
       </ul>
     </div>
   </section>

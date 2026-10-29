@@ -1,5 +1,6 @@
 // copies the newest Zacess Themes release into src/data before every build: themes.json, the data the
-// themes page is drawn from, plus the VS Code theme files the code samples are highlighted with.
+// themes page is drawn from, the VS Code theme files the code samples are highlighted with and the
+// Deep Contrast Dark preview image the homepage card shows, in public/themes/images.
 //
 // themes.json is previews/themes.json from the themes repository, which scripts/preview.mjs there
 // writes from palette/zacess.json. That repository's verify step rebuilds it and fails on any
@@ -12,11 +13,14 @@
 //
 // THEMES_TAG pins a tag (the deploy workflow passes the one a release dispatch names) and
 // GITHUB_TOKEN, when set, lifts the API rate limit.
-import { readFileSync, writeFileSync, readdirSync } from "node:fs";
+import { readFileSync, writeFileSync, readdirSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 
 const REPO = "zacesshq/themes";
 const DATA = new URL("../src/data/", import.meta.url).pathname;
+// the homepage card for the themes shows this theme's preview, the one the scene and game stills use
+const PREVIEW = "deep-contrast-dark";
+const IMAGES = new URL("../public/themes/images/", import.meta.url).pathname;
 const strict = process.argv.includes("--strict");
 const TIMEOUT = 15000;
 
@@ -76,11 +80,17 @@ async function sync() {
     return [name, body];
   })));
 
+  const previewName = `zacess-${PREVIEW}.svg`;
+  const preview = await raw(tag, `previews/${previewName}`);
+  if (!preview.includes("<svg")) throw new Error(`previews/${previewName} at ${tag} is not an SVG`);
+
   // written only once everything has downloaded and parsed, so a failure never leaves a mix
   const files = { "themes.json": text, ...Object.fromEntries(Object.entries(editorThemes).map(([n, b]) => [`themes/${n}`, b])) };
+  const paths = Object.entries(files).map(([name, body]) => [join(DATA, name), body]);
+  mkdirSync(IMAGES, { recursive: true });
+  paths.push([join(IMAGES, previewName), preview]);
   let changed = 0;
-  for (const [name, body] of Object.entries(files)) {
-    const path = join(DATA, name);
+  for (const [path, body] of paths) {
     let current = null;
     try { current = readFileSync(path, "utf8"); } catch {}
     if (current !== body) { writeFileSync(path, body); changed++; }

@@ -55,3 +55,5 @@ kbd {
   .menu-frame, .demo-frame, .game-grid img, .learn-grid img { forced-color-adjust: none; }
   kbd, .snippet, .play-list > li { border-color: CanvasText; }
 }
+/* the frames sit on black, so the title bar keeps the page colours instead of inheriting dark text in light mode */
+.menu-frame .frame-bar, .demo-frame .frame-bar, .learn-grid .frame .frame-bar { background: var(--bg); color: var(--text); }

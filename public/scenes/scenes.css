@@ -30,3 +30,5 @@ kbd {
   .demo-frame, .watch-grid img, .scene-grid img { forced-color-adjust: none; }
   kbd, .snippet { border-color: CanvasText; }
 }
+/* the frames sit on black, so the title bar keeps the page colours instead of inheriting dark text in light mode */
+.demo-frame .frame-bar { background: var(--bg); color: var(--text); }

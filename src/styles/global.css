@@ -188,6 +188,25 @@ h4 { font-size: 1.05rem; line-height: 1.3; margin: 1rem 0 0.3rem; }
 .features ul li { margin-bottom: 0.3rem; }
 .more { font-weight: 700; }
 
+/* More from Zacess: the whole card is the target for its one link, which stretches over it; the cards
+   stack on a phone, sit image beside text on a tablet and stand three across on a wide screen */
+.family { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr); }
+.family-card { position: relative; display: flex; flex-direction: column; min-width: 0; background: var(--bg); border: 1px solid var(--line); border-top: 4px solid var(--text); border-radius: 10px; overflow: hidden; }
+.family-card:hover { border-color: var(--text); }
+.family-card img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; object-position: left top; background: #000000; border-bottom: 1px solid var(--line); }
+.family-body { display: flex; flex-direction: column; flex: 1; padding: 1.25rem 1.25rem 0.75rem; }
+.family-body p { margin: 0 0 0.5rem; }
+.family-body .more { margin-top: auto; margin-bottom: 0; }
+.family-card .more a::after { content: ""; position: absolute; inset: 0; border-radius: 6px; }
+.family-card .more a:focus-visible { outline: none; }
+.family-card .more a:focus-visible::after { outline: 3px solid var(--focus); outline-offset: -3px; }
+.family-card:hover .more a, .family-card:focus-within .more a { background-size: 100% 100%; color: var(--ink); }
+@media (min-width: 40rem) and (max-width: 55.99rem) {
+  .family-card { flex-direction: row; }
+  .family-card img { width: 45%; flex: none; border-bottom: 0; border-right: 1px solid var(--line); }
+}
+@media (min-width: 56rem) { .family { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
 /* built or coming: said in words, with a filled or hollow square beside it so the shape repeats the meaning */
 .state { display: flex; align-items: center; gap: 0.5rem; margin: 0 0 0.6rem !important; font-size: 0.95rem; font-weight: 700; color: var(--muted); }
 .state::before { content: ""; flex: none; width: 0.75rem; height: 0.75rem; border: 2px solid var(--text); border-radius: 2px; }

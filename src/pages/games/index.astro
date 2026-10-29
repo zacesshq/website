@@ -1,0 +1,265 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHead from "../../components/PageHead.astro";
+import data from "../../data/games.json";
+
+const REPO = "https://github.com/zacesshq/games";
+const RELEASE = `${REPO}/releases/tag/${data.tag}`;
+const download = (file: string) => `${REPO}/releases/download/${data.tag}/${file}`;
+const doc = (title: string) => data.docs.find((d) => d.title === title)?.href ?? REPO;
+
+// the repository's docs use backticks for keys and names; on this page keys read as keys
+const escape = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const keys = (s: string) => escape(s).replace(/`([^`]+)`/g, "<kbd>$1</kbd>");
+const inline = (s: string) => escape(s).replace(/`([^`]+)`/g, "<code>$1</code>");
+const NUMBERS = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"];
+const words = (n: number) => NUMBERS[n] ?? String(n);
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+const byId = Object.fromEntries(data.games.map((g) => [g.id, g]));
+const ltc = byId["learn-to-code"];
+const typingTrainer = byId["touch-typing"];
+const typingNames = data.games.filter((g) => g.typing).map((g) => g.name);
+const list = (names: string[]) => (names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names.at(-1)}` : names[0] ?? "");
+const turnBased = data.games.filter((g) => g.kind === "turn based").length;
+const totalLevels = data.tracks.reduce((n, t) => n + t.levels, 0);
+const W = data.still.width;
+const H = data.still.height;
+
+const QUICK = `zacess-games                  # the menu
+zacess-games trace            # one game by name; a short start such as "stack" is enough
+zacess-games list             # every game and its best score
+zacess-games sounds           # every effect, then each game's music`;
+const first = data.downloads[0]?.file ?? "";
+const CHECK = `shasum -a 256 -c ${first}.sha256
+tar -xzf ${first}`;
+---
+<BaseLayout
+  title="Terminal games"
+  description={`Zacess Games: ${data.games.length} original terminal games in the eight Zacess themes, with sound and music, no flashing and reduced motion. Learn to Code and Touch Typing included. Version ${data.version}.`}
+>
+  <link slot="head" rel="stylesheet" href="/games/games.css">
+  <PageHead
+    eyebrow="Open source"
+    title="Terminal games"
+    lead={`Zacess Games is ${words(data.games.length)} original games for the terminal, drawn in the eight Zacess high contrast themes with sound effects and calm music of their own. Version ${data.version}.`}
+  >
+    <p class="actions">
+      <a class="button primary" href="#install">Install</a>
+      <a class="button" href={REPO}>Zacess Games on GitHub</a>
+      <a class="button" href="/scenes/">Terminal scenes</a>
+    </p>
+  </PageHead>
+
+  <section class="band" aria-labelledby="menu-heading">
+    <div class="wrap">
+      <h2 id="menu-heading">Every game in one menu</h2>
+      <p class="intro">Every game is its own design and none copies an existing game's rules, board or goal. Each is written in Rust with its levels in Lua and is built on <a href="/scenes/">Zacess Scenes</a>, so the games share the scenes' themes, contrast floors, flash limit and reduced motion.</p>
+      <figure class="frame menu-frame">
+        <figcaption class="frame-bar">The menu in Zacess Deep Contrast Dark</figcaption>
+        <img src={data.menu.still} width={W} height={H} alt={data.menu.alt}>
+      </figure>
+      <ul class="features menu-facts">
+        <li>
+          <h3>{cap(words(data.games.length))} games</h3>
+          <p>Puzzles, a rhythm game, a road race, a roguelike, football, typing and coding. {cap(words(turnBased))} of them never move on their own.</p>
+        </li>
+        <li>
+          <h3>Sound and music</h3>
+          <p>Effects and a calm loop for each game, made by the program as it runs. Each has its own volume and both can be muted.</p>
+        </li>
+        <li>
+          <h3>Help one key away</h3>
+          <p>Every game has a how to play page behind <kbd>?</kbd> (<kbd>F1</kbd> in the typing games) with the goal, the rules and the keys.</p>
+        </li>
+        <li>
+          <h3>Levels in Lua</h3>
+          <p>Trace, Relay and Learn to Code read their levels from Lua files, so a level can be read, changed and shared without building anything.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="gallery-heading">
+    <div class="wrap">
+      <h2 id="gallery-heading">The games</h2>
+      <p class="intro">Every still is Zacess Deep Contrast Dark at 100 by 30, part way through a game. Real time games run on a clock; turn based games wait for your next key.</p>
+      <ul class="game-grid">
+        {data.games.map((g) => (
+          <li>
+            <figure class="frame">
+              <figcaption class="frame-bar">{g.name}</figcaption>
+              <img src={g.still} width={W} height={H} loading="lazy" alt={g.alt}>
+              <p class="frame-note">{g.description}.</p>
+              <p class="frame-note game-kind">{cap(g.kind)}{g.typing ? ", typing" : ""}. <a href={`#play-${g.id}`}>How to play {g.name}</a></p>
+            </figure>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="play-heading">
+    <div class="wrap">
+      <h2 id="play-heading">How to play</h2>
+      <p class="intro">The goal, how each game ends, a tip and its own keys. Start any game with <code>zacess-games</code> and its name. The full rules and scoring are in the <a href={doc("How to play")}>how to play guide</a> and every key is on the <a href={doc("Controls")}>controls sheet</a>.</p>
+      <ul class="play-list">
+        {data.games.map((g) => (
+          <li id={`play-${g.id}`}>
+            <h3>{g.name}</h3>
+            <p class="play-summary">{cap(g.summary)}. Start it with <code>zacess-games {g.id}</code>.</p>
+            <dl class="play-facts">
+              <dt>Goal</dt>
+              <dd set:html={inline(g.goal)} />
+              <dt>How it ends</dt>
+              <dd set:html={inline(g.ending)} />
+              <dt>Keys</dt>
+              <dd set:html={keys(g.keys) + "."} />
+              <dt>Tip</dt>
+              <dd set:html={inline(g.tip)} />
+            </dl>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="controls-heading">
+    <div class="wrap">
+      <h2 id="controls-heading">Controls every game shares</h2>
+      <p class="intro">Pause, help, the effects and music volumes, mute and quit work the same way everywhere. The typing games, {list(typingNames)}, type every character with the space included, so a few of these keys move there. The status bar always shows both volumes.</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="controls-heading">
+        <table>
+          <thead>
+            <tr><th scope="col">Key</th><th scope="col">Most games</th><th scope="col">Termle</th><th scope="col">Typing games</th></tr>
+          </thead>
+          <tbody>
+            {data.shared.map((r) => (
+              <tr><th scope="row" set:html={keys(r.key)} /><td set:html={keys(r.most)} /><td set:html={keys(r.termle)} /><td set:html={keys(r.typing)} /></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="learn-heading">
+    <div class="wrap">
+      <h2 id="learn-heading">Learn to Code and Touch Typing</h2>
+      <p class="intro">Two games that teach. Neither has a way to lose and both remember where you got to.</p>
+      <div class="learn-grid">
+        <figure class="frame">
+          <figcaption class="frame-bar">Learn to Code</figcaption>
+          <img src={ltc.still} width={W} height={H} loading="lazy" alt={ltc.alt}>
+        </figure>
+        <div>
+          <h3>Learn to Code</h3>
+          <p>{cap(words(data.tracks.length))} tracks and {totalLevels} levels, from first steps to job-ready. Each level has a short lesson and a few lines of code with blanks to fill in. A wrong answer gets a message that explains the mistake, <kbd>F2</kbd> shows a hint and after three tries <kbd>F3</kbd> shows the answer. Answers are checked inside the game; nothing typed is ever run.</p>
+          <div class="table-scroll" tabindex="0" role="region" aria-labelledby="tracks-caption">
+            <table class="tracks">
+              <caption id="tracks-caption">The tracks</caption>
+              <thead><tr><th scope="col">Track</th><th scope="col">Levels</th></tr></thead>
+              <tbody>
+                {data.tracks.map((t) => <tr><td>{t.language}</td><td>{t.levels}</td></tr>)}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="learn-grid">
+        <figure class="frame">
+          <figcaption class="frame-bar">Touch Typing</figcaption>
+          <img src={typingTrainer.still} width={W} height={H} loading="lazy" alt={typingTrainer.alt}>
+        </figure>
+        <div>
+          <h3>Touch Typing</h3>
+          <p>Five levels from the home row to timed tests. The next key is marked on an on-screen keyboard with the finger to use written under it. Each finger has its own bracket shape as well as its own colour. Finish a lesson at 95% accuracy or better to unlock the next one.</p>
+          <p>The keyboard follows the layout in use, read from the system. <kbd>F2</kbd> switches it.</p>
+          <ul class="layouts">
+            {data.layouts.map((l) => <li><code>{l.id}</code>: {l.where}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="access-heading">
+    <div class="wrap">
+      <h2 id="access-heading">Accessibility</h2>
+      <p class="intro">Zacess products are built for people with low vision, light sensitivity and motion sensitivity first.</p>
+      <ul class="features">
+        <li>
+          <h3>Contrast floors</h3>
+          <p>Every colour keeps at least 4.5 to 1 contrast on the theme's background and at least 7 to 1 in the High Contrast and Deep Contrast themes. Every piece and state has a shape or letter of its own, so colour is never the only signal.</p>
+        </li>
+        <li>
+          <h3>No flashing</h3>
+          <p>Every frame passes through the Scenes flash meter, which holds back any large change more than three times a second. Clears and wins show as a calm change of shape, never a blink.</p>
+        </li>
+        <li>
+          <h3>Reduced motion</h3>
+          <p><code>--reduced-motion</code>, <code>ZACESS_REDUCED_MOTION=1</code> or the system setting slows every real time game down. Every game pauses at any moment.</p>
+        </li>
+        <li>
+          <h3>Sound is never the only signal</h3>
+          <p>Every effect has a written twin on screen, such as "Node lit, 2 to go". Music never carries meaning and every game plays the same muted.</p>
+        </li>
+      </ul>
+      <h3 class="sizes-heading" id="sizes-heading">Screen sizes</h3>
+      <p>Every game lays itself out for the window it is in and again on every resize, without losing the game.</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="sizes-heading">
+        <table>
+          <thead><tr><th scope="col">Window</th><th scope="col">Layout</th></tr></thead>
+          <tbody>
+            {data.sizes.map((s) => <tr><td>{s.size}</td><td set:html={inline(s.layout)} /></tr>)}
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <p>A terminal's alternate screen is not read by screen readers, so a game cannot be followed by ear alone. The plain lines before and after a game, the written twin of every sound and the guides are there for screen reader users. The full statement is in the <a href={doc("Accessibility")}>Zacess Games accessibility statement</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="install">
+    <div class="wrap">
+      <h2 id="install">Install</h2>
+      <ol class="steps single">
+        <li>
+          <h3>With Cargo</h3>
+          <p>From the release tag on GitHub. Needs Rust {data.rust} or later and a C compiler, since Lua is built in. Sound is played by the system's own player, so nothing else is needed.</p>
+          <pre class="snippet" tabindex="0" aria-label="Install command"><code>{`cargo install --locked --git ${REPO} --tag ${data.tag} zacess-games`}</code></pre>
+        </li>
+        <li>
+          <h3>Or a release build</h3>
+          <p>Each build on the <a href={RELEASE}>{data.tag} release</a> has a checksum file beside it. Check the sum, unpack the archive and put <code>zacess-games</code> somewhere on your <code>PATH</code>.</p>
+          <div class="table-scroll" tabindex="0" role="region" aria-labelledby="builds-caption">
+            <table class="builds">
+              <caption id="builds-caption">Release builds for {data.tag}</caption>
+              <thead><tr><th scope="col">System</th><th scope="col">Build</th><th scope="col">Checksum</th></tr></thead>
+              <tbody>
+                {data.downloads.map((d) => (
+                  <tr>
+                    <td>{d.system}</td>
+                    <td><a href={download(d.file)}>{d.file}</a></td>
+                    <td><a href={download(`${d.file}.sha256`)} aria-label={`SHA-256 checksum for ${d.system}`}>SHA-256</a></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <pre class="snippet" tabindex="0" aria-label="Check and unpack a release build"><code>{CHECK}</code></pre>
+        </li>
+        <li>
+          <h3>Play</h3>
+          <pre class="snippet" tabindex="0" aria-label="Commands to start playing"><code>{QUICK}</code></pre>
+        </li>
+      </ol>
+      <h3 id="docs-heading">Guides</h3>
+      <ul class="doc-links">
+        {data.docs.map((d) => <li><a href={d.href}>{d.title}</a>: {d.covers.charAt(0).toLowerCase() + d.covers.slice(1)}.</li>)}
+      </ul>
+      <p class="more"><a href="/scenes/">Calm animated scenes in the same themes: Zacess Scenes</a></p>
+    </div>
+  </section>
+</BaseLayout>

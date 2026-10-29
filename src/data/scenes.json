@@ -1,6 +1,6 @@
 {
-  "version": "0.3.0",
-  "tag": "v0.3.0",
+  "version": "0.4.0",
+  "tag": "v0.4.0",
   "scenes": [
     {
       "id": "sea",
@@ -261,6 +261,14 @@
     {
       "id": "glass",
       "sound": "Slow glassy tones like a wet finger on a rim"
+    },
+    {
+      "id": "piano",
+      "sound": "A soft grand piano, felt hammers and a warm low ring"
+    },
+    {
+      "id": "rain",
+      "sound": "Water droplets over a quiet bed of rain"
     }
   ],
   "frames": [

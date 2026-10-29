@@ -25,6 +25,7 @@ export const FOOTER_COLUMNS = [
       { href: SITE.app, label: "Open the app" },
       { href: "/themes/", label: "Code themes" },
       { href: "/scenes/", label: "Terminal scenes" },
+      { href: "/games/", label: "Terminal games" },
       { href: "/features/", label: "Features" },
       { href: "/how-it-works/", label: "How it works" },
       { href: "/roadmap/", label: "Roadmap" },

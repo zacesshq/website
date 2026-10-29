@@ -1,8 +1,8 @@
 // copies the newest Zacess Games release into the site before every build: src/data/games.json, the
-// data the games page is drawn from, plus the Deep Contrast Dark stills in public/games/images.
+// data the games page is drawn from, plus the Deep Contrast Dark stills and the recordings in public/games.
 //
 // The games, their descriptions, the stills' alt text, the documentation links and the release files
-// come from the README. Each game's goal, ending and tip come from docs/how-to-play.md and its keys,
+// come from the README, the recordings the games page plays from docs/frames. Each game's goal, ending and tip come from docs/how-to-play.md and its keys,
 // the shared keys and the window sizes from docs/controls.md. The Learn to Code tracks come from the
 // level files in levels/code. Any section that cannot be read fails the sync rather than guessing.
 //
@@ -203,8 +203,24 @@ async function sync() {
     size ??= sizeOf(body, f);
   }));
 
+  // the recording of each game, in the Scenes frames format, which the games page plays on demand
+  const frameFiles = await listing(tag, "docs/frames");
+  let recording = null;
+  await Promise.all(games.map(async (g) => {
+    const f = `${g.id}.json`;
+    if (!frameFiles.includes(f)) throw new Error(`docs/frames/${f} is missing at ${tag}`);
+    const body = await raw(tag, `docs/frames/${f}`);
+    const parsed = JSON.parse(body);
+    if (!Array.isArray(parsed.frames) || !parsed.frames.length || !parsed.fps || !parsed.width || !parsed.height) {
+      throw new Error(`docs/frames/${f} at ${tag} has no frames`);
+    }
+    files[`frames/${f}`] = body;
+    g.frames = `/games/frames/${f}`;
+    recording ??= { width: parsed.width, height: parsed.height, fps: parsed.fps, frames: parsed.frames.length };
+  }));
+
   const data = JSON.stringify({
-    version, tag, rust, still: size,
+    version, tag, rust, still: size, recording,
     menu: { still: "/games/images/menu-deep-dark.svg", alt: menuAlt },
     games, tracks, shared, sizes, layouts, docs, downloads,
   }, null, 2) + "\n";
@@ -217,11 +233,13 @@ async function sync() {
     if (current !== body) { writeFileSync(path, body); changed++; }
   };
   write(join(DATA, "games.json"), data);
-  mkdirSync(join(PUBLIC, "images"), { recursive: true });
+  for (const dir of ["images", "frames"]) mkdirSync(join(PUBLIC, dir), { recursive: true });
   for (const [name, body] of Object.entries(files)) write(join(PUBLIC, name), body);
-  // stills a newer release dropped go, so the site never shows a game that no longer exists
-  for (const f of readdirSync(join(PUBLIC, "images"))) {
-    if (!(`images/${f}` in files)) { unlinkSync(join(PUBLIC, "images", f)); changed++; }
+  // files a newer release dropped go, so the site never shows a game that no longer exists
+  for (const dir of ["images", "frames"]) {
+    for (const f of readdirSync(join(PUBLIC, dir))) {
+      if (!(`${dir}/${f}` in files)) { unlinkSync(join(PUBLIC, dir, f)); changed++; }
+    }
   }
   console.log(`sync-games: Zacess Games ${tag}, ${games.length} games, ${changed ? `${changed} file(s) updated` : "already up to date"}`);
 }

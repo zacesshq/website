@@ -190,7 +190,8 @@ const LUA = `return {
       <ol class="steps single">
         <li>
           <h3>With Cargo</h3>
-          <pre class="snippet" tabindex="0" aria-label="Install command"><code>cargo install zacess-scenes</code></pre>
+          <p>From the release tag on GitHub. Needs Rust 1.85 or later and a C compiler, since Lua is built in.</p>
+          <pre class="snippet" tabindex="0" aria-label="Install command"><code>{`cargo install --locked --git ${REPO} --tag ${data.tag} zacess-scenes`}</code></pre>
         </li>
         <li>
           <h3>Or a release build</h3>

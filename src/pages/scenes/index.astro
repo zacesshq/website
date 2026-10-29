@@ -1,0 +1,211 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHead from "../../components/PageHead.astro";
+import data from "../../data/scenes.json";
+
+const REPO = "https://github.com/zacesshq/scenes";
+const RELEASES = `${REPO}/releases/latest`;
+const doc = (path: string) => `${REPO}/blob/main/${path}`;
+
+// README cells use backticks for names; everything else is plain text
+const escape = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const inline = (s: string) => escape(s).replace(/`([^`]+)`/g, "<code>$1</code>");
+const plain = (s: string) => s.replace(/`/g, "");
+
+const groups = [
+  { id: "original", title: "The original scenes", intro: "Ten scenes that run on their own and also show while a build passes.", kind: "general" },
+  { id: "pass", title: "Pass scenes", intro: "Calm scenes for a passing build: nature, the city, space, water, the seasons, cosy rooms and two abstract pieces.", kind: "pass" },
+  { id: "fail", title: "Fail scenes", intro: "Slow, serious scenes that read as something gone wrong without ever flashing, shaking or spinning.", kind: "fail" },
+].map((g) => ({ ...g, scenes: data.scenes.filter((s) => s.kind === g.kind) }));
+
+const byId = Object.fromEntries(data.scenes.map((s) => [s.id, s]));
+const SHOWCASE = ["koi-pond", "lanterns", "tea", "constellations", "zacess", "fog", "traffic-jam", "drought"].filter((id) => data.frames.includes(id));
+const showcase = [...SHOWCASE, ...data.frames.filter((id) => !SHOWCASE.includes(id))];
+const kindWord = (k: string) => (k === "fail" ? "fail scene" : k === "pass" ? "pass scene" : "scene");
+const first = showcase[0];
+
+const CONFIG = `[scenes]
+theme = "deep-contrast-dark"
+pass = ["koi-pond", "lanterns", "tea"]
+fail = ["flood", "fog"]
+rotation = "shuffle"
+motion = "calm"
+
+[sound]
+set = "marimba"
+volume = 40
+quiet_hours = "22:00-07:00"
+
+[notifications]
+enabled = true`;
+
+const LUA = `return {
+  name = "drift",
+  kind = "pass",
+  summary = "A small wave drifting across the screen",
+  captions = { "Calm water, clean build." },
+  frame = function(ctx)
+    local x = math.floor((ctx.time * 4 * ctx.speed) % ctx.width)
+    put(x, math.floor(ctx.height / 2), "~~~", "accent")
+  end,
+}`;
+---
+<BaseLayout
+  title="Terminal scenes"
+  description={`Zacess Scenes: ${data.scenes.length} calm animated scenes for the terminal in the eight Zacess themes, a build watcher with its own sounds, your own scenes in Lua and no flashing ever. Version ${data.version}.`}
+>
+  <link slot="head" rel="stylesheet" href="/scenes/scenes.css">
+  <PageHead
+    eyebrow="Open source"
+    title="Terminal scenes"
+    lead={`Zacess Scenes draws calm animated scenes in your terminal in the colours of your Zacess theme. It also watches your Rust build: a calm scene while it passes, a storm while it fails, with short sounds of our own. ${data.scenes.length} scenes and ${data.soundSets.length} sound sets, version ${data.version}.`}
+  >
+    <p class="actions">
+      <a class="button primary" href="#install">Install</a>
+      <a class="button" href={REPO}>Zacess Scenes on GitHub</a>
+    </p>
+  </PageHead>
+
+  <section class="band" aria-labelledby="demo-heading">
+    <div class="wrap">
+      <h2 id="demo-heading">See it move</h2>
+      <p class="intro">A few scenes recorded at 80 by 24 in Zacess Deep Contrast Dark. The animation starts paused when your device asks for reduced motion.</p>
+      <div id="demo-controls" class="demo-controls" hidden>
+        <div class="pg-field">
+          <label for="demo-scene">Scene</label>
+          <select id="demo-scene">
+            {showcase.map((id) => (
+              <option value={id} data-label={`The ${id} ${kindWord(byId[id]?.kind ?? "")}: ${plain(byId[id]?.description ?? "")}`}>
+                {id} ({kindWord(byId[id]?.kind ?? "")})
+              </option>
+            ))}
+          </select>
+        </div>
+        <button type="button" id="demo-toggle" class="button">Pause</button>
+        <p id="demo-status" class="vh" aria-live="polite"></p>
+      </div>
+      <figure class="frame demo-frame">
+        <figcaption class="frame-bar" id="demo-title">{first} ({kindWord(byId[first]?.kind ?? "")})</figcaption>
+        <canvas id="demo" class="demo-canvas" role="img" aria-label={`The ${first} scene`} hidden></canvas>
+        <img id="demo-still" class="demo-still" src={`/scenes/images/${first}.svg`} width="700" height="466" alt={`The ${first} scene: ${plain(byId[first]?.description ?? "")}`}>
+      </figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="watch-heading">
+    <div class="wrap">
+      <h2 id="watch-heading">Watch a build</h2>
+      <p class="intro"><code>zacess-scenes watch</code> runs <a href="https://github.com/Canop/bacon">bacon</a> in a Rust project and shows the state of the build as a scene. Every state is written on screen as well as shown, so colour or sound is never the only signal.</p>
+      <div class="watch-grid">
+        <figure class="frame">
+          <figcaption class="frame-bar">Passing</figcaption>
+          <img src="/scenes/images/watch-pass.svg" width="700" height="466" loading="lazy" alt="Watch mode passing: the waves scene with a large ALL GOOD banner, a caption and a status bar reading passing with no warnings">
+          <p class="frame-note">A calm scene, ALL GOOD, a short caption and any warnings.</p>
+        </figure>
+        <figure class="frame">
+          <figcaption class="frame-bar">Failing</figcaption>
+          <img src="/scenes/images/watch-fail.svg" width="700" height="466" loading="lazy" alt="Watch mode failing: a storm with a large BUILD FAILED banner, two errors and a warning with their file locations and a status bar reading failing">
+          <p class="frame-note">A fail scene, BUILD FAILED and the first errors with their locations.</p>
+        </figure>
+      </div>
+      <ul class="features">
+        <li>
+          <h3>Recovered</h3>
+          <p>When a failing build is fixed, the pass scene opens out from the middle over the fail scene and the status bar says recovered.</p>
+        </li>
+        <li>
+          <h3>Keys</h3>
+          <p><kbd>n</kbd> next scene, <kbd>b</kbd> the one before, <kbd>m</kbd> next sound set, <kbd>+</kbd> and <kbd>-</kbd> volume, <kbd>1</kbd> to <kbd>4</kbd> switch the job, <kbd>r</kbd> rerun, <kbd>p</kbd> pause and <kbd>q</kbd> quit.</p>
+        </li>
+        <li>
+          <h3>Notifications</h3>
+          <p>With <code>--notify</code> a desktop notification says when a build fails or is fixed, which screen readers announce.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  {groups.map((g, i) => (
+    <section class={i % 2 === 0 ? "band" : undefined} aria-labelledby={`${g.id}-heading`}>
+      <div class="wrap">
+        <h2 id={`${g.id}-heading`}>{g.title}</h2>
+        <p class="intro">{g.intro} {g.scenes.length} scenes.</p>
+        <ul class="scene-grid">
+          {g.scenes.map((s) => (
+            <li>
+              <figure class="frame">
+                <figcaption class="frame-bar"><code>{s.id}</code></figcaption>
+                <img src={`/scenes/images/${s.id}.svg`} width="700" height="466" loading="lazy" alt={`The ${s.id} scene: ${plain(s.description)}`}>
+                <p class="frame-note" set:html={inline(s.description)} />
+                <p class="frame-note reduced"><strong>Reduced motion:</strong> <span set:html={inline(s.reduced)} /></p>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+
+  <section aria-labelledby="sound-heading">
+    <div class="wrap">
+      <h2 id="sound-heading">Sound sets</h2>
+      <p class="intro">Every set plays the same short phrase for each event, so the meaning carries over when the set changes: a rising triad for a pass, a falling fourth for a failure, the triad an octave up for a fix and a rising minor third for new warnings. The tones are made by the program as it runs and levelled so no set is louder than another. <code>--no-sound</code> turns them off.</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="sound-heading">
+        <table>
+          <thead><tr><th scope="col">Set</th><th scope="col">Sounds like</th></tr></thead>
+          <tbody>
+            {data.soundSets.map((s) => <tr><td><code>{s.id}</code></td><td set:html={inline(s.sound)} /></tr>)}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="yours-heading">
+    <div class="wrap">
+      <h2 id="yours-heading">Make it yours</h2>
+      <ul class="features">
+        <li>
+          <h3>A settings file</h3>
+          <p><code>zacess-scenes config init</code> writes <code>scenes.toml</code> with every option explained: your pass and fail scenes, rotation, motion level, sound set, volume, quiet hours and notifications.</p>
+          <pre class="snippet" tabindex="0" aria-label="An example scenes.toml"><code>{CONFIG}</code></pre>
+        </li>
+        <li>
+          <h3>Your own scenes in Lua</h3>
+          <p><code>zacess-scenes scene new &lt;name&gt;</code> writes a starter scene. Scenes draw with theme roles rather than colours, so they stay readable in every theme. They run in a sandbox with no file or network access.</p>
+          <pre class="snippet" tabindex="0" aria-label="A small Lua scene"><code>{LUA}</code></pre>
+          <p class="more"><a href={doc("docs/lua.md")}>The Lua scene reference</a></p>
+        </li>
+        <li>
+          <h3>Snapshots</h3>
+          <p><code>zacess-scenes snapshot &lt;scene&gt;</code> renders a still as an SVG, the way every picture on this page was made. <code>zacess-scenes list</code> shows every scene and sound set.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="install">
+    <div class="wrap">
+      <h2 id="install">Install</h2>
+      <ol class="steps single">
+        <li>
+          <h3>With Cargo</h3>
+          <pre class="snippet" tabindex="0" aria-label="Install command"><code>cargo install zacess-scenes</code></pre>
+        </li>
+        <li>
+          <h3>Or a release build</h3>
+          <p>Builds for Apple silicon and Intel Macs, Linux on x86-64 and ARM64 and Windows are on the <a href={RELEASES}>latest release</a>, each with a checksum.</p>
+        </li>
+        <li>
+          <h3>For watch mode, bacon</h3>
+          <pre class="snippet" tabindex="0" aria-label="Install bacon"><code>cargo install --locked bacon</code></pre>
+          <p>Then run <code>zacess-scenes watch</code> in a Rust project.</p>
+        </li>
+      </ol>
+      <div class="note">
+        <p>No scene flashes more than three times a second, shakes or spins fast, at any motion level and in your own Lua scenes too. Every colour keeps the Zacess contrast floors. The full statement is in the <a href={doc("ACCESSIBILITY.md")}>Zacess Scenes accessibility statement</a>.</p>
+      </div>
+    </div>
+  </section>
+  <script is:inline src="/scenes-player.js" defer></script>
+</BaseLayout>

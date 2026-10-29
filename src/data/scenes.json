@@ -1,0 +1,276 @@
+{
+  "version": "0.3.0",
+  "tag": "v0.3.0",
+  "scenes": [
+    {
+      "id": "sea",
+      "kind": "general",
+      "description": "Fish of several sizes, bubbles, seaweed, a boat on the surface and, now and then, a whale crossing the deep water",
+      "reduced": "Everything swims at half speed and fewer bubbles rise"
+    },
+    {
+      "id": "rain",
+      "kind": "general",
+      "description": "Drops at two depths, ripples where they land and a distant bolt of lightning every few seconds at most",
+      "reduced": "No lightning at all, slower rain"
+    },
+    {
+      "id": "snow",
+      "kind": "general",
+      "description": "Flakes at two depths drifting down and settling into a bank along the bottom",
+      "reduced": "Slower snow"
+    },
+    {
+      "id": "starfield",
+      "kind": "general",
+      "description": "Stars that brighten and fade slowly, a crescent moon and, now and then, a slow shooting star",
+      "reduced": "Stars take twice as long to change, shooting stars are rarer and slower"
+    },
+    {
+      "id": "code-rain",
+      "kind": "general",
+      "description": "Columns of characters falling in the theme's syntax colours, each with a bright head",
+      "reduced": "Columns fall at most three rows a second and their characters are never swapped"
+    },
+    {
+      "id": "fireflies",
+      "kind": "general",
+      "description": "A dark meadow with lights that wander and pulse slowly",
+      "reduced": "Slower, longer pulses and slower wandering"
+    },
+    {
+      "id": "aurora",
+      "kind": "general",
+      "description": "Slow waves of colour across the top of a starry sky over a mountain ridge",
+      "reduced": "The waves move at half speed"
+    },
+    {
+      "id": "campfire",
+      "kind": "general",
+      "description": "Flames whose rows take a new shape one at a time, each at most once every 0.6 seconds, embers that rise and a steady glow on the ground",
+      "reduced": "Each row changes at most once every 1.5 seconds, fewer and slower embers"
+    },
+    {
+      "id": "waves",
+      "kind": "general",
+      "description": "A calm sea to the horizon under a sun, with gulls crossing the sky",
+      "reduced": "Slower swell and slower wing beats"
+    },
+    {
+      "id": "zacess",
+      "kind": "general",
+      "description": "The Zacess mark drifting slowly and bouncing gently off the edges",
+      "reduced": "It drifts at half speed"
+    },
+    {
+      "id": "koi-pond",
+      "kind": "pass",
+      "description": "A garden pond from above, with koi gliding on slow curves under lily pads, drifting flecks and a slow ripple now and then",
+      "reduced": "Koi swim at half speed with still tails, fewer and slower ripples"
+    },
+    {
+      "id": "harbour",
+      "kind": "pass",
+      "description": "A harbour town at night, with lamps on the quay, their long shimmering reflections, moored boats swaying at their masts, a lighthouse and a passing ferry",
+      "reduced": "Masts stay still, the shimmer changes half as often, the ferry is slower"
+    },
+    {
+      "id": "lanterns",
+      "kind": "pass",
+      "description": "Paper lanterns rising slowly from a dark lake at three depths, each with a reflection that slides down the water as it climbs",
+      "reduced": "Lanterns rise, sway and drift at half speed"
+    },
+    {
+      "id": "balloons",
+      "kind": "pass",
+      "description": "Hot air balloons in three sizes lifting from behind three ridges of rolling hills under drifting clouds",
+      "reduced": "Balloons rise and drift at half speed"
+    },
+    {
+      "id": "countryside",
+      "kind": "pass",
+      "description": "A steam train crossing open country, with hills, hedgerows, trees, the track and a fence sliding past at their own speeds",
+      "reduced": "Every layer slides at half speed and smoke puffs half as often"
+    },
+    {
+      "id": "winter-cabin",
+      "kind": "pass",
+      "description": "A log cabin in the snow at night, with a lit window, chimney smoke, pines and gently falling snow",
+      "reduced": "Snow and smoke move at half speed"
+    },
+    {
+      "id": "autumn",
+      "kind": "pass",
+      "description": "A tree in autumn colour dropping leaves that turn as they drift down and gather in a pile, with geese crossing now and then",
+      "reduced": "Leaves fall at half the rate without turning"
+    },
+    {
+      "id": "blossom",
+      "kind": "pass",
+      "description": "A flowering branch letting petals go on a breeze, down to a stream that carries them away, with a bird on the branch",
+      "reduced": "Petals fall and float at half speed without turning, the bird looks about half as often"
+    },
+    {
+      "id": "city-night",
+      "kind": "pass",
+      "description": "A night skyline where windows light and darken one at a time, a moon, a river and a train that crosses a bridge now and then",
+      "reduced": "Windows change half as often and the train is slower and rarer"
+    },
+    {
+      "id": "orbit",
+      "kind": "pass",
+      "description": "A banded, shaded planet circled by a ring that passes behind it and in front of it, with a moon on a slow 40 second orbit",
+      "reduced": "The moon takes 80 seconds to go round"
+    },
+    {
+      "id": "constellations",
+      "kind": "pass",
+      "description": "Stars joined slowly into named figures of our own, one group at a time, held and then faded",
+      "reduced": "Lines are drawn at half speed and fade more slowly"
+    },
+    {
+      "id": "tea",
+      "kind": "pass",
+      "description": "A mug of tea with curling steam, books, a plant and a lamp, with rain or snow at the window",
+      "reduced": "Fewer, slower puffs of steam and slower weather"
+    },
+    {
+      "id": "cat-nap",
+      "kind": "pass",
+      "description": "A cat asleep on a cushion, breathing slowly, with drifting z's, wool on the rug and a night window",
+      "reduced": "Breaths, the tail and the z's take twice as long"
+    },
+    {
+      "id": "garden",
+      "kind": "pass",
+      "description": "Seeds that sprout, grow and bloom over a season of about two minutes, with butterflies, before the bed starts again",
+      "reduced": "The season takes twice as long and wings beat half as often"
+    },
+    {
+      "id": "tiles",
+      "kind": "pass",
+      "description": "A grid of small pages with the Zacess fold, one tile changing colour at a time",
+      "reduced": "Tiles change half as often"
+    },
+    {
+      "id": "ribbons",
+      "kind": "pass",
+      "description": "Ribbons of contour lines flowing slowly across a faint grid of dots",
+      "reduced": "The ribbons flow at half speed"
+    },
+    {
+      "id": "storm",
+      "kind": "fail",
+      "description": "Twice the rain of `rain`, slanting in a strong wind under two rows of cloud, with a bolt of lightning every 5 to 9 seconds at most and never in the first five",
+      "reduced": "No lightning at all, slower rain"
+    },
+    {
+      "id": "flood",
+      "kind": "fail",
+      "description": "A street where the water rises slowly past the doors and holds with a gentle swell, debris drifting along the surface and a warning sign going under",
+      "reduced": "The water rises, swells and drifts at half speed and the drizzle is halved"
+    },
+    {
+      "id": "listing-ship",
+      "kind": "fail",
+      "description": "A cargo ship on a grey sea that settles by the bow over a minute as its waterline creeps up past the portholes, then rolls gently while a lifebuoy drifts away",
+      "reduced": "It lists, rolls and drifts at half speed"
+    },
+    {
+      "id": "corrosion",
+      "kind": "fail",
+      "description": "Riveted steel plates where rust creeps out from the rivets cell by cell to half the wall, darkening as it ages, with slow drips",
+      "reduced": "Rust spreads and drips at half speed and each stage takes twice as long"
+    },
+    {
+      "id": "tangle",
+      "kind": "fail",
+      "description": "Cables hanging from a patch panel that slowly wander, cross and knot into a swaying snarl with a warning tag",
+      "reduced": "The cables tangle and sway at half speed"
+    },
+    {
+      "id": "wilt",
+      "kind": "fail",
+      "description": "Potted plants on a sunny sill whose stems droop over, leaves dry and fall onto the sill and soil cracks",
+      "reduced": "The plants wilt, sway and drop leaves at half speed"
+    },
+    {
+      "id": "fog",
+      "kind": "fail",
+      "description": "A road with signs, lamps and pines where a fog bank rolls in and the signs fade from view, glimpsed through gaps",
+      "reduced": "The fog rolls in and drifts at half speed"
+    },
+    {
+      "id": "broken-bridge",
+      "kind": "fail",
+      "description": "A bridge over a flowing river with its middle span gone, girders hanging, the fallen span in the water, a barrier, a warning sign and a waiting car",
+      "reduced": "The river and clouds move at half speed and fragments fall half as often"
+    },
+    {
+      "id": "leak",
+      "kind": "fail",
+      "description": "A cracked pipe dripping into a bucket that fills over a minute and then overflows into a puddle that spreads and holds, with a sinking pressure gauge and a wet floor sign",
+      "reduced": "Drips come half as often and fall at half speed"
+    },
+    {
+      "id": "blackout",
+      "kind": "fail",
+      "description": "A night skyline whose lit windows go dark one at a time beside a snapped power line, leaving a few candles and windows on their own power",
+      "reduced": "The windows go dark at half the rate and the clouds drift at half speed"
+    },
+    {
+      "id": "traffic-jam",
+      "kind": "fail",
+      "description": "Cars queued bumper to bumper before a stop line, cones and a signal stuck on red, with exhaust puffs drifting up",
+      "reduced": "Cars roll in at half speed and puffs come half as often"
+    },
+    {
+      "id": "erosion",
+      "kind": "fail",
+      "description": "A cliff edge crumbling into the sea, stones tumbling and splashing and a fence left hanging over the drop until the face reaches harder rock",
+      "reduced": "Pieces break away half as often and fall at half speed"
+    },
+    {
+      "id": "drought",
+      "kind": "fail",
+      "description": "Cracked earth spreading edge by edge under a heavy sun, a dry riverbed whose last puddle shrinks away, a withered tree and drifting dust",
+      "reduced": "The cracks spread and the puddle dries at half the rate"
+    }
+  ],
+  "soundSets": [
+    {
+      "id": "bells",
+      "sound": "Soft bells with a little shimmer, the original tones"
+    },
+    {
+      "id": "marimba",
+      "sound": "Warm wooden bars, short and round"
+    },
+    {
+      "id": "kalimba",
+      "sound": "Plucked metal tines with a gentle ring"
+    },
+    {
+      "id": "pad",
+      "sound": "A soft synth pad that swells in and fades out"
+    },
+    {
+      "id": "chip",
+      "sound": "Gentle 8-bit square waves, rounded so they never buzz"
+    },
+    {
+      "id": "glass",
+      "sound": "Slow glassy tones like a wet finger on a rim"
+    }
+  ],
+  "frames": [
+    "constellations",
+    "drought",
+    "fog",
+    "koi-pond",
+    "lanterns",
+    "tea",
+    "traffic-jam",
+    "zacess"
+  ]
+}

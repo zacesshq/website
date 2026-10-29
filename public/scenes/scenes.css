@@ -1,0 +1,32 @@
+/* the terminal scenes page. The stills and the demo are always dark terminals, whatever the site theme */
+.demo-controls { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 1rem 1.5rem; margin: 0 0 1.25rem; }
+.demo-controls[hidden] { display: none; }
+.demo-controls .button { min-height: 44px; min-width: 6.5rem; background: var(--bg); cursor: pointer; font: inherit; font-weight: 700; }
+.demo-frame { max-width: 56rem; background: #000000; }
+.demo-canvas, .demo-still { display: block; width: 100%; height: auto; }
+.demo-canvas[hidden], .demo-still[hidden] { display: none; }
+
+.watch-grid { display: grid; gap: 1.25rem; grid-template-columns: 1fr; margin: 0 0 2rem; }
+@media (min-width: 60rem) { .watch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.scene-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); }
+.scene-grid > li { margin: 0; display: flex; }
+.scene-grid .frame { display: flex; flex-direction: column; width: 100%; background: var(--bg); }
+
+.watch-grid img, .scene-grid img { display: block; width: 100%; height: auto; background: #000000; }
+.frame-note.reduced { color: var(--muted); font-size: 0.9rem; padding-top: 0; }
+
+.snippet {
+  margin: 0.75rem 0; padding: 0.9rem 1rem; overflow-x: auto; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--band); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 0.95rem; line-height: 1.45;
+}
+.band .snippet { background: var(--bg); }
+.snippet:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9em; padding: 0.05rem 0.4rem;
+  border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; background: var(--bg);
+}
+@media (forced-colors: active) {
+  .demo-frame, .watch-grid img, .scene-grid img { forced-color-adjust: none; }
+  kbd, .snippet { border-color: CanvasText; }
+}

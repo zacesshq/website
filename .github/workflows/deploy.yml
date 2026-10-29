@@ -43,6 +43,12 @@ jobs:
           node scripts/sync-themes.mjs --strict
           # pins the tag for the sync npm run build repeats, so both use the same release
           echo "THEMES_TAG=v$(node -p "require('./src/data/themes.json').version")" >> "$GITHUB_ENV"
+      - name: Sync the latest Zacess Scenes release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/sync-scenes.mjs --strict
+          echo "SCENES_TAG=v$(node -p "require('./src/data/scenes.json').version")" >> "$GITHUB_ENV"
       - name: Check, build and verify
         env:
           PUBLIC_CF_BEACON_TOKEN: ${{ vars.PUBLIC_CF_BEACON_TOKEN }}
@@ -55,10 +61,12 @@ jobs:
         run: |
           built=$(cat dist/themes/version.txt)
           live=$(curl -fsS "https://zacess.com/themes/version.txt?run=$GITHUB_RUN_ID" || true)
-          echo "Built with Zacess Themes $built, the live site has ${live:-no version file}." >> "$GITHUB_STEP_SUMMARY"
-          if [ "$GITHUB_EVENT_NAME" = "schedule" ] && [ "$built" = "$live" ]; then
+          built_scenes=$(cat dist/scenes/version.txt)
+          live_scenes=$(curl -fsS "https://zacess.com/scenes/version.txt?run=$GITHUB_RUN_ID" || true)
+          echo "Built with Zacess Themes $built and Zacess Scenes $built_scenes, the live site has ${live:-no themes version} and ${live_scenes:-no scenes version}." >> "$GITHUB_STEP_SUMMARY"
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ] && [ "$built" = "$live" ] && [ "$built_scenes" = "$live_scenes" ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
-            echo "Skipped the deploy: no new themes release since the last one." >> "$GITHUB_STEP_SUMMARY"
+            echo "Skipped the deploy: no new themes or scenes release since the last one." >> "$GITHUB_STEP_SUMMARY"
           fi
       - name: Deploy to Cloudflare
         if: steps.live.outputs.skip != 'true'

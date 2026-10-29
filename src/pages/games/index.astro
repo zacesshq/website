@@ -26,6 +26,14 @@ const totalLevels = data.tracks.reduce((n, t) => n + t.levels, 0);
 const W = data.still.width;
 const H = data.still.height;
 
+// the recordings: the player starts on the first game and fetches a file only when it is near the
+// screen or asked to play, so the page never downloads all of them at once
+const rec = data.recording;
+const seconds = Math.round(rec.frames / rec.fps);
+const plain = (s: string) => s.replace(/`/g, "");
+const recLabel = (g: (typeof data.games)[number]) => `A ${words(seconds)} second recording of ${g.name}: ${plain(g.description)}.`;
+const firstGame = data.games[0];
+
 const QUICK = `zacess-games                  # the menu
 zacess-games trace            # one game by name; a short start such as "stack" is enough
 zacess-games list             # every game and its best score
@@ -84,6 +92,26 @@ tar -xzf ${first}`;
     <div class="wrap">
       <h2 id="gallery-heading">The games</h2>
       <p class="intro">Every still is Zacess Deep Contrast Dark at 100 by 30, part way through a game. Real time games run on a clock; turn based games wait for your next key.</p>
+      <div id="demo-player" class="demo-player">
+        <h3 id="demo-heading">Watch a game</h3>
+        <p>Each game has a {words(seconds)} second recording at {rec.width} by {rec.height} in the same theme. Choose one here or press Play the recording under any still. The recording starts paused when your device asks for reduced motion.</p>
+        <div id="demo-controls" class="demo-controls" hidden>
+          <div class="pg-field">
+            <label for="demo-scene">Game</label>
+            <select id="demo-scene">
+              {data.games.map((g) => <option value={g.id} data-label={recLabel(g)}>{g.name}</option>)}
+            </select>
+          </div>
+          <button type="button" id="demo-toggle" class="button">Play</button>
+          <button type="button" id="demo-next" class="button" hidden>Next game</button>
+          <p id="demo-status" class="vh" aria-live="polite"></p>
+        </div>
+        <figure class="frame demo-frame">
+          <figcaption class="frame-bar" id="demo-title">{firstGame.name}</figcaption>
+          <canvas id="demo" class="demo-canvas" role="img" aria-label={recLabel(firstGame)} data-frames="/games/frames/" data-lazy hidden></canvas>
+          <img id="demo-still" class="demo-still" src={firstGame.still} width={W} height={H} alt={firstGame.alt}>
+        </figure>
+      </div>
       <ul class="game-grid">
         {data.games.map((g) => (
           <li>
@@ -92,6 +120,7 @@ tar -xzf ${first}`;
               <img src={g.still} width={W} height={H} loading="lazy" alt={g.alt}>
               <p class="frame-note">{g.description}.</p>
               <p class="frame-note game-kind">{cap(g.kind)}{g.typing ? ", typing" : ""}. <a href={`#play-${g.id}`}>How to play {g.name}</a></p>
+              <p class="frame-note game-play" data-demo-play={g.id} hidden><button type="button" class="button">Play the recording<span class="vh"> of {g.name}</span></button></p>
             </figure>
           </li>
         ))}
@@ -262,4 +291,5 @@ tar -xzf ${first}`;
       <p class="more"><a href="/scenes/">Calm animated scenes in the same themes: Zacess Scenes</a></p>
     </div>
   </section>
+  <script is:inline src="/scenes-player.js" defer></script>
 </BaseLayout>

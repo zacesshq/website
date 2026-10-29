@@ -2,6 +2,17 @@
 .menu-frame { max-width: 56rem; background: #000000; margin: 0 0 2rem; }
 .menu-frame img, .game-grid img, .learn-grid img { display: block; width: 100%; height: auto; background: #000000; }
 
+/* the recording player, the same player and controls as the scenes page */
+.demo-player { margin: 0 0 2.5rem; scroll-margin-top: 5rem; }
+.demo-player > p { max-width: 46rem; }
+.demo-controls { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 1rem 1.5rem; margin: 0 0 1.25rem; }
+.demo-controls[hidden] { display: none; }
+.demo-controls .button, .game-play .button { min-height: 44px; min-width: 6.5rem; background: var(--bg); cursor: pointer; font: inherit; font-weight: 700; }
+.demo-frame { max-width: 56rem; background: #000000; }
+.demo-canvas, .demo-still { display: block; width: 100%; height: auto; }
+.demo-canvas[hidden], .demo-still[hidden], .game-play[hidden] { display: none; }
+.game-play { padding-top: 0; }
+
 .game-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); }
 .game-grid > li { margin: 0; display: flex; }
 .game-grid .frame { display: flex; flex-direction: column; width: 100%; background: var(--bg); }
@@ -41,6 +52,6 @@ kbd {
   border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; background: var(--bg); white-space: nowrap;
 }
 @media (forced-colors: active) {
-  .menu-frame, .game-grid img, .learn-grid img { forced-color-adjust: none; }
+  .menu-frame, .demo-frame, .game-grid img, .learn-grid img { forced-color-adjust: none; }
   kbd, .snippet, .play-list > li { border-color: CanvasText; }
 }

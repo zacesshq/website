@@ -1,5 +1,10 @@
-// the scenes page demo: plays the frames a Zacess Scenes release exports (docs/frames) on a canvas. Without
-// this script the page shows the still of the first scene and every still in the gallery.
+// the scenes and games demo: plays the frames a Zacess Scenes or Zacess Games release exports (docs/frames)
+// on a canvas. Without this script the page shows the still of the first recording and every still in the gallery.
+//
+// the canvas carries its settings: data-frames is the folder the frames files are served from and
+// data-lazy holds back the first fetch until the player is near the screen or is asked to play, so a
+// page never downloads a recording nobody looks at. Under reduced motion a lazy player waits for Play.
+// Optional parts: a Next button (demo-next) and buttons elsewhere on the page with data-demo-play="<id>".
 //
 // motion rules: it starts paused under prefers-reduced-motion and always has a visible pause button,
 // since a loop runs longer than five seconds. It also pauses while off screen or in a hidden tab.
@@ -13,7 +18,11 @@
   var title = document.getElementById("demo-title");
   var status = document.getElementById("demo-status");
   var controls = document.getElementById("demo-controls");
+  var next = document.getElementById("demo-next");
+  var player = document.getElementById("demo-player") || controls;
   if (!ctx || !select || !toggle) return;
+  var base = root.getAttribute("data-frames") || "/scenes/frames/";
+  var lazy = root.hasAttribute("data-lazy");
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
   var FONT = "15px ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace";
@@ -25,6 +34,7 @@
   var visible = true;
   var timer = null;
   var cache = {};
+  var loading = null;
 
   // block glyphs drawn as rectangles, as a terminal shows them: [left, top, right, bottom] in cells, plus an opacity
   var FULL = [[0, 0, 1, 1]];
@@ -96,6 +106,7 @@
     playing = on;
     toggle.textContent = on ? "Pause" : "Play";
     if (announce && status) status.textContent = on ? "Playing" : "Paused";
+    if (on && !data && !loading) load(select.value, false);
     schedule();
   }
 
@@ -106,6 +117,9 @@
 
   function load(id, announce) {
     var done = function (json) {
+      // a slow answer for a recording that is no longer chosen is dropped
+      if (select.value !== id) return;
+      loading = null;
       data = json;
       index = 0;
       size();
@@ -118,19 +132,43 @@
       schedule();
     };
     if (cache[id]) return done(cache[id]);
-    fetch("/scenes/frames/" + id + ".json").then(function (r) {
+    loading = id;
+    fetch(base + id + ".json").then(function (r) {
       if (!r.ok) throw new Error(r.status);
       return r.json();
     }).then(function (json) {
       cache[id] = json;
       done(json);
     }).catch(function () {
+      loading = null;
       if (status) status.textContent = "The animation could not load; the still is shown instead";
     });
   }
 
   select.addEventListener("change", function () { load(select.value, true); });
   toggle.addEventListener("click", function () { setPlaying(!playing, true); });
+  if (next) {
+    next.hidden = false;
+    next.addEventListener("click", function () {
+      select.selectedIndex = (select.selectedIndex + 1) % select.options.length;
+      load(select.value, true);
+    });
+  }
+
+  // a Play button beside a still in the gallery shows that recording in the player and plays it
+  var starters = document.querySelectorAll("[data-demo-play]");
+  for (var s = 0; s < starters.length; s++) {
+    starters[s].hidden = false;
+    starters[s].addEventListener("click", function (e) {
+      var id = e.currentTarget.getAttribute("data-demo-play");
+      if (!select.querySelector('option[value="' + id + '"]')) return;
+      select.value = id;
+      load(id, true);
+      setPlaying(true, false);
+      if (player && player.scrollIntoView) player.scrollIntoView({ block: "start" });
+      toggle.focus({ preventScroll: true });
+    });
+  }
 
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(function (entries) {
@@ -147,6 +185,17 @@
   }
 
   if (controls) controls.hidden = false;
-  setPlaying(!(reduce && reduce.matches), false);
-  load(select.value, false);
+  var calm = reduce && reduce.matches;
+  playing = !calm;
+  toggle.textContent = playing ? "Pause" : "Play";
+  if (!lazy) {
+    load(select.value, false);
+  } else if (!calm && "IntersectionObserver" in window) {
+    var near = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      near.disconnect();
+      if (!data) load(select.value, false);
+    }, { rootMargin: "300px 0px" });
+    near.observe(player || root.parentNode);
+  }
 })();

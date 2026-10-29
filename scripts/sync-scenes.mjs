@@ -1,8 +1,8 @@
 // copies the newest Zacess Scenes release into the site before every build: src/data/scenes.json, the
 // list the scenes page is drawn from, plus the gallery stills and the demo frames in public/scenes.
 //
-// The list comes from the three scene tables and the sound set table in the release's README, the
-// stills from docs/images/scenes and the frames from docs/frames. The scenes repository's CI fails when
+// The list comes from the three scene tables at the top of the release's docs/scenes.md (in the
+// README up to 0.3.0) and the sound set table in its README, the stills from docs/images/scenes and the frames from docs/frames. The scenes repository's CI fails when
 // a still or a frame file is out of date with its generator, so a tag always carries matching files.
 //
 //   node scripts/sync-scenes.mjs            keeps the committed files if the fetch fails
@@ -54,9 +54,9 @@ const listing = async (tag, path) =>
     .map((f) => f.name);
 
 // the rows of the first table after a heading: `name` | description | reduced motion
-function table(readme, heading) {
+function table(readme, heading, source = "the README") {
   const start = readme.indexOf(`\n${heading}\n`);
-  if (start < 0) throw new Error(`the README has no "${heading}" section`);
+  if (start < 0) throw new Error(`${source} has no "${heading}" section`);
   const rows = [];
   let inTable = false;
   for (const line of readme.slice(start + heading.length + 2).split("\n")) {
@@ -68,7 +68,7 @@ function table(readme, heading) {
     } else if (inTable) break;
     else if (line.startsWith("#")) break;
   }
-  if (!rows.length) throw new Error(`no table under "${heading}" in the README`);
+  if (!rows.length) throw new Error(`no table under "${heading}" in ${source}`);
   return rows;
 }
 
@@ -85,9 +85,14 @@ async function sync() {
   if (!cargo.includes(`\nversion = "${version}"`)) throw new Error(`Cargo.toml at ${tag} is not version ${version}`);
 
   const readme = await raw(tag, "README.md");
+  // the scene tables moved from the README to docs/scenes.md after 0.3.0
+  const sceneDoc = await raw(tag, "docs/scenes.md");
+  const [sceneText, sceneSource] = sceneDoc.includes("\n### Pass scenes\n")
+    ? [sceneDoc, "docs/scenes.md"]
+    : [readme, "the README"];
   const scenes = [];
   for (const [heading, kind] of [["### The original scenes", "general"], ["### Pass scenes", "pass"], ["### Fail scenes", "fail"]]) {
-    for (const [name, description, reduced] of table(readme, heading)) {
+    for (const [name, description, reduced] of table(sceneText, heading, sceneSource)) {
       scenes.push({ id: code(name), kind, description, reduced });
     }
   }

@@ -42,20 +42,20 @@ const CARDS = [
   { name: "Emacs", status: "Download from the latest release", how: "Put the theme files in your custom-theme-directory, then run (load-theme 'zacess-dark t). Needs Emacs 27 or later.", path: "editors/emacs", links: [{ label: "Download the latest release", url: "https://github.com/zacesshq/themes/releases/latest" }] },
   { name: "Eclipse", status: "On the Eclipse Marketplace", how: "Install Zacess Themes from Help, Eclipse Marketplace. It also installs from Help, Install New Software with the update site https://zacesshq.github.io/themes/eclipse/. Restart Eclipse, then choose a Zacess theme under Preferences, General, Appearance. Covers the Java and properties editors, the colours every text editor shares, the Terminal view and the Console.", path: "editors/eclipse", links: [{ label: "Zacess Themes on the Eclipse Marketplace", url: "https://marketplace.eclipse.org/content/zacess-themes-0" }, { label: "Eclipse install guide", url: "https://github.com/zacesshq/themes/blob/main/editors/eclipse/README.md" }] },
   { name: "Xcode", status: "Download from the themes repository", how: "Copy the .xccolortheme files into ~/Library/Developer/Xcode/UserData/FontAndColorThemes. In Xcode 27 bring one in with Settings, Themes, Import Classic Theme; in Xcode 26 and earlier choose it in Settings, Themes.", path: "editors/xcode", links: [{ label: "Xcode themes", url: "https://github.com/zacesshq/themes/tree/main/editors/xcode" }, { label: "Xcode install guide", url: "https://github.com/zacesshq/themes/blob/main/editors/xcode/README.md" }] },
-  { name: "Terminals", status: "In the iTerm2 Color Schemes collection", how: "Zacess Light, Dark, Yellow on Black and Cream are in the iTerm2 Color Schemes collection, which Ghostty, WezTerm and other terminals draw from. The High Contrast and Deep Contrast themes have been submitted to it. Files for iTerm2, Alacritty, kitty, Ghostty and Windows Terminal are in the repository with the steps for each.", path: "editors/terminals", links: [{ label: "iTerm2 Color Schemes", url: "https://github.com/mbadolato/iTerm2-Color-Schemes" }] },
+  { name: "Terminals", status: "All eight in the iTerm2 Color Schemes collection", how: "All eight themes are in the iTerm2 Color Schemes collection, which Ghostty, WezTerm, Windows Terminal and other terminals draw their theme lists from. The repository has files for iTerm2, Terminal.app, Ghostty, kitty, WezTerm, Warp, Alacritty and Windows Terminal. Run install.sh in any of them (install.ps1 for Windows Terminal): it finds the terminal, copies all eight themes to the folder it reads and prints the one step that turns one on. It never edits a settings file.", path: "editors/terminals", links: [{ label: "iTerm2 Color Schemes", url: "https://github.com/mbadolato/iTerm2-Color-Schemes" }, { label: "Terminal install guide", url: "https://github.com/zacesshq/themes/blob/main/editors/terminals/README.md" }] },
 ];
 ---
 <BaseLayout
   title="Code themes"
-  description="Eight high contrast themes for code editors and terminals in the same colours as the Zacess reader, including Deep Contrast Dark and Deep Contrast Light. Try each theme on 20 languages. Every text and syntax colour keeps 7:1 contrast."
+  description="Eight high contrast themes for code editors and terminals in the same colours as the Zacess reader. Try each theme on 20 languages. Every text and syntax colour keeps 7:1 contrast and the selection, current line and find matches always stand out."
 >
   <link slot="head" rel="stylesheet" href="/themes/code-themes.css">
   <PageHead
     eyebrow="Open source"
     title="Code themes"
-    lead="The eight contrast themes from the Zacess reader, for code editors and terminals: Light, Dark, Yellow on Black, Cream, High Contrast Dark, High Contrast Light and the new Deep Contrast Dark and Deep Contrast Light. Every text and syntax colour keeps at least 7:1 contrast."
+    lead="The eight contrast themes from the Zacess reader, for code editors and terminals: Light, Dark, Yellow on Black, Cream, High Contrast Dark, High Contrast Light, Deep Contrast Dark and Deep Contrast Light. Every text and syntax colour keeps at least 7:1 contrast."
   >
-    <p class="themes-status">We build the themes for VS Code, JetBrains IDEs, Obsidian, Neovim, Zed, Sublime Text, Helix, Emacs, Eclipse, Xcode and five terminals. They are on the <a href="https://marketplace.visualstudio.com/items?itemName=zacess.zacess-themes">VS Code Marketplace</a>, <a href="https://open-vsx.org/extension/zacess/zacess-themes">Open VSX</a> the <a href="https://plugins.jetbrains.com/plugin/35082-zacess-themes">JetBrains Marketplace</a> and the <a href="https://marketplace.eclipse.org/content/zacess-themes-0">Eclipse Marketplace</a> and in the <a href="https://community.obsidian.md/themes/zacess">Obsidian community directory</a> and the <a href="https://zed.dev/extensions?query=zacess">Zed extension store</a>. Neovim installs them from <a href="https://github.com/zacesshq/zacess.nvim">zacess.nvim</a>. Sublime Text, Helix, Emacs, Xcode and the terminals install from the releases page or the <a href={REPO}>themes repository</a>.</p>
+    <p class="themes-status">We build the themes for VS Code, JetBrains IDEs, Obsidian, Neovim, Zed, Sublime Text, Helix, Emacs, Eclipse, Xcode and eight terminals. They are on the <a href="https://marketplace.visualstudio.com/items?itemName=zacess.zacess-themes">VS Code Marketplace</a>, <a href="https://open-vsx.org/extension/zacess/zacess-themes">Open VSX</a>, the <a href="https://plugins.jetbrains.com/plugin/35082-zacess-themes">JetBrains Marketplace</a> and the <a href="https://marketplace.eclipse.org/content/zacess-themes-0">Eclipse Marketplace</a> and in the <a href="https://community.obsidian.md/themes/zacess">Obsidian community directory</a> and the <a href="https://zed.dev/extensions?query=zacess">Zed extension store</a>. Neovim installs them from <a href="https://github.com/zacesshq/zacess.nvim">zacess.nvim</a>. All eight are in the <a href="https://github.com/mbadolato/iTerm2-Color-Schemes">iTerm2 Color Schemes</a> collection. Sublime Text, Helix, Emacs, Xcode and the terminals install from the releases page or the <a href={REPO}>themes repository</a>.</p>
   </PageHead>
 
   <section class="playground" aria-labelledby="try-title">
@@ -118,6 +118,32 @@ const CARDS = [
           })}
         </div>
       ))}
+    </div>
+  </section>
+
+  <section aria-labelledby="where-title">
+    <div class="wrap">
+      <h2 id="where-title">Always know where you are</h2>
+      <p class="intro">Contrast is only half of it. In many themes the selection, the line the cursor is on and the current search match are barely lighter than the background, so they are easy to lose. Every Zacess theme makes them stand out and the build measures each one.</p>
+      <ul class="features">
+        <li>
+          <h3>A selection you can see</h3>
+          <p>In terminals and most editors, selected text sits on a solid block in a colour from the theme's own palette, the way a terminal draws it. The block keeps 7.4:1 or more on the background and the text keeps 7.4:1 or more on the block.</p>
+        </li>
+        <li>
+          <h3>A visible current line</h3>
+          <p>The line the cursor is on is a calm band at 1.3:1 to 1.4:1 on the background. Plain text, the line number and the cursor keep 7:1 over it and every syntax colour keeps 4.5:1.</p>
+        </li>
+        <li>
+          <h3>Matches by shape as well as colour</h3>
+          <p>The current find match is a strong fill. Other matches, the word under the cursor and a matched bracket are outlined or underlined with no fill, so they never hide a character or pass for a selection. Yellow on Black underlines the word under the cursor with dashes in Neovim and dots in JetBrains IDEs.</p>
+        </li>
+        <li>
+          <h3>Changed lines marked in the gutter</h3>
+          <p>Added, changed and removed lines are marked beside the code in VS Code, Neovim, Zed and Emacs, in colours checked against every other highlight.</p>
+        </li>
+      </ul>
+      <p class="more"><a href={`${REPO}/blob/main/docs/contrast.md`}>Every measurement for each theme</a></p>
     </div>
   </section>
 

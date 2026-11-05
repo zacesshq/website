@@ -7,6 +7,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-05
+
 ### Added
 
 - An accessibility profile page at `/profile/` for Zacess Profile, drawn from its newest release:
@@ -80,6 +82,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   search needs, the canonical address of every page and the contrast floors.
 - Routine tidy-up.
 
-[Unreleased]: https://github.com/zacesshq/website/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/zacesshq/website/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/zacesshq/website/releases/tag/v0.4.0
 [0.3.0]: https://github.com/zacesshq/website/releases/tag/v0.3.0
 [0.2.0]: https://github.com/zacesshq/website/releases/tag/v0.2.0

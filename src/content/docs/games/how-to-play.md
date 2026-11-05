@@ -3,15 +3,15 @@ title: "How to play"
 description: "The rules of every game in Zacess Games: the goal, the rules, the scoring, how a game is won or lost, a tip and the keys."
 section: "use"
 group: "games"
-order: 29
+order: 41
 product: "Zacess Games"
 source: "games"
 repo: "zacesshq/games"
-ref: "v0.3.0"
-refLabel: "v0.3.0"
-release: "0.3.0"
+ref: "v0.4.0"
+refLabel: "v0.4.0"
+release: "0.4.0"
 path: "docs/how-to-play.md"
-sourceUrl: "https://github.com/zacesshq/games/blob/v0.3.0/docs/how-to-play.md"
+sourceUrl: "https://github.com/zacesshq/games/blob/v0.4.0/docs/how-to-play.md"
 ---
 
 The rules of every game in Zacess Games: the goal, the rules, the scoring, how a game is won or lost, a tip and the keys. Each game shows the same page in the terminal with `?` (`F1` in the three typing games). The keys every game shares, the flags and the settings are on the [controls sheet](/docs/reference/games-controls/).

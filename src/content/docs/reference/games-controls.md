@@ -2,15 +2,15 @@
 title: "Games controls"
 description: "Every key, command, flag, variable and setting in Zacess Games on one page. Key names follow Ctrl+C style."
 section: "reference"
-order: 46
+order: 67
 product: "Zacess Games"
 source: "games"
 repo: "zacesshq/games"
-ref: "v0.3.0"
-refLabel: "v0.3.0"
-release: "0.3.0"
+ref: "v0.4.0"
+refLabel: "v0.4.0"
+release: "0.4.0"
 path: "docs/controls.md"
-sourceUrl: "https://github.com/zacesshq/games/blob/v0.3.0/docs/controls.md"
+sourceUrl: "https://github.com/zacesshq/games/blob/v0.4.0/docs/controls.md"
 ---
 
 Every key, command, flag, variable and setting in Zacess Games on one page. Key names follow `Ctrl+C` style. Letters work in upper and lower case alike unless a row says otherwise: in the three typing games every key types exactly what it shows, so there `a` and `A` are different characters. The rules of each game are in [How to play](/docs/games/how-to-play/).
@@ -152,4 +152,4 @@ Sound and music files are made once and kept in `~/Library/Caches/zacess-games` 
 
 ## Level files
 
-Trace, Relay and Learn to Code read their levels from Lua files. Extra files go in `~/.config/zacess/games/trace`, `~/.config/zacess/games/relay` or `~/.config/zacess/games/learn-to-code` (`%APPDATA%\zacess\games` on Windows) and play after the built-in ones. The format is described at the top of each built-in file in [`levels/`](https://github.com/zacesshq/games/tree/v0.3.0/levels/).
+Trace, Relay and Learn to Code read their levels from Lua files. Extra files go in `~/.config/zacess/games/trace`, `~/.config/zacess/games/relay` or `~/.config/zacess/games/learn-to-code` (`%APPDATA%\zacess\games` on Windows) and play after the built-in ones. The format is described at the top of each built-in file in [`levels/`](https://github.com/zacesshq/games/tree/v0.4.0/levels/).

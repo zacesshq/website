@@ -3,7 +3,7 @@ title: "Study sessions, revision paths and spaced repetition"
 description: "The core logic and data model for studying with Zacess: flashcards scheduled with FSRS, reading goals with progress, revision paths through a document"
 section: "use"
 group: "reader"
-order: 18
+order: 19
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

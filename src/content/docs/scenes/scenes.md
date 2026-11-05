@@ -3,7 +3,7 @@ title: "The scenes"
 description: "There are 39 built-in scenes: the original ten, which also show while a build passes, 16 pass scenes made for a passing build and 13 fail scenes made for a"
 section: "use"
 group: "scenes"
-order: 28
+order: 40
 product: "Zacess Scenes"
 source: "scenes"
 repo: "zacesshq/scenes"

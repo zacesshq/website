@@ -3,7 +3,7 @@ title: "Helpers: diagram descriptions and \"explain simply\""
 description: "Optional helpers that describe a diagram or explain a block more simply."
 section: "use"
 group: "reader"
-order: 20
+order: 21
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

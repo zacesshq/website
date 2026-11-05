@@ -1,0 +1,10 @@
+---
+// a code block with the Copy button the documentation uses, worked by /docs-copy.js. The button is
+// drawn only once that script has loaded, so without script the block stays plain selectable text
+interface Props { code: string; label: string }
+const { code, label } = Astro.props;
+---
+<div class="docs-code">
+  <button type="button" class="code-copy" aria-label="Copy this code"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3"></path></svg><span class="code-copy-label">Copy</span></button>
+  <pre class="snippet" tabindex="0" aria-label={label}><code>{code}</code></pre>
+</div>

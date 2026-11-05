@@ -3,7 +3,7 @@ title: "Maths and engineering mode"
 description: "How equations, subscripts, superscripts, circuit symbols and technical tables survive import and reach the reader as structure, speech and keyboard navigation."
 section: "use"
 group: "reader"
-order: 16
+order: 17
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

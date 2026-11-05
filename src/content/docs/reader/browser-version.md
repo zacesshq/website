@@ -3,7 +3,7 @@ title: "Browser version"
 description: "The first usable slice of Zacess in a web browser, to be hosted at app.zacess.com."
 section: "use"
 group: "reader"
-order: 4
+order: 5
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

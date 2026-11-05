@@ -2,7 +2,7 @@
 title: "Accessibility"
 description: "Zacess exists to make reading accessible, so its own accessibility is held to the highest standard we can meet."
 section: "contribute"
-order: 42
+order: 54
 product: "Zacess"
 source: "community"
 repo: "zacesshq/.github"

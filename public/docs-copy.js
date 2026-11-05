@@ -1,8 +1,9 @@
-// the Copy button beside every code block in the documentation. The button is in the page already;
+// the Copy button beside every code block in the documentation and on the product pages that use
+// src/components/CopyCode.astro. The button is in the page already;
 // this script makes it work, so the style sheet shows it only once the html element has the js
 // class. A copy is confirmed on the button for two seconds and read out through a live region
 (function () {
-  var blocks = document.querySelectorAll(".docs-body .docs-code");
+  var blocks = document.querySelectorAll(".docs-code");
   if (!blocks.length) return;
 
   // one live region for the page, in place before anything is written to it

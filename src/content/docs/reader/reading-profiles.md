@@ -3,7 +3,7 @@ title: "Reading profiles"
 description: "A reading profile is how a person wants every document laid out. It lives in crates/zacess-core/src/profile.rs."
 section: "use"
 group: "reader"
-order: 8
+order: 9
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

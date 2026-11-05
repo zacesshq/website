@@ -3,7 +3,7 @@ title: "On-device transcription and live captions"
 description: "The core logic and data model for transcribing lecture audio on the device and showing live captions, with nothing uploaded."
 section: "use"
 group: "reader"
-order: 9
+order: 10
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

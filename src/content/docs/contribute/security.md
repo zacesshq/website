@@ -2,7 +2,7 @@
 title: "Security Policy"
 description: "Zacess keeps people's documents, notes, recordings and reading profiles on their own devices."
 section: "contribute"
-order: 40
+order: 52
 product: "Zacess"
 source: "community"
 repo: "zacesshq/.github"

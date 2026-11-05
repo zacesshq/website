@@ -3,7 +3,7 @@ title: "Import"
 description: "How a file becomes a document. The code lives in crates/zacess-core/src/import."
 section: "use"
 group: "reader"
-order: 6
+order: 7
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

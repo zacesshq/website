@@ -20,6 +20,7 @@ npm run dev      # local preview
 npm run sync-themes   # copy the latest Zacess Themes release into src/data (build does this too)
 npm run sync-scenes   # the same for Zacess Scenes
 npm run sync-games    # the same for Zacess Games
+npm run sync-profile  # the same for Zacess Profile
 npm run sync-docs     # the documentation pages, from every product repository
 npm run build    # static site in dist/, then the search index in dist/pagefind
 npm run verify   # headings, links, writing style, the security headers, the docs and the contrast floors
@@ -42,11 +43,11 @@ generates from its palette as `previews/themes.json` plus the VS Code theme file
    offline build still works.
 2. The build publishes the version it used at [`/themes/version.txt`](https://zacess.com/themes/version.txt).
 3. [`deploy.yml`](.github/workflows/deploy.yml) syncs, checks, builds, verifies and deploys to
-   Cloudflare. It runs on every push to `main`, by hand, on a `themes-release`, `scenes-release` or
-   `games-release` dispatch from a release workflow and once a day. The daily run deploys only when
-   a latest release differs from the version the live site reports, so it catches a release whose
-   dispatch was not sent. In the workflow a failed sync stops the run rather than deploying an old
-   copy. The [workflows README](.github/workflows/README.md) has the detail.
+   Cloudflare. It runs on every push to `main`, by hand, on a `themes-release`, `scenes-release`,
+   `games-release` or `profile-release` dispatch from a release workflow and once a day. The daily
+   run deploys only when a latest release differs from the version the live site reports, so it
+   catches a release whose dispatch was not sent. In the workflow a failed sync stops the run rather
+   than deploying an old copy. The [workflows README](.github/workflows/README.md) has the detail.
 
 The [terminal scenes page](https://zacess.com/scenes/) and the
 [terminal games page](https://zacess.com/games/) work the same way. `scripts/sync-scenes.mjs` copies
@@ -57,6 +58,17 @@ their rules and keys, the Learn to Code tracks and the release files from the ne
 stills into `public/games/images`. Each publishes its version at `/scenes/version.txt` and
 `/games/version.txt`.
 
+The [accessibility profile page](https://zacess.com/profile/) follows the same pattern.
+`scripts/sync-profile.mjs` reads the tagline, the reasons, the example profile, the commands, the
+checks, the targets and the starter profiles from the README of the newest
+[zacesshq/profile](https://github.com/zacesshq/profile) release, the plans from its `ROADMAP.md` and
+the release files from the GitHub release of that tag into `src/data/profile.json`. The light and
+dark marks are kept there as SVG text, since the page draws them inline. The extension's screenshot
+goes into `public/profile/images`. It publishes its version at `/profile/version.txt`. The profile
+repository makes no terminal still, so the homepage card's still in `public/profile/stills/` is
+drawn here by `node scripts/draw-profile-still.mjs` from a real run of the installed `zprf`, which
+must match the synced version. Run it by hand after a profile release and commit the result.
+
 ## The documentation
 
 [zacess.com/docs](https://zacess.com/docs/) is drawn from the markdown in each product repository
@@ -65,12 +77,17 @@ rather than written here, so a page can never drift from the release it describe
 1. `scripts/docs-manifest.mjs` lists every page: its address under `/docs/`, the repository and
    file it comes from and, for a section of a README, the heading to take. The sidebar in
    `src/data/docs-nav.ts` reads the same list, so the order is decided in one place.
-2. `scripts/sync-docs.mjs` reads Zacess Scenes, Zacess Games and Zacess Themes at their newest
-   release tag (the same tag the product pages use) and the reader and the organisation's community
-   files at the commit the manifest pins. It takes the first heading as the title, drops badges,
-   turns GitHub alerts into plain notes, points links between pages at their addresses here and
-   every other relative link at the file on GitHub at the same ref, copies the images into
-   `public/docs/<source>/images/` and writes one file per page into `src/content/docs/`. A Mermaid
+   A page whose product repository has no file for it yet is written here instead, under
+   `docs-src/`. Its manifest entry is marked `local` with the release it was checked against. The
+   Zacess Profile install page, guides and command pages are written this way. The sync prints a
+   note once a newer release is out, so those pages are read against it again.
+2. `scripts/sync-docs.mjs` reads Zacess Scenes, Zacess Games, Zacess Themes and Zacess Profile at
+   their newest release tag (the same tag the product pages use) and the reader and the
+   organisation's community files at the commit the manifest pins. It takes the first heading as
+   the title, drops badges, turns GitHub alerts into plain notes, points links between pages at
+   their addresses here and every other relative link at the file on GitHub at the same ref, copies
+   the images into `public/docs/<source>/images/` and writes one file per page into
+   `src/content/docs/`. A Mermaid
    block is drawn with mermaid-cli once per high contrast theme into
    `public/docs/<source>/images/diagrams/`, since the security policy allows no script to draw it in
    the browser; the page shows the image for the colour mode and keeps the source as text under a

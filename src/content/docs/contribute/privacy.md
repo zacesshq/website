@@ -2,7 +2,7 @@
 title: "Privacy"
 description: "Zacess is private by default. This file says what the apps store, what the website records and the rules any future cloud feature has to follow."
 section: "contribute"
-order: 43
+order: 55
 product: "Zacess"
 source: "community"
 repo: "zacesshq/.github"

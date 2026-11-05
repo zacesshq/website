@@ -2,7 +2,7 @@
 title: "Scenes configuration"
 description: "Every setting can live in one file"
 section: "reference"
-order: 45
+order: 66
 product: "Zacess Scenes"
 source: "scenes"
 repo: "zacesshq/scenes"

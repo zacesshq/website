@@ -2,7 +2,7 @@
 title: "Scenes command line"
 description: "Running a scene on its own: the commands, the keys, every flag and headless rendering. The watch mode has keys and settings of its own."
 section: "reference"
-order: 44
+order: 65
 product: "Zacess Scenes"
 source: "scenes"
 repo: "zacesshq/scenes"

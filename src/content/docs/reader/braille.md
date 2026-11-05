@@ -3,7 +3,7 @@ title: "Braille-ready output"
 description: "How a document becomes a file a braille display or embosser can read. The code is in crates/zacess-core/src/export/braille.rs."
 section: "use"
 group: "reader"
-order: 15
+order: 16
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

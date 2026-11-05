@@ -1,0 +1,258 @@
+{
+  "version": "0.2.0",
+  "tag": "v0.2.0",
+  "rust": "1.88",
+  "crate": "zacess-profile",
+  "bin": "zprf",
+  "licence": "Apache-2.0",
+  "tagline": "State what you need to read a screen once. Get a checked palette in every terminal and editor.",
+  "summary": "`zprf` reads a small TOML file that describes needs: a contrast floor, a font and size, reduced motion, a cursor size, a focus ring, line spacing and a line length. It derives any colour the file leaves out, checks every foreground and background pair against WCAG 2.2, checks that neighbouring colours stay apart under simulated colour vision deficiencies and writes config files for Ghostty, kitty, WezTerm, Alacritty, tmux, Neovim and VS Code. A browser extension applies the same profile to every web page.",
+  "problem": [
+    "Every theming tool we know of stores colours. None of them stores needs. A person who needs 7:1 contrast, no blinking and a 16 point font has to find a theme that happens to meet the first need, then set the other two in every app by hand, then check nothing slipped when the theme changed.",
+    "Zacess Profile turns that round. The profile says what has to be true and the tool refuses to write anything that breaks it:"
+  ],
+  "reasons": [
+    {
+      "title": "Needs first, palette second",
+      "text": "A profile can be two lines long. Every colour it leaves out is solved in OKLCH to meet the profile's own floors."
+    },
+    {
+      "title": "Fails loudly",
+      "text": "A pair below its floor is named with both colours, the measured ratio and the floor it missed. `render` writes nothing until every pair passes."
+    },
+    {
+      "title": "Distinct for every viewer",
+      "text": "Neighbouring syntax colours, added and removed lines and errors and warnings must differ in tone and stay apart under simulated protanopia, deuteranopia and tritanopia, using the same rules as the Zacess themes."
+    },
+    {
+      "title": "More than colour",
+      "text": "Font, size, line spacing, cursor size, focus ring, reduced motion, one column, no decoration and a line length ruler are written to each app that has a setting for them."
+    },
+    {
+      "title": "An open format",
+      "text": "The profile is specified in [spec/SPEC.md](https://github.com/zacesshq/profile/blob/v0.2.0/spec/SPEC.md) with a [JSON Schema](https://github.com/zacesshq/profile/blob/v0.2.0/spec/profile.schema.json), versioned apart from the tool, so any app can read a profile without it."
+    }
+  ],
+  "example": "spec_version = 1\nname = \"Warm dark, large text\"\n\n[needs]\ncursor_size = \"large\"\nline_spacing = 1.3\ncolumn_width = 80\n\n[needs.contrast]\ntext = 7.0\n\n[needs.font]\nfamily = \"Atkinson Hyperlegible Mono\"\nsize_pt = 18\n\n[palette]\nbackground = \"#1b1612\"",
+  "checkCommands": "zprf check profiles/zacess-deep-contrast-dark.toml\nzprf render profiles/zacess-deep-contrast-dark.toml --target all --out ./build",
+  "deriveCommands": "zprf derive spec/examples/minimal.toml --out mine.toml\nzprf check mine.toml",
+  "commands": [
+    {
+      "command": "`check <profile>...`",
+      "does": "Derives any missing colour, then checks every pair of every file given. `--verbose` lists every pair. `--no-derive` also fails a profile that leaves colours to derive",
+      "exit": "0 when every profile passes. 1 when a pair fails. 2 when any file is unreadable or invalid or when no colour can be derived to meet a floor. A bad file is reported and the rest are still checked"
+    },
+    {
+      "command": "`derive <profile>`",
+      "does": "Prints the complete profile with every derived colour marked. `--out <file>` writes it instead",
+      "exit": "0 when the result passes. 1 when a colour you set fails, with the profile still printed. 2 when the file is unreadable or invalid or when no colour can be derived to meet a floor"
+    },
+    {
+      "command": "`render <profile> --target <name> --out <dir>`",
+      "does": "Writes `<dir>/<target>/` from the templates. `--target all` writes every target",
+      "exit": "0 when written. 2 when the profile is invalid, cannot be completed or fails a pair, with nothing written"
+    },
+    {
+      "command": "`apply <profile> --live`",
+      "does": "Sends OSC 4, 10, 11 and 12 to standard output, which recolours the terminal it runs in until the terminal is reset. `--escaped` prints them as readable text with nothing sent, with or without `--live`. `--tmux` wraps them for tmux passthrough",
+      "exit": "0 when sent. 2 when the profile is invalid, cannot be completed or fails a pair"
+    },
+    {
+      "command": "`watch <profile> --target <name> --out <dir>`",
+      "does": "Checks and renders the profile, then does it again each time the file changes. A profile named `name-dark.toml` or `name-light.toml` is paired with the other in the same folder (`--variant` names another) and the variant matching the system's light or dark setting is rendered. Both are written under the id without its ending, so an app can point at one file. A change that fails a pair is reported and the last good files are kept. `--appearance dark` or `light` pins one variant. Runs until Ctrl+C, which ends it the way Ctrl+C ends any command",
+      "exit": "2 at the start when the target is unknown, `--out` is empty or the variant given does not exist. A file that cannot be written later is reported and the watch carries on"
+    },
+    {
+      "command": "`os <profile> --print`",
+      "does": "Prints the system accessibility settings the profile maps to: `defaults write` and `defaults delete` lines on macOS, `gsettings set` on GNOME and `reg add` values with their Settings page on Windows. **A preview only.** zprf never runs them and has no option to. `--platform` prints another platform's lines",
+      "exit": "0 when printed. 2 when the profile is invalid or fails a pair"
+    },
+    {
+      "command": "`list-targets`",
+      "does": "Lists every target with the file it writes",
+      "exit": "0"
+    }
+  ],
+  "floors": [
+    {
+      "floor": "`text`",
+      "value": "7:1",
+      "pairs": "Text, muted text, links, errors, warnings, information and the accent on the background and on panels. Every syntax colour on the background and on panels. The cursor, the selected text, the text on the accent and the default text over the current line and a soft selection. The default text on any terminal slot listed as a background fill"
+    },
+    {
+      "floor": "`non_text`",
+      "value": "3:1",
+      "pairs": "Borders and the focus ring on the background and on panels. The selection block against the background"
+    },
+    {
+      "floor": "`overlay`",
+      "value": "4.5:1",
+      "pairs": "Every syntax colour over the current line and over a soft selection. Muted text, links, errors, warnings, information and the accent over the current line"
+    },
+    {
+      "floor": "`terminal`",
+      "value": "7:1",
+      "pairs": "The sixteen ANSI colours on the background, apart from slots listed as background fills"
+    },
+    {
+      "floor": "`terminal_dim`",
+      "value": "4.5:1",
+      "pairs": "ANSI slots a profile lists in `palette.terminal.dim`, which the light starter profiles use to keep their colours vivid"
+    },
+    {
+      "floor": "`highlight_distance`",
+      "value": "0.08",
+      "pairs": "OKLab distance between the background and both the current line and a soft selection, so each stays visible"
+    },
+    {
+      "floor": "`colour_vision_distance`",
+      "value": "0.04",
+      "pairs": "OKLab distance between paired colours under simulated protanopia, deuteranopia and tritanopia (Machado, Oliveira and Fernandes, 2009)"
+    },
+    {
+      "floor": "`tone_difference`",
+      "value": "0.05",
+      "pairs": "Difference in tone, the cube root of relative luminance, between paired colours, so they differ with no colour vision at all"
+    },
+    {
+      "floor": "`check_error_warning`",
+      "value": "on",
+      "pairs": "Whether errors and warnings are held to the two floors above as a pair"
+    },
+    {
+      "floor": "`apca`",
+      "value": "off",
+      "pairs": "An optional APCA Lc floor for text on the background, checked on top of WCAG"
+    }
+  ],
+  "targets": [
+    {
+      "id": "ghostty",
+      "app": "Ghostty",
+      "file": "`ghostty/<id>`",
+      "sets": "Palette, cursor, selection, `minimum-contrast` at the text floor, a block cursor kept through shell integration, cursor blink, font, size, cell height and a solid background"
+    },
+    {
+      "id": "kitty",
+      "app": "kitty",
+      "file": "`kitty/<id>.conf`",
+      "sets": "Palette, cursor, selection, tabs, borders, URL colour, a block cursor kept through shell integration, cursor blink, font, size, cell height, the focus border width, a one column layout and a solid background"
+    },
+    {
+      "id": "wezterm",
+      "app": "WezTerm",
+      "file": "`wezterm/<id>.lua`",
+      "sets": "Palette, tab bar, cursor style and blink, animation rate, font, size, line height and a solid background"
+    },
+    {
+      "id": "alacritty",
+      "app": "Alacritty",
+      "file": "`alacritty/<id>.toml`",
+      "sets": "Palette, cursor, selection, cursor shape and blink, font, size, line offset and a solid background"
+    },
+    {
+      "id": "tmux",
+      "app": "tmux",
+      "file": "`tmux/<id>.tmux.conf`",
+      "sets": "Status bar, windows, pane borders, messages, copy mode, clock and heavy borders for a wide focus ring"
+    },
+    {
+      "id": "neovim",
+      "app": "Neovim",
+      "file": "`neovim/colors/<id>.lua`",
+      "sets": "Editor, syntax, Tree-sitter, diff and diagnostic groups, terminal colours, cursor blink, a column ruler, stacked diffs and no see-through windows"
+    },
+    {
+      "id": "vscode",
+      "app": "VS Code",
+      "file": "`vscode/<id>.settings.json`",
+      "sets": "A `settings.json` fragment: interface and terminal colours, token colours with font styles, font, size, line height, cursor, reduced motion, rulers, editors and diffs in one column, no minimap and `terminal.integrated.minimumContrastRatio`"
+    }
+  ],
+  "starters": [
+    {
+      "id": "zacess-light",
+      "background": "#ffffff",
+      "text": "#111111",
+      "contrast": "18.88:1"
+    },
+    {
+      "id": "zacess-dark",
+      "background": "#121212",
+      "text": "#f5f5f5",
+      "contrast": "17.18:1"
+    },
+    {
+      "id": "zacess-yellow-on-black",
+      "background": "#000000",
+      "text": "#ffeb3b",
+      "contrast": "17.19:1"
+    },
+    {
+      "id": "zacess-cream",
+      "background": "#fdf6e3",
+      "text": "#000000",
+      "contrast": "19.46:1"
+    },
+    {
+      "id": "zacess-high-contrast-dark",
+      "background": "#000000",
+      "text": "#ffffff",
+      "contrast": "21.00:1"
+    },
+    {
+      "id": "zacess-high-contrast-light",
+      "background": "#ffffff",
+      "text": "#000000",
+      "contrast": "21.00:1"
+    },
+    {
+      "id": "zacess-deep-contrast-dark",
+      "background": "#000000",
+      "text": "#ffffff",
+      "contrast": "21.00:1"
+    },
+    {
+      "id": "zacess-deep-contrast-light",
+      "background": "#ffffff",
+      "text": "#000000",
+      "contrast": "21.00:1"
+    }
+  ],
+  "extension": [
+    "The [extension](https://github.com/zacesshq/profile/tree/v0.2.0/extension) applies a profile to every web page in Chrome and Firefox through CSS custom properties: colours, font, a minimum text size, spacing, line length, the focus ring and reduced motion. Its options page reads the same TOML and checks it against the [JSON Schema](https://github.com/zacesshq/profile/blob/v0.2.0/spec/profile.schema.json). It is not in the browser stores yet. Load it unpacked by following [extension/README.md](https://github.com/zacesshq/profile/blob/v0.2.0/extension/README.md)."
+  ],
+  "later": [
+    "More targets, including JetBrains IDEs, Zed, Helix and Windows Terminal",
+    "The extension talking to `zprf watch` over native messaging, so one profile change reaches the terminal, the editor and the browser together",
+    "A Safari build of the extension",
+    "Readers for the spec in other languages, starting from the TypeScript reader in the extension",
+    "Spec version 1 marked final once the colour vision pairs have settled"
+  ],
+  "downloads": [
+    {
+      "file": "zacess-profile-v0.2.0-aarch64-apple-darwin.tar.gz",
+      "system": "macOS on Apple silicon"
+    },
+    {
+      "file": "zacess-profile-v0.2.0-x86_64-apple-darwin.tar.gz",
+      "system": "macOS on Intel"
+    },
+    {
+      "file": "zacess-profile-v0.2.0-x86_64-unknown-linux-musl.tar.gz",
+      "system": "Linux on x86-64, no shared libraries needed"
+    },
+    {
+      "file": "zacess-profile-v0.2.0-aarch64-unknown-linux-musl.tar.gz",
+      "system": "Linux on ARM64, no shared libraries needed"
+    },
+    {
+      "file": "zacess-profile-v0.2.0-x86_64-pc-windows-msvc.zip",
+      "system": "Windows on x86-64"
+    }
+  ],
+  "marks": {
+    "light": "<svg class=\"profile-mark-svg\" focusable=\"false\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" role=\"img\" aria-label=\"Zacess Profile\"><title>Zacess Profile</title><rect x=\"1.5\" y=\"1.5\" width=\"61\" height=\"61\" rx=\"13\" fill=\"#111111\"/><rect x=\"13\" y=\"13\" width=\"38\" height=\"38\" rx=\"3\" fill=\"#FFFFFF\"/><rect x=\"13\" y=\"20\" width=\"38\" height=\"2.5\" fill=\"#111111\"/><rect x=\"18\" y=\"26\" width=\"22\" height=\"3.5\" rx=\"1.75\" fill=\"#111111\"/><rect x=\"8\" y=\"31.5\" width=\"48\" height=\"11\" rx=\"2.5\" fill=\"#FFD400\"/><rect x=\"18\" y=\"35.25\" width=\"16\" height=\"3.5\" rx=\"1.75\" fill=\"#111111\"/><rect x=\"18\" y=\"44.5\" width=\"11\" height=\"3.5\" rx=\"1.75\" fill=\"#111111\"/></svg>",
+    "dark": "<svg class=\"profile-mark-svg\" focusable=\"false\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" role=\"img\" aria-label=\"Zacess Profile\"><title>Zacess Profile</title><rect x=\"1.5\" y=\"1.5\" width=\"61\" height=\"61\" rx=\"13\" fill=\"#111111\" stroke=\"#9AA0A6\" stroke-width=\"3\"/><rect x=\"13\" y=\"13\" width=\"38\" height=\"38\" rx=\"3\" fill=\"#FFFFFF\"/><rect x=\"13\" y=\"20\" width=\"38\" height=\"2.5\" fill=\"#111111\"/><rect x=\"18\" y=\"26\" width=\"22\" height=\"3.5\" rx=\"1.75\" fill=\"#111111\"/><rect x=\"8\" y=\"31.5\" width=\"48\" height=\"11\" rx=\"2.5\" fill=\"#FFD400\"/><rect x=\"18\" y=\"35.25\" width=\"16\" height=\"3.5\" rx=\"1.75\" fill=\"#111111\"/><rect x=\"18\" y=\"44.5\" width=\"11\" height=\"3.5\" rx=\"1.75\" fill=\"#111111\"/></svg>"
+  }
+}

@@ -3,7 +3,7 @@ title: "Export"
 description: "How a document plus a reading profile becomes accessible output. The code lives in crates/zacess-core/src/export."
 section: "use"
 group: "reader"
-order: 14
+order: 15
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

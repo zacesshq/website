@@ -2,7 +2,7 @@
 title: "AI policy"
 description: "This policy covers every contribution to Zacess from people outside the project: code, documentation, commits, issues, pull requests, comments, reviews and"
 section: "contribute"
-order: 39
+order: 51
 product: "Zacess"
 source: "community"
 repo: "zacesshq/.github"

@@ -3,7 +3,7 @@ title: "Ask questions of your own lectures"
 description: "Answers drawn only from the student's own material, each citing where it came from. The code is in crates/zacess-core/src/ask."
 section: "use"
 group: "reader"
-order: 19
+order: 20
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

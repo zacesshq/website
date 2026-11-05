@@ -4,6 +4,7 @@ import { SITE } from "../site";
 import themes from "../data/themes.json";
 import scenes from "../data/scenes.json";
 import games from "../data/games.json";
+import profile from "../data/profile.json";
 import { EDITORS, TERMINALS } from "../data/theme-targets";
 import { words, cap } from "../lib/words";
 
@@ -13,6 +14,16 @@ const scene = scenes.scenes.find((s) => s.id === "koi-pond") ?? scenes.scenes[0]
 // the scene data uses backticks for names; alt text reads them as plain words
 const plain = (s: string) => { const t = s.replace(/`/g, ""); return t.charAt(0).toLowerCase() + t.slice(1); };
 const FAMILY = [
+  {
+    title: "Accessibility profile",
+    line: `Your reading needs in one file, checked against every colour and written for ${words(profile.targets.length)} terminals and editors.`,
+    href: "/profile/",
+    link: "See the profile",
+    src: "/profile/stills/check-deep-dark.svg",
+    width: 868,
+    height: 568,
+    alt: "zprf check in Zacess Deep Contrast Dark: a starter profile passes 224 pairs, then a copy with a dim comment colour fails with each pair named",
+  },
   {
     title: "Code themes",
     line: `${cap(words(themes.themes.length))} high contrast themes for ${words(EDITORS.length)} editors and ${words(TERMINALS.length)} terminals.`,
@@ -47,13 +58,13 @@ const FAMILY = [
 ---
 <BaseLayout
   title="Zacess: make every page accessible"
-  description="Zacess is a free, open-source reader that turns slides, PDFs, handouts, whiteboards and web pages into notes in your own reading profile, plus code themes, terminal scenes and games in the same high contrast colours."
+  description="Zacess is a free, open-source reader that turns slides, PDFs, handouts, whiteboards and web pages into notes in your own reading profile, plus an accessibility profile, code themes, terminal scenes and games in the same high contrast colours."
 >
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Pre-release: an early browser version is open to try</p>
       <h1 id="hero-title">Make every page <mark>accessible.</mark></h1>
-      <p class="lead">Zacess is a free, open-source reader that turns slides, PDFs, handouts, whiteboards and web pages into notes in your own reading profile. The same contrast-checked colours carry on into code themes, calm terminal scenes and original terminal games, so every screen you work in reads the same way.</p>
+      <p class="lead">Zacess is a free, open-source reader that turns slides, PDFs, handouts, whiteboards and web pages into notes in your own reading profile. An accessibility profile carries your reading needs into every terminal, editor and web page. The same contrast-checked colours carry on into code themes, calm terminal scenes and original terminal games, so every screen you work in reads the same way.</p>
       <p class="tagline" data-read><span class="w">Read.</span> <span class="w">Listen.</span> <span class="w">Learn.</span> <span class="w">Your</span> <span class="w">way.</span></p>
       <p class="said">Zacess is said like "success": za-SESS.</p>
       <div class="actions">
@@ -168,7 +179,7 @@ const FAMILY = [
   <section aria-labelledby="family-title">
     <div class="wrap">
       <h2 id="family-title">More from Zacess</h2>
-      <p class="intro">Everything we make shares one palette, checked so every colour stays readable. There are code themes for ten editors and eight terminals. Terminal scenes react to your builds and commands. Fourteen original terminal games come with their own sound and music. All of it is free and open source.</p>
+      <p class="intro">An accessibility profile writes your reading needs into each terminal and editor you use. Everything we make shares one palette, checked so every colour stays readable. There are code themes for ten editors and eight terminals. Terminal scenes react to your builds and commands. Fourteen original terminal games come with their own sound and music. All of it is free and open source.</p>
       <ul class="family">
         {FAMILY.map((f) => (
           <li class="family-card">

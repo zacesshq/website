@@ -3,7 +3,7 @@ title: "Sync"
 description: "The local-first sync engine, built to agreed conflict rules before any server exists (sync arrives in v3 on the roadmap)."
 section: "use"
 group: "reader"
-order: 22
+order: 23
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

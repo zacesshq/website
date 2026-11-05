@@ -2,7 +2,7 @@
 title: "Code of Conduct"
 description: "Zacess welcomes readers, students, educators, assistive technology users and developers at every level."
 section: "contribute"
-order: 38
+order: 50
 product: "Zacess"
 source: "community"
 repo: "zacesshq/.github"

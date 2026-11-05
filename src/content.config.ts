@@ -10,7 +10,7 @@ const docs = defineCollection({
     title: z.string(),
     description: z.string().min(1),
     section: z.enum(["install", "use", "extend", "contribute", "reference"]),
-    group: z.enum(["reader", "scenes", "games", "themes"]).optional(),
+    group: z.enum(["reader", "scenes", "games", "themes", "profile"]).optional(),
     order: z.number().int(),
     product: z.string(),
     source: z.string(),

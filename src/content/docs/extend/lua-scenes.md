@@ -2,7 +2,7 @@
 title: "Lua scenes"
 description: "Zacess Scenes can run scenes of your own, written in Lua 5.4. Lua is compiled into the program, so there is nothing to install."
 section: "extend"
-order: 35
+order: 47
 product: "Zacess Scenes"
 source: "scenes"
 repo: "zacesshq/scenes"

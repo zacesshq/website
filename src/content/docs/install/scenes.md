@@ -2,7 +2,7 @@
 title: "Install Zacess Scenes"
 description: "The formula installs the release binary for the machine (Apple silicon, Intel, Linux on x86-64 or ARM64) after Homebrew has checked it against the checksum"
 section: "install"
-order: 1
+order: 2
 product: "Zacess Scenes"
 source: "scenes"
 repo: "zacesshq/scenes"

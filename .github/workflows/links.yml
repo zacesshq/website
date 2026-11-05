@@ -38,5 +38,6 @@ jobs:
           # lifts the rate limit on the many links to GitHub
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          args: --no-progress --scheme https --scheme http --accept 200,204,206,301,302,308 --exclude-path dist/pagefind --max-concurrency 8 "dist/**/*.html"
+          # the root folder lets the checker read root-relative links such as /docs/ in the built pages
+          args: --no-progress --root-dir ${{ github.workspace }}/dist --scheme https --scheme http --accept 200,204,206,301,302,308 --exclude-path dist/pagefind --max-concurrency 8 "dist/**/*.html"
           fail: true

@@ -1,0 +1,289 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHead from "../../components/PageHead.astro";
+import CopyCode from "../../components/CopyCode.astro";
+import data from "../../data/profile.json";
+import { words, cap } from "../../lib/words";
+
+const REPO = "https://github.com/zacesshq/profile";
+const RELEASE = `${REPO}/releases/tag/${data.tag}`;
+const download = (file: string) => `${REPO}/releases/download/${data.tag}/${file}`;
+const atTag = (path: string) => `${REPO}/blob/${data.tag}/${path}`;
+
+// the README's text carries backticks, bold and links; code spans are kept apart so a link or a star
+// inside one stays literal
+const escape = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const md = (s: string) => s.split(/(`[^`]+`)/).map((part) => {
+  if (/^`[^`]+`$/.test(part)) return `<code>${escape(part.slice(1, -1))}</code>`;
+  return escape(part)
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/\[([^\]]+)\]\((https:\/\/[^)\s]+)\)/g, '<a href="$2">$1</a>');
+}).join("");
+// the README introduces its list with a colon; on the page the paragraph stands on its own
+const sentence = (s: string) => s.replace(/:$/, ".");
+
+const starter = data.starters.find((s) => s.id === "zacess-deep-contrast-dark") ?? data.starters[0];
+const first = data.downloads[0]?.file ?? "";
+const CHECK = `shasum -a 256 -c ${first}.sha256
+tar -xzf ${first}`;
+const QUICK = `${data.checkCommands}
+${data.bin} list-targets`;
+
+const GUIDES = [
+  { href: "/docs/install/profile/", title: "Install Zacess Profile", covers: "every install route, the checksum steps, building from source and uninstalling" },
+  { href: "/docs/profile/quick-start/", title: "Quick start", covers: "check a starter profile, write its files and start a profile from needs alone" },
+  { href: "/docs/profile/writing-a-profile/", title: "Writing a profile", covers: "the fields, the needs and the colours of a profile" },
+  { href: "/docs/profile/colour-vision/", title: "Colour vision checks", covers: "tone difference, OKLab distance, the simulations and the paired colours" },
+  { href: "/docs/profile/load-in-each-app/", title: "Load the files in each app", covers: "the line each app needs to load what render writes" },
+  { href: "/docs/profile/os-settings/", title: "System settings preview", covers: "what os --print maps each need to on macOS, GNOME and Windows" },
+  { href: "/docs/profile/troubleshooting/", title: "Troubleshooting", covers: "every message zprf prints and what to do about it" },
+  { href: "/docs/profile/accessibility/", title: "Accessibility of Zacess Profile", covers: "what the tool guarantees, each need per app and the known limits" },
+  { href: "/docs/reference/profile-cli/", title: "Profile command line", covers: "every command with a page of its own for each" },
+  { href: "/docs/reference/profile-format/", title: "Profile format", covers: "the open specification every reader of a profile follows" },
+];
+---
+<BaseLayout
+  title="Accessibility profile"
+  description={`Zacess Profile: state what you need to read a screen once, as a contrast floor, a font, spacing and reduced motion. The ${data.bin} command checks every colour against those needs and writes settings for ${words(data.targets.length)} terminals and editors. Version ${data.version}.`}
+>
+  <link slot="head" rel="stylesheet" href="/profile/profile.css">
+  <PageHead
+    eyebrow="Open source"
+    title="Accessibility profile"
+    lead={`${data.tagline} Zacess Profile is the ${data.bin} command and a browser extension that read one open file format. Version ${data.version}.`}
+  >
+    <div class="profile-brand">
+      <span class="profile-mark logo-light" set:html={data.marks.light} />
+      <span class="profile-mark logo-dark" set:html={data.marks.dark} />
+      <p>The <code>{data.bin}</code> command, from the <code>{data.crate}</code> crate, under the Apache License 2.0.</p>
+    </div>
+    <p class="actions">
+      <a class="button primary" href="#install">Install</a>
+      <a class="button" href={REPO}>Zacess Profile on GitHub</a>
+      <a class="button" href="/themes/">Code themes</a>
+    </p>
+  </PageHead>
+
+  <section class="band" aria-labelledby="needs-heading">
+    <div class="wrap">
+      <h2 id="needs-heading">Needs first, palette second</h2>
+      <p class="intro" set:html={md(data.summary)} />
+      {data.problem.map((p) => <p class="profile-text" set:html={md(sentence(p))} />)}
+      <ul class="features">
+        {data.reasons.map((r) => (
+          <li>
+            <h3>{r.title}</h3>
+            <p set:html={md(r.text)} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="how-heading">
+    <div class="wrap">
+      <h2 id="how-heading">How it works</h2>
+      <ol class="steps">
+        <li>
+          <h3>Write down your needs</h3>
+          <p>A profile is a small TOML file. It can be two lines long and may carry colours of its own. The format has a <a href="/docs/reference/profile-format/">specification</a> and a JSON Schema, so any app can read it.</p>
+        </li>
+        <li>
+          <h3>Check every pair</h3>
+          <p><code>{data.bin} derive</code> fills in each colour the profile leaves out. <code>{data.bin} check</code> measures every pair against the profile's floors and under simulated colour vision deficiencies.</p>
+        </li>
+        <li>
+          <h3>Write each app's settings</h3>
+          <p><code>{data.bin} render</code> writes the files for each app into a folder you name. A profile that fails a pair is never written.</p>
+        </li>
+      </ol>
+      <div class="profile-example">
+        <figure class="frame">
+          <figcaption class="frame-bar">A profile from needs alone</figcaption>
+          <CopyCode label="An example profile that sets one colour" code={data.example} />
+        </figure>
+        <div>
+          <h3>One colour set, the rest derived</h3>
+          <p>This profile asks for 7:1 text contrast, an 18 point font, a large cursor, more line spacing and an 80 character line. It sets only the background. <code>derive</code> chooses every other colour to meet those floors and marks each one <code># derived</code>, so your choices stay apart from the tool's.</p>
+          <CopyCode label="Derive the missing colours, then check the result" code={data.deriveCommands} />
+          <p class="more"><a href="/docs/profile/quick-start/">The quick start</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="checks-heading">
+    <div class="wrap">
+      <h2 id="checks-heading">What is checked</h2>
+      <p class="intro">Every pair is measured with the WCAG 2.2 contrast formula and held to a floor from the profile. The defaults follow the Zacess themes. A pair below its floor is named with both colours, the measured ratio and the floor it missed.</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="checks-heading">
+        <table class="profile-table">
+          <thead><tr><th scope="col">Floor</th><th scope="col">Default</th><th scope="col">Pairs</th></tr></thead>
+          <tbody>
+            {data.floors.map((f) => <tr><th scope="row" set:html={md(f.floor)} /><td>{f.value}</td><td set:html={md(f.pairs)} /></tr>)}
+          </tbody>
+        </table>
+      </div>
+      <p class="more"><a href="/docs/reference/profile-format/">Every pair in the profile format</a></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="targets-heading">
+    <div class="wrap">
+      <h2 id="targets-heading">{cap(words(data.targets.length))} targets</h2>
+      <p class="intro"><code>render</code> writes only inside the folder given to <code>--out</code>. Copying a file into an app's config folder is a step you take yourself. Each rendered file says in its header how to load it.</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="targets-heading">
+        <table class="profile-table">
+          <thead><tr><th scope="col">Target</th><th scope="col">App</th><th scope="col">File written</th><th scope="col">What it sets</th></tr></thead>
+          <tbody>
+            {data.targets.map((t) => <tr><th scope="row"><code>{t.id}</code></th><td>{t.app}</td><td set:html={md(t.file)} /><td set:html={md(t.sets)} /></tr>)}
+          </tbody>
+        </table>
+      </div>
+      <p class="more"><a href="/docs/profile/accessibility/#needs-each-target-applies">Each need per app, with the settings an app lacks</a></p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="commands-heading">
+    <div class="wrap">
+      <h2 id="commands-heading">Commands</h2>
+      <p class="intro">Every command that writes or sends anything checks the profile first and stops on a failing pair.</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="commands-heading">
+        <table class="profile-table">
+          <thead><tr><th scope="col">Command</th><th scope="col">What it does</th></tr></thead>
+          <tbody>
+            {data.commands.map((c) => <tr><th scope="row" set:html={md(c.command)} /><td set:html={md(c.does)} /></tr>)}
+          </tbody>
+        </table>
+      </div>
+      <p class="more"><a href="/docs/reference/profile-cli/">Every command with its exit codes</a></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="starters-heading">
+    <div class="wrap">
+      <h2 id="starters-heading">Starter profiles</h2>
+      <p class="intro">The eight <a href="/themes/">Zacess themes</a> ship as complete profiles. Each one passes <code>check</code> with no colour left to derive. Start from <code>{starter.id}</code> or any other and change what you need.</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="starters-heading">
+        <table class="profile-table starters">
+          <thead><tr><th scope="col">Profile</th><th scope="col">Background</th><th scope="col">Text</th><th scope="col">Text contrast</th></tr></thead>
+          <tbody>
+            {data.starters.map((s) => <tr><th scope="row"><code>{s.id}</code></th><td><code>{s.background}</code></td><td><code>{s.text}</code></td><td>{s.contrast}</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="extension-heading">
+    <div class="wrap">
+      <h2 id="extension-heading">Browser extension</h2>
+      <div class="learn-grid">
+        <figure class="frame">
+          <figcaption class="frame-bar">Zacess Yellow on Black applied to a web page</figcaption>
+          <img src="/profile/images/screenshot.png" width="1280" height="800" loading="lazy" alt="A sample article about the night sky shown through the extension: yellow monospace text on black, underlined cyan links and a yellow focus ring around the Star maps link">
+        </figure>
+        <div>
+          {data.extension.map((p) => <p set:html={md(p)} />)}
+          <p>Nothing leaves the browser. The profile is kept on the device and the extension makes no network requests.</p>
+          <p class="more"><a href="/docs/profile/browser-extension/">Load the extension unpacked</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="access-heading">
+    <div class="wrap">
+      <h2 id="access-heading">Accessibility</h2>
+      <p class="intro">Zacess Profile exists so that a person's reading needs are written down once and kept everywhere.</p>
+      <ul class="features">
+        <li>
+          <h3>Nothing below the floor</h3>
+          <p><code>render</code>, <code>watch</code> and <code>apply</code> refuse a profile that fails any pair, so nothing is written or sent. Printed ratios are rounded down and never overstate the real one.</p>
+        </li>
+        <li>
+          <h3>Colour is never the only signal</h3>
+          <p>Paired colours must differ in tone as well as hue, so they stay apart with no colour vision at all. Every syntax colour keeps its font style in every target.</p>
+        </li>
+        <li>
+          <h3>Reduced motion by default</h3>
+          <p>A profile asks for no blinking cursors, animation, smooth scrolling or flashing bells unless it turns <code>reduce_motion</code> off.</p>
+        </li>
+        <li>
+          <h3>Your settings stay yours</h3>
+          <p><code>render</code> and <code>watch</code> never edit an app's real config. <code>os --print</code> only prints the system settings a profile maps to and has no option to apply them.</p>
+        </li>
+      </ul>
+      <div class="note">
+        <p>The full statement lists each need per app, the lowest measured value in every starter profile and the known limits. Read the <a href="/docs/profile/accessibility/">Zacess Profile accessibility statement</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="later-heading">
+    <div class="wrap">
+      <h2 id="later-heading">What comes later</h2>
+      <ul class="profile-later">
+        {data.later.map((item) => <li set:html={md(item)} />)}
+      </ul>
+      <p class="more"><a href={atTag("ROADMAP.md")}>The Zacess Profile roadmap</a></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="install">
+    <div class="wrap">
+      <h2 id="install">Install</h2>
+      <p class="intro">The tool is one program, <code>{data.bin}</code>. Four routes, in the order the <a href="/docs/install/profile/">install page</a> gives them, the shortest for each system first:</p>
+      <ol class="steps single">
+        <li>
+          <h3>macOS and Linux with Homebrew</h3>
+          <p>The formula installs the release build for the machine. The starter profiles land in <code>$(brew --prefix)/share/{data.crate}/profiles</code>.</p>
+          <CopyCode label="Install with Homebrew" code={`brew install zacesshq/tap/${data.crate}`} />
+        </li>
+        <li>
+          <h3>Windows with winget</h3>
+          <p class="state later">Pending review</p>
+          <p>The package is waiting for review in the winget community repository, so this command works once it is accepted. Until then, Cargo or a release archive works on Windows.</p>
+          <CopyCode label="Install with winget once the package is accepted" code={`winget install Zacess.Profile`} />
+        </li>
+        <li>
+          <h3>Any platform with Cargo</h3>
+          <p>Needs Rust {data.rust} or later. The crate on <a href={`https://crates.io/crates/${data.crate}`}>crates.io</a> carries the code, the starter profiles and the spec.</p>
+          <CopyCode label="Install with Cargo" code={`cargo install ${data.crate}`} />
+        </li>
+        <li>
+          <h3>From a release</h3>
+          <p>Each build on the <a href={RELEASE}>{data.tag} release</a> has a <code>.sha256</code> file beside it. Each archive holds <code>{data.bin}</code> with the eight starter profiles, the spec and the accessibility statement. Check the sum, unpack the archive and put <code>{data.bin}</code> (or <code>{data.bin}.exe</code>) somewhere on your <code>PATH</code>.</p>
+          <div class="table-scroll" tabindex="0" role="region" aria-labelledby="builds-caption">
+            <table class="builds">
+              <caption id="builds-caption">Release builds for {data.tag}</caption>
+              <thead><tr><th scope="col">System</th><th scope="col">Build</th><th scope="col">Checksum</th></tr></thead>
+              <tbody>
+                {data.downloads.map((d) => (
+                  <tr>
+                    <td>{d.system}</td>
+                    <td><a href={download(d.file)}>{d.file}</a></td>
+                    <td><a href={download(`${d.file}.sha256`)} aria-label={`SHA-256 checksum for ${d.system}`}>SHA-256</a></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <CopyCode label="Check and unpack a release build" code={CHECK} />
+          <p>Linux checks the sum with <code>sha256sum -c</code> and Windows compares the hash from <code>Get-FileHash</code> with the one in the <code>.sha256</code> file.</p>
+        </li>
+        <li>
+          <h3>Start</h3>
+          <p>Check a starter profile, write its files into a folder of your choosing and list every target.</p>
+          <CopyCode label="Commands to check and render a starter profile" code={QUICK} />
+        </li>
+      </ol>
+      <h3 id="docs-heading">Guides</h3>
+      <ul class="doc-links">
+        {GUIDES.map((g) => <li><a href={g.href}>{g.title}</a>: {g.covers}.</li>)}
+      </ul>
+      <p class="more"><a href="/themes/">The colours behind the starter profiles: Zacess Themes</a></p>
+    </div>
+  </section>
+  <script is:inline src="/docs-copy.js" defer></script>
+</BaseLayout>

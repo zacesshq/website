@@ -3,7 +3,7 @@ title: "Lecture timeline"
 description: "The core of the lecture timeline: one lecture's recording, transcript, boards and pages, bookmarks and chapters on one clock."
 section: "use"
 group: "reader"
-order: 21
+order: 22
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

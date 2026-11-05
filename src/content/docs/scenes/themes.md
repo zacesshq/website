@@ -3,7 +3,7 @@ title: "Themes"
 description: "The colours are the terminal and syntax colours of Zacess Themes 0.5.0, embedded in the program. The theme is picked in this order"
 section: "use"
 group: "scenes"
-order: 26
+order: 38
 product: "Zacess Scenes"
 source: "scenes"
 repo: "zacesshq/scenes"

@@ -2,3 +2,10 @@
 # skipped too, since scripts/verify.mjs checks them against the build before they are live
 ^mailto:
 ^https://zacess\.com/
+# the source of a page written in this repository, under docs-src/: the sync reads the file itself,
+# so it exists. On a pull request it is not on main until the pull request merges
+^https://github\.com/zacesshq/website/blob/main/docs-src/
+# the GNU licence pages answer link checkers with 429 or 403 although they load in a browser
+^https://www\.gnu\.org/licenses/
+# the Braille Institute font page answers link checkers with 202 although it loads in a browser
+^https://www\.brailleinstitute\.org/

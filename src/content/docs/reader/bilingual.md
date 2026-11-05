@@ -3,7 +3,7 @@ title: "Bilingual reading"
 description: "The original alongside its translation, with language switching that never loses the place."
 section: "use"
 group: "reader"
-order: 17
+order: 18
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

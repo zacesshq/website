@@ -3,7 +3,7 @@ title: "OCR"
 description: "How images and scanned pages become text and how a doubtful word, number or symbol is flagged."
 section: "use"
 group: "reader"
-order: 7
+order: 8
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

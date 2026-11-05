@@ -1,6 +1,6 @@
 {
-  "version": "0.3.0",
-  "tag": "v0.3.0",
+  "version": "0.4.0",
+  "tag": "v0.4.0",
   "rust": "1.88",
   "still": {
     "width": 868,
@@ -420,49 +420,49 @@
   "docs": [
     {
       "title": "How to play",
-      "href": "https://github.com/zacesshq/games/blob/v0.3.0/docs/how-to-play.md",
+      "href": "https://github.com/zacesshq/games/blob/v0.4.0/docs/how-to-play.md",
       "covers": "The goal, rules, scoring, winning and losing, a tip and the keys of every game, with a still of each"
     },
     {
       "title": "Controls",
-      "href": "https://github.com/zacesshq/games/blob/v0.3.0/docs/controls.md",
+      "href": "https://github.com/zacesshq/games/blob/v0.4.0/docs/controls.md",
       "covers": "Every key, command, flag, variable, setting and window size on one sheet"
     },
     {
       "title": "Scores file",
-      "href": "https://github.com/zacesshq/games/blob/v0.3.0/docs/scores.md",
+      "href": "https://github.com/zacesshq/games/blob/v0.4.0/docs/scores.md",
       "covers": "Where best scores, streaks, progress and settings are kept and what every line means"
     },
     {
       "title": "Accessibility",
-      "href": "https://github.com/zacesshq/games/blob/v0.3.0/ACCESSIBILITY.md",
+      "href": "https://github.com/zacesshq/games/blob/v0.4.0/ACCESSIBILITY.md",
       "covers": "What the games do on screen, in sound and at the keyboard"
     },
     {
       "title": "Contributing",
-      "href": "https://github.com/zacesshq/games/blob/v0.3.0/CONTRIBUTING.md",
+      "href": "https://github.com/zacesshq/games/blob/v0.4.0/CONTRIBUTING.md",
       "covers": "How a change is made, the checks, adding a game and releasing"
     }
   ],
   "downloads": [
     {
-      "file": "zacess-games-v0.3.0-aarch64-apple-darwin.tar.gz",
+      "file": "zacess-games-v0.4.0-aarch64-apple-darwin.tar.gz",
       "system": "macOS on Apple silicon"
     },
     {
-      "file": "zacess-games-v0.3.0-x86_64-apple-darwin.tar.gz",
+      "file": "zacess-games-v0.4.0-x86_64-apple-darwin.tar.gz",
       "system": "macOS on Intel"
     },
     {
-      "file": "zacess-games-v0.3.0-x86_64-unknown-linux-musl.tar.gz",
+      "file": "zacess-games-v0.4.0-x86_64-unknown-linux-musl.tar.gz",
       "system": "Linux on x86-64, no shared libraries needed"
     },
     {
-      "file": "zacess-games-v0.3.0-aarch64-unknown-linux-musl.tar.gz",
+      "file": "zacess-games-v0.4.0-aarch64-unknown-linux-musl.tar.gz",
       "system": "Linux on ARM64, no shared libraries needed"
     },
     {
-      "file": "zacess-games-v0.3.0-x86_64-pc-windows-msvc.zip",
+      "file": "zacess-games-v0.4.0-x86_64-pc-windows-msvc.zip",
       "system": "Windows on x86-64"
     }
   ]

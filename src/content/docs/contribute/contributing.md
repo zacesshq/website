@@ -2,7 +2,7 @@
 title: "Contributing"
 description: "Thank you for helping make reading accessible."
 section: "contribute"
-order: 37
+order: 49
 product: "Zacess"
 source: "community"
 repo: "zacesshq/.github"

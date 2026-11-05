@@ -3,15 +3,15 @@ title: "Recommended settings"
 description: "A theme sets colours, not how an app uses them. These settings get the most out of the Zacess themes. None of them is required."
 section: "use"
 group: "themes"
-order: 33
+order: 45
 product: "Zacess Themes"
 source: "themes"
 repo: "zacesshq/themes"
-ref: "v0.9.0"
-refLabel: "v0.9.0"
-release: "0.9.0"
+ref: "v0.12.1"
+refLabel: "v0.12.1"
+release: "0.12.1"
 path: "docs/recommended-settings.md"
-sourceUrl: "https://github.com/zacesshq/themes/blob/v0.9.0/docs/recommended-settings.md"
+sourceUrl: "https://github.com/zacesshq/themes/blob/v0.12.1/docs/recommended-settings.md"
 ---
 
 A theme sets colours, not how an app uses them. These settings get the most out of the Zacess

@@ -2,31 +2,31 @@
 title: "Install Zacess Themes"
 description: "Every file is also in the latest release for an offline install."
 section: "install"
-order: 3
+order: 4
 product: "Zacess Themes"
 source: "themes"
 repo: "zacesshq/themes"
-ref: "v0.9.0"
-refLabel: "v0.9.0"
-release: "0.9.0"
+ref: "v0.12.1"
+refLabel: "v0.12.1"
+release: "0.12.1"
 path: "README.md"
 heading: "Install"
-sourceUrl: "https://github.com/zacesshq/themes/blob/v0.9.0/README.md"
+sourceUrl: "https://github.com/zacesshq/themes/blob/v0.12.1/README.md"
 ---
 
 | App | Install | Details |
 | --- | --- | --- |
-| VS Code | Search **Zacess Themes** in Extensions or run `code --install-extension zacess.zacess-themes`. Editors built on VS Code use [Open VSX](https://open-vsx.org/extension/zacess/zacess-themes) | [editors/vscode](https://github.com/zacesshq/themes/blob/v0.9.0/editors/vscode/README.md) |
-| JetBrains IDEs | **Settings**, **Plugins**, **Marketplace**, search **Zacess Themes** (IntelliJ Platform 2025.3 or later) | [editors/jetbrains](https://github.com/zacesshq/themes/blob/v0.9.0/editors/jetbrains/README.md) |
-| Obsidian | **Settings**, **Appearance**, **Themes**, **Manage**, search **Zacess**. Four themes, one per pair of looks, each following light and dark mode | [editors/obsidian](https://github.com/zacesshq/themes/blob/v0.9.0/editors/obsidian/README.md) |
-| Neovim | `{ "zacesshq/zacess.nvim", lazy = false, priority = 1000 }` with lazy.nvim | [editors/neovim](https://github.com/zacesshq/themes/blob/v0.9.0/editors/neovim/README.md) |
-| Zed | **zed: extensions**, search **Zacess Themes** | [editors/zed](https://github.com/zacesshq/themes/blob/v0.9.0/editors/zed/README.md) |
-| Sublime Text | Copy the `.sublime-color-scheme` files into `Packages/User` | [editors/sublime](https://github.com/zacesshq/themes/blob/v0.9.0/editors/sublime/README.md) |
-| Helix | Copy the themes into `~/.config/helix/themes/` | [editors/helix](https://github.com/zacesshq/themes/blob/v0.9.0/editors/helix/README.md) |
-| Emacs | Copy the `-theme.el` files into `~/.emacs.d/themes/` | [editors/emacs](https://github.com/zacesshq/themes/blob/v0.9.0/editors/emacs/README.md) |
-| Eclipse | **Help**, **Install New Software...** with the update site `https://zacesshq.github.io/themes/eclipse/` | [editors/eclipse](https://github.com/zacesshq/themes/blob/v0.9.0/editors/eclipse/README.md) |
-| Xcode | Copy the `.xccolortheme` files into `~/Library/Developer/Xcode/UserData/FontAndColorThemes/` | [editors/xcode](https://github.com/zacesshq/themes/blob/v0.9.0/editors/xcode/README.md) |
-| Terminals | Run the installer below in the terminal to theme | [editors/terminals](https://github.com/zacesshq/themes/blob/v0.9.0/editors/terminals/README.md) |
+| VS Code | Search **Zacess Themes** in Extensions or run `code --install-extension zacess.zacess-themes`. Editors built on VS Code use [Open VSX](https://open-vsx.org/extension/zacess/zacess-themes) | [editors/vscode](https://github.com/zacesshq/themes/blob/v0.12.1/editors/vscode/README.md) |
+| JetBrains IDEs | **Settings**, **Plugins**, **Marketplace**, search **Zacess Themes** (IntelliJ Platform 2025.3 or later) | [editors/jetbrains](https://github.com/zacesshq/themes/blob/v0.12.1/editors/jetbrains/README.md) |
+| Obsidian | **Settings**, **Appearance**, **Themes**, **Manage**, search **Zacess**. Four themes, one per pair of looks, each following light and dark mode | [editors/obsidian](https://github.com/zacesshq/themes/blob/v0.12.1/editors/obsidian/README.md) |
+| Neovim | `{ "zacesshq/zacess.nvim", lazy = false, priority = 1000 }` with lazy.nvim | [editors/neovim](https://github.com/zacesshq/themes/blob/v0.12.1/editors/neovim/README.md) |
+| Zed | **zed: extensions**, search **Zacess Themes** | [editors/zed](https://github.com/zacesshq/themes/blob/v0.12.1/editors/zed/README.md) |
+| Sublime Text | Copy the `.sublime-color-scheme` files into `Packages/User` | [editors/sublime](https://github.com/zacesshq/themes/blob/v0.12.1/editors/sublime/README.md) |
+| Helix | Copy the themes into `~/.config/helix/themes/` | [editors/helix](https://github.com/zacesshq/themes/blob/v0.12.1/editors/helix/README.md) |
+| Emacs | Copy the `-theme.el` files into `~/.emacs.d/themes/` | [editors/emacs](https://github.com/zacesshq/themes/blob/v0.12.1/editors/emacs/README.md) |
+| Eclipse | **Help**, **Install New Software...** with the update site `https://zacesshq.github.io/themes/eclipse/` | [editors/eclipse](https://github.com/zacesshq/themes/blob/v0.12.1/editors/eclipse/README.md) |
+| Xcode | Copy the `.xccolortheme` files into `~/Library/Developer/Xcode/UserData/FontAndColorThemes/` | [editors/xcode](https://github.com/zacesshq/themes/blob/v0.12.1/editors/xcode/README.md) |
+| Terminals | Run the installer below in the terminal to theme | [editors/terminals](https://github.com/zacesshq/themes/blob/v0.12.1/editors/terminals/README.md) |
 
 Every file is also in the [latest release](https://github.com/zacesshq/themes/releases/latest) for an
 offline install. [docs/recommended-settings.md](/docs/themes/recommended-settings/) has the settings that

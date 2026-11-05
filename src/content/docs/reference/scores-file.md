@@ -2,15 +2,15 @@
 title: "Scores file"
 description: "Everything Zacess Games remembers between runs is in one plain text file, scores.txt."
 section: "reference"
-order: 47
+order: 68
 product: "Zacess Games"
 source: "games"
 repo: "zacesshq/games"
-ref: "v0.3.0"
-refLabel: "v0.3.0"
-release: "0.3.0"
+ref: "v0.4.0"
+refLabel: "v0.4.0"
+release: "0.4.0"
 path: "docs/scores.md"
-sourceUrl: "https://github.com/zacesshq/games/blob/v0.3.0/docs/scores.md"
+sourceUrl: "https://github.com/zacesshq/games/blob/v0.4.0/docs/scores.md"
 ---
 
 Everything Zacess Games remembers between runs is in one plain text file, `scores.txt`. It holds
@@ -87,7 +87,7 @@ rows, light, moves and so on, as the How to play page of each game says).
 
 | Key | Value |
 | --- | --- |
-| `code-<track id>` | Levels done in that track, such as `code-python` or `code-rust`. The ids are the file names in [`levels/code`](https://github.com/zacesshq/games/tree/v0.3.0/levels/code/) without `.lua`. The game opens the track at this level and its level list ticks every level below it |
+| `code-<track id>` | Levels done in that track, such as `code-python` or `code-rust`. The ids are the file names in [`levels/code`](https://github.com/zacesshq/games/tree/v0.4.0/levels/code/) without `.lua`. The game opens the track at this level and its level list ticks every level below it |
 | `code-language` | The track opened last, as its place in the track list counted from zero |
 
 ### Sound

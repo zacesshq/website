@@ -3,15 +3,15 @@ title: "Contrast"
 description: "The summary below is measured by scripts/check.mjs and written here by scripts/build.mjs, so the numbers are always the ones CI enforced."
 section: "use"
 group: "themes"
-order: 31
+order: 43
 product: "Zacess Themes"
 source: "themes"
 repo: "zacesshq/themes"
-ref: "v0.9.0"
-refLabel: "v0.9.0"
-release: "0.9.0"
+ref: "v0.12.1"
+refLabel: "v0.12.1"
+release: "0.12.1"
 path: "docs/contrast.md"
-sourceUrl: "https://github.com/zacesshq/themes/blob/v0.9.0/docs/contrast.md"
+sourceUrl: "https://github.com/zacesshq/themes/blob/v0.12.1/docs/contrast.md"
 ---
 
 The summary below is measured by `scripts/check.mjs` and written here by `scripts/build.mjs`, so the numbers are always
@@ -31,7 +31,7 @@ the ones CI enforced. Every ratio is rounded down.
 <!-- contrast summary end -->
 
 Every token in every theme, the interface colours, the terminal colours and the colour vision results
-are listed in [ACCESSIBILITY.md](https://github.com/zacesshq/themes/blob/v0.9.0/ACCESSIBILITY.md).
+are listed in [ACCESSIBILITY.md](https://github.com/zacesshq/themes/blob/v0.12.1/ACCESSIBILITY.md).
 
 ## The floors
 
@@ -63,4 +63,5 @@ The checks refuse any colour below these floors and CI fails on the first one.
 | Two paired tokens under simulated protanopia, deuteranopia and tritanopia: OKLab distance | 0.04 |
 
 The pair rules apply when two paired tokens share a font style. Pairs that are often red and green,
-such as strings and numbers or added and removed lines, must meet them whatever their style.
+such as strings and numbers or added and removed lines, must meet them whatever their style. The
+error and warning colours of the interface are a pair too and always meet both.

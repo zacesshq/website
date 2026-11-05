@@ -3,7 +3,7 @@ title: "Universal capture"
 description: "How a web page, a piece of shared or copied text, an image or a file goes straight into the library's inbox."
 section: "use"
 group: "reader"
-order: 12
+order: 13
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

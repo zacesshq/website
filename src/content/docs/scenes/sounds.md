@@ -3,7 +3,7 @@ title: "Sound sets"
 description: "The watch and follow modes play a short tone for each change in a build or a command. Any scene can also play a quiet background sound."
 section: "use"
 group: "scenes"
-order: 25
+order: 37
 product: "Zacess Scenes"
 source: "scenes"
 repo: "zacesshq/scenes"

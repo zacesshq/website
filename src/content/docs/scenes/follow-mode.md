@@ -3,7 +3,7 @@ title: "Follow mode"
 description: "Showing how each command typed in a shell ended: what it shows, the shell hook, how a scene finds its shell, typos, the keys and the settings."
 section: "use"
 group: "scenes"
-order: 24
+order: 36
 product: "Zacess Scenes"
 source: "scenes"
 repo: "zacesshq/scenes"

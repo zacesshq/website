@@ -3,7 +3,7 @@ title: "Watch mode"
 description: "The build monitor for projects in any language: what it shows, the command each kind of project runs, bacon for Rust, the status bar, choosing the scenes, the"
 section: "use"
 group: "scenes"
-order: 23
+order: 35
 product: "Zacess Scenes"
 source: "scenes"
 repo: "zacesshq/scenes"

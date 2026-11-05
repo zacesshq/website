@@ -3,7 +3,7 @@ title: "Lecture recording store"
 description: "The storage core of recording a lecture on the device. The microphone, background modes and the screens are the app's."
 section: "use"
 group: "reader"
-order: 10
+order: 11
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

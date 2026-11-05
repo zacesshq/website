@@ -26,6 +26,7 @@ export const FOOTER_COLUMNS = [
     title: "Product",
     links: [
       { href: SITE.app, label: "Open the app" },
+      { href: "/profile/", label: "Accessibility profile" },
       { href: "/themes/", label: "Code themes" },
       { href: "/scenes/", label: "Terminal scenes" },
       { href: "/games/", label: "Terminal games" },
@@ -41,6 +42,7 @@ export const FOOTER_COLUMNS = [
       { href: "/docs/", label: "Documentation" },
       { href: "/docs/install/reader/", label: "Install" },
       { href: "/docs/reader/", label: "Reader" },
+      { href: "/docs/profile/", label: "Profile" },
       { href: "/docs/scenes/", label: "Scenes" },
       { href: "/docs/games/", label: "Games" },
       { href: "/docs/themes/", label: "Themes" },

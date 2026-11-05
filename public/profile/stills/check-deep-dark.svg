@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="868" height="568" viewBox="0 0 868 568" role="img" aria-label="zprf check in Zacess Deep Contrast Dark: the Deep Contrast Dark starter profile passes 224 pairs, then a copy with a dim comment colour fails, each failing pair named with its colours, its ratio and the floor it missed">
+<title>zprf check in Zacess Deep Contrast Dark: the Deep Contrast Dark starter profile passes 224 pairs, then a copy with a dim comment colour fails, each failing pair named with its colours, its ratio and the floor it missed</title>
+<rect x="0.5" y="0.5" width="867" height="567" rx="10" fill="#000000" stroke="#b3b3b3"/>
+<line x1="0.5" y1="30" x2="867.5" y2="30" stroke="#b3b3b3"/>
+<circle cx="18" cy="15" r="5" fill="#ff5f5f"/>
+<circle cx="34" cy="15" r="5" fill="#cdcd00"/>
+<circle cx="50" cy="15" r="5" fill="#00cd00"/>
+<text x="434" y="19.5" fill="#ffffff" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="13" text-anchor="middle">zprf</text>
+<g font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="14" xml:space="preserve">
+<text x="14" y="57" fill="#00ffff" textLength="8.4" lengthAdjust="spacingAndGlyphs">$</text><text x="30.8" y="57" fill="#ffffff" textLength="420" lengthAdjust="spacingAndGlyphs">zprf check profiles/zacess-deep-contrast-dark.toml</text>
+<text x="14" y="74" fill="#ffffff" textLength="604.8" lengthAdjust="spacingAndGlyphs">pass profiles/zacess-deep-contrast-dark.toml (Zacess Deep Contrast Dark)</text>
+<text x="56" y="91" fill="#ffffff" textLength="798" lengthAdjust="spacingAndGlyphs">224 pairs against text 7:1, non-text 3:1, overlay 4.5:1, terminal 7:1 and dim terminal 4.5:1, w</text>
+<text x="14" y="108" fill="#ffffff" textLength="663.6" lengthAdjust="spacingAndGlyphs">ith paired colours 0.05 apart in tone and 0.04 under colour vision deficiencies</text>
+<text x="56" y="125" fill="#ffffff" textLength="529.2" lengthAdjust="spacingAndGlyphs">tightest terminal.ansi[4] #8888ff on background #000000: 7.01:1</text>
+<text x="14" y="159" fill="#00ffff" textLength="8.4" lengthAdjust="spacingAndGlyphs">$</text><text x="30.8" y="159" fill="#ffffff" textLength="235.2" lengthAdjust="spacingAndGlyphs">zprf check dim-comments.toml</text>
+<text x="14" y="176" fill="#ffffff" textLength="420" lengthAdjust="spacingAndGlyphs">FAIL dim-comments.toml (Zacess Deep Contrast Dark)</text>
+<text x="56" y="193" fill="#ffffff" textLength="798" lengthAdjust="spacingAndGlyphs">224 pairs against text 7:1, non-text 3:1, overlay 4.5:1, terminal 7:1 and dim terminal 4.5:1, w</text>
+<text x="14" y="210" fill="#ffffff" textLength="663.6" lengthAdjust="spacingAndGlyphs">ith paired colours 0.05 apart in tone and 0.04 under colour vision deficiencies</text>
+<text x="56" y="227" fill="#ffffff" textLength="764.4" lengthAdjust="spacingAndGlyphs">FAIL syntax.comment #555555 on background #000000: 2.81:1, below needs.contrast.text of 7:1</text>
+<text x="56" y="244" fill="#ffffff" textLength="739.2" lengthAdjust="spacingAndGlyphs">FAIL syntax.comment #555555 on surface #000000: 2.81:1, below needs.contrast.text of 7:1</text>
+<text x="56" y="261" fill="#ffffff" textLength="772.8" lengthAdjust="spacingAndGlyphs">FAIL syntax.comment #555555 on surface_alt #0a0a0a: 2.65:1, below needs.contrast.text of 7:1</text>
+<text x="56" y="278" fill="#ffffff" textLength="789.6" lengthAdjust="spacingAndGlyphs">FAIL syntax.comment #555555 on line_highlight #262626: 2.02:1, below needs.contrast.overlay of</text>
+<text x="14" y="295" fill="#ffffff" textLength="42" lengthAdjust="spacingAndGlyphs">4.5:1</text>
+<text x="56" y="312" fill="#ffffff" textLength="789.6" lengthAdjust="spacingAndGlyphs">FAIL syntax.comment #555555 on selection_soft #720072: 1.43:1, below needs.contrast.overlay of</text>
+<text x="14" y="329" fill="#ffffff" textLength="42" lengthAdjust="spacingAndGlyphs">4.5:1</text>
+<text x="56" y="346" fill="#ffffff" textLength="798" lengthAdjust="spacingAndGlyphs">tightest syntax.comment #555555 on selection_soft #720072: 1.43:1, below needs.contrast.overlay</text>
+<text x="22.4" y="363" fill="#ffffff" textLength="67.2" lengthAdjust="spacingAndGlyphs">of 4.5:1</text>
+<text x="14" y="397" fill="#00ffff" textLength="8.4" lengthAdjust="spacingAndGlyphs">$</text>
+</g>
+</svg>

@@ -12,7 +12,11 @@
 //   node scripts/sync-docs.mjs            keeps the committed files if a fetch fails
 //   node scripts/sync-docs.mjs --strict   fails instead, for the deploy workflow
 //
-// SCENES_TAG, GAMES_TAG and THEMES_TAG pin a tag, ZACESS_REF and COMMUNITY_REF a commit, and
+// A page the manifest marks local is written in this repository under docs-src/ rather than pulled,
+// for a page the product repository has no file for yet. It names the release it was checked
+// against and the sync says so when a newer release is out, so the page is checked again.
+//
+// SCENES_TAG, GAMES_TAG, THEMES_TAG and PROFILE_TAG pin a tag, ZACESS_REF and COMMUNITY_REF a commit, and
 // GITHUB_TOKEN, when set, lifts the API rate limit.
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, rmSync, statSync, existsSync, mkdtempSync } from "node:fs";
 import { join, dirname, posix } from "node:path";
@@ -23,6 +27,7 @@ import { get, latestTag, raw } from "./lib/release.mjs";
 import { SOURCES, PAGES } from "./docs-manifest.mjs";
 
 const CONTENT = new URL("../src/content/docs/", import.meta.url).pathname;
+const SITE_REPO = "zacesshq/website";
 const PUBLIC = new URL("../public/docs/", import.meta.url).pathname;
 const strict = process.argv.includes("--strict");
 
@@ -208,7 +213,7 @@ function transform(markdown, page, refs, pagesByFile) {
 
     // links and images: between pages by their address here, otherwise to GitHub at the same ref
     line = line.replace(/(!?)\[([^\]]*)\]\(([^)\s]+)((?:\s+"[^"]*")?)\)/g, (whole, bang, text, target, titleAttr) => {
-      if (/^(https?:|mailto:|#|data:)/.test(target)) return whole;
+      if (/^(https?:|mailto:|#|data:|\/)/.test(target)) return whole;
       const [path, frag = ""] = target.split("#");
       const resolved = resolvePath(page.path, decodeURI(path));
       if (bang) {
@@ -260,7 +265,9 @@ const yaml = (v) => JSON.stringify(v);
 
 function frontmatter(page, meta, refs) {
   const source = SOURCES[page.source];
-  const { ref, label, release } = refs[page.source];
+  const { ref, label, release } = page.local
+    ? { ref: page.checked, label: page.checked, release: page.checked.slice(1) }
+    : refs[page.source];
   const order = PAGES.indexOf(page);
   const fields = [
     `title: ${yaml(meta.title)}`,
@@ -274,9 +281,9 @@ function frontmatter(page, meta, refs) {
     `ref: ${yaml(ref)}`,
     `refLabel: ${yaml(label)}`,
     release ? `release: ${yaml(release)}` : null,
-    `path: ${yaml(page.path)}`,
+    `path: ${yaml(page.local ?? page.path)}`,
     page.heading ? `heading: ${yaml(page.heading.replace(/^#+ /, ""))}` : null,
-    `sourceUrl: ${yaml(`https://github.com/${source.repo}/blob/${ref}/${page.path}`)}`,
+    `sourceUrl: ${yaml(page.local ? `https://github.com/${SITE_REPO}/blob/main/${page.local}` : `https://github.com/${source.repo}/blob/${ref}/${page.path}`)}`,
   ].filter(Boolean);
   return `---\n${fields.join("\n")}\n---\n\n`;
 }
@@ -288,15 +295,24 @@ const walk = (dir) => (existsSync(dir) ? readdirSync(dir).flatMap((f) => {
 
 async function sync() {
   const refs = await resolveRefs();
-  const pagesByFile = new Map(PAGES.filter((p) => !p.heading).map((p) => [`${p.source}:${p.path}`, p]));
+  const pagesByFile = new Map(PAGES.filter((p) => !p.heading && !p.local).map((p) => [`${p.source}:${p.path}`, p]));
 
   const files = new Map();
   const skipped = [];
+  const notes = [];
   const pending = [];
   for (const page of PAGES) {
     const source = SOURCES[page.source];
     const { ref } = refs[page.source];
     let markdown;
+    if (page.local) {
+      if (!page.checked || !/^v\d+\.\d+\.\d+$/.test(page.checked)) throw new Error(`${page.slug} is local but names no release it was checked against`);
+      markdown = readFileSync(new URL(`../${page.local}`, import.meta.url), "utf8");
+      if (page.checked !== ref) notes.push(`${page.slug} was checked against ${source.name} ${page.checked} and the newest release is ${ref}, so check ${page.local} again`);
+      const meta = transform(markdown, page, refs, pagesByFile);
+      pending.push({ page, meta });
+      continue;
+    }
     try {
       markdown = await raw(source.repo, ref, page.path);
     } catch (error) {
@@ -343,6 +359,7 @@ async function sync() {
   const sources = Object.entries(refs).map(([id, r]) => `${SOURCES[id].name === "Zacess" ? id : SOURCES[id].name} ${r.label}`).join(", ");
   console.log(`sync-docs: ${pending.length} pages and ${diagrams.length} diagrams from ${sources}, ${changed ? `${changed} file(s) updated` : "already up to date"}`);
   for (const s of skipped) console.log(`sync-docs: skipped ${s}`);
+  for (const n of notes) console.log(`sync-docs: ${n}`);
 }
 
 try {

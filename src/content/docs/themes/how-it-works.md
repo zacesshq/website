@@ -3,15 +3,15 @@ title: "How it works"
 description: "<!--diagram 1-->"
 section: "use"
 group: "themes"
-order: 30
+order: 42
 product: "Zacess Themes"
 source: "themes"
 repo: "zacesshq/themes"
-ref: "v0.9.0"
-refLabel: "v0.9.0"
-release: "0.9.0"
+ref: "v0.12.1"
+refLabel: "v0.12.1"
+release: "0.12.1"
 path: "docs/how-it-works.md"
-sourceUrl: "https://github.com/zacesshq/themes/blob/v0.9.0/docs/how-it-works.md"
+sourceUrl: "https://github.com/zacesshq/themes/blob/v0.12.1/docs/how-it-works.md"
 ---
 
 <figure class="diagram" role="img" aria-label="Diagram beginning with palette/zacess.json">
@@ -35,9 +35,9 @@ flowchart LR
 
 </details>
 
-1. [`palette/zacess.json`](https://github.com/zacesshq/themes/blob/v0.9.0/palette/zacess.json) holds every colour: the interface, the syntax tokens
+1. [`palette/zacess.json`](https://github.com/zacesshq/themes/blob/v0.12.1/palette/zacess.json) holds every colour: the interface, the syntax tokens
    and the 16 terminal colours of each theme, the font style of each token, the pairs of tokens that
-   must look different and the floors the checks enforce. [`palette/schema.json`](https://github.com/zacesshq/themes/blob/v0.9.0/palette/schema.json)
+   must look different and the floors the checks enforce. [`palette/schema.json`](https://github.com/zacesshq/themes/blob/v0.12.1/palette/schema.json)
    describes its shape.
 2. `npm run build` writes every editor's files from the palette. The generated files are committed,
    so each folder under `editors/` stands alone.

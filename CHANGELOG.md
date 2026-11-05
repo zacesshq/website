@@ -7,6 +7,38 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- An accessibility profile page at `/profile/` for Zacess Profile, drawn from its newest release:
+  what a profile is, how `zprf` derives and checks colours, every floor, target, command and starter
+  profile, the browser extension, the accessibility guarantees, the plans and the four install
+  routes with the release builds. The Profile mark follows the colour mode in light and dark.
+- `scripts/sync-profile.mjs`, which copies that release into `src/data/profile.json` and
+  `public/profile/images` before every build, with the version at `/profile/version.txt`.
+- Zacess Profile in the documentation, covered as fully as Zacess Scenes: an install page with every
+  route, the checksum steps, building from source and uninstalling. A Profile group in the Use
+  section with the quick start, writing a profile, what is checked, the colour vision checks, the
+  targets, loading the files in each app, the starter profiles, the browser extension, the system
+  settings preview, the accessibility statement and troubleshooting. A page for each `zprf` command
+  in the Reference section beside the command line summary and the profile format.
+- Documentation pages written in this repository under `docs-src/`, for a product whose repository
+  has no file for a page yet. Each names the release it was checked against and the sync says when a
+  newer one is out.
+- A Copy button on every command and code block of the profile page, the same button and script
+  the documentation uses, with `npm run verify` checking each block has one.
+- The accessibility profile first in the homepage's More from Zacess cards, with a still of real
+  `zprf check` output in Zacess Deep Contrast Dark drawn by `scripts/draw-profile-still.mjs`.
+  Profile also comes first among the products in the footer and the documentation.
+- A `profile-release` dispatch that starts a deploy, with the daily run comparing
+  `/profile/version.txt` with the live site as it does for the other products.
+
+### Changed
+
+- The homepage's More from Zacess cards stand two across on a laptop and four across on a wide
+  screen.
+- The Copy button on every code block sits beside the first line instead of above the code, and
+  long lines wrap around it rather than scroll sideways under it.
+
 ## [0.3.0] - 2026-11-03
 
 ### Added

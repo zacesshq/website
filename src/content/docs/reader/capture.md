@@ -3,7 +3,7 @@ title: "Whiteboard and handwriting capture"
 description: "The core logic and data model for photographing whiteboards and handwritten notes, dropping repeats, keeping every version and turning each kept capture into"
 section: "use"
 group: "reader"
-order: 11
+order: 12
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

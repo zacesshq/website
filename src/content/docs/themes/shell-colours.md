@@ -3,15 +3,15 @@ title: "Command colours in your shell"
 description: "Shell syntax highlighting can name the terminal's ANSI colours instead of fixed values, so commands follow whichever Zacess theme is active: commands in green"
 section: "use"
 group: "themes"
-order: 34
+order: 46
 product: "Zacess Themes"
 source: "themes"
 repo: "zacesshq/themes"
-ref: "v0.9.0"
-refLabel: "v0.9.0"
-release: "0.9.0"
+ref: "v0.12.1"
+refLabel: "v0.12.1"
+release: "0.12.1"
 path: "docs/shell-colours.md"
-sourceUrl: "https://github.com/zacesshq/themes/blob/v0.9.0/docs/shell-colours.md"
+sourceUrl: "https://github.com/zacesshq/themes/blob/v0.12.1/docs/shell-colours.md"
 ---
 
 Shell syntax highlighting can name the terminal's ANSI colours instead of fixed values, so commands

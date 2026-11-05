@@ -117,6 +117,16 @@ for (const [file, src] of docsPages) {
     if (!codeCss.includes(`.${m[0]}{`)) problems.push(`${name}: code class ${m[0]} is not in /docs/code.css`);
   }
 }
+// the product pages that carry Copy buttons: every code block has one and the script that works it
+// is on the page. The profile page is held to it by name, so losing every button fails as well
+for (const [file, src] of Object.entries(html)) {
+  const name = "/" + relative(DIST, file);
+  if (name.startsWith("/docs/") || (!src.includes('class="docs-code"') && name !== "/profile/index.html")) continue;
+  const pres = (src.match(/<pre[\s>]/g) || []).length;
+  const buttons = (src.match(/<button type="button" class="code-copy" aria-label="Copy this code">/g) || []).length;
+  if (!pres || pres !== buttons) problems.push(`${name}: ${pres} code blocks but ${buttons} copy buttons`);
+  if (!src.includes('src="/docs-copy.js"')) problems.push(`${name}: copy buttons without /docs-copy.js`);
+}
 for (const need of ["pagefind/pagefind.js", "pagefind/pagefind-entry.json"]) {
   if (!existsSync(join(DIST, need))) problems.push(`search index missing: ${need}`);
 }

@@ -3,7 +3,7 @@ title: "Document model"
 description: "Every importer produces a Zacess document and every view and export reads one. It lives in crates/zacess-core/src/model.rs."
 section: "use"
 group: "reader"
-order: 5
+order: 6
 product: "Zacess"
 source: "reader"
 repo: "zacesshq/zacess"

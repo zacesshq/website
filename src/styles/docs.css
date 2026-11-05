@@ -130,8 +130,8 @@
 .docs-body pre::-webkit-scrollbar-thumb, .docs-body .table-scroll::-webkit-scrollbar-thumb { background: var(--docs-muted); border: 0.2rem solid var(--docs-surface-alt); border-radius: 0.5rem; }
 .docs-body pre code { background: none; border: 0; padding: 0; font-size: inherit; line-height: inherit; white-space: pre; overflow-wrap: normal; }
 .docs-body pre:focus-visible { outline-offset: -4px; }
-/* the Copy button sits in the top right corner of its block, 44 pixels each way, above the code
-   rather than over it; it is drawn once the script that works it has loaded */
+/* the Copy button sits in the top right corner of its block, 44 pixels each way, beside the first line,
+   and long lines wrap around it rather than run under it; it is drawn once the script that works it has loaded */
 .docs-code { position: relative; margin: 1rem 0 1.5rem; }
 .code-copy {
   display: none; position: absolute; top: 0.4rem; right: 0.4rem; z-index: 1; align-items: center; gap: 0.4rem;
@@ -139,7 +139,10 @@
   color: var(--docs-text); background: var(--docs-surface-alt); border: 1px solid var(--docs-line); border-radius: 8px; cursor: pointer;
 }
 .js .code-copy { display: inline-flex; }
-.js .docs-code > pre { padding-top: 3.4rem; }
+.js .docs-code > pre { white-space: pre-wrap; overflow-wrap: anywhere; min-height: 3.55rem; }
+.js .docs-code > pre code { white-space: inherit; overflow-wrap: inherit; }
+/* a float the size of the button, so the first lines wrap around it and the rest use the full width */
+.js .docs-code > pre::before { content: ""; float: right; width: 6.6rem; height: 2.5rem; }
 .code-copy svg { width: 1.1rem; height: 1.1rem; flex: none; }
 .code-copy:hover { border-color: var(--docs-text); }
 .code-copy[data-copied] { border-color: var(--docs-text); box-shadow: inset 0 0 0 1px var(--docs-text); }
@@ -167,7 +170,8 @@
 }
 @media print {
   .docs-side, .docs-toc, .docs-toggle, .code-copy { display: none !important; }
-  .js .docs-code > pre { padding-top: 0.9rem; }
+  .js .docs-code > pre { min-height: 0; }
+  .js .docs-code > pre::before { content: none; }
   .docs { display: block; }
 }
 

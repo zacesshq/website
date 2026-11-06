@@ -1,6 +1,6 @@
 # Install Zacess Profile
 
-Zacess Profile is one program, `zprf`, from the `zacess-profile` crate. Version 0.2.0 has four ways
+Zacess Profile is one program, `zprf`, from the `zacess-profile` crate. Version 0.2.2 has four ways
 in. The shortest for each system comes first.
 
 ## macOS and Linux with Homebrew
@@ -47,16 +47,16 @@ the starter profiles and the spec.
 
 ## From a release archive
 
-Each build on the [v0.2.0 release](https://github.com/zacesshq/profile/releases/tag/v0.2.0) has a
+Each build on the [v0.2.2 release](https://github.com/zacesshq/profile/releases/tag/v0.2.2) has a
 `.sha256` file beside it.
 
 | System | Archive |
 | --- | --- |
-| macOS on Apple silicon | `zacess-profile-v0.2.0-aarch64-apple-darwin.tar.gz` |
-| macOS on Intel | `zacess-profile-v0.2.0-x86_64-apple-darwin.tar.gz` |
-| Linux on x86-64 | `zacess-profile-v0.2.0-x86_64-unknown-linux-musl.tar.gz` |
-| Linux on ARM64 | `zacess-profile-v0.2.0-aarch64-unknown-linux-musl.tar.gz` |
-| Windows on x86-64 | `zacess-profile-v0.2.0-x86_64-pc-windows-msvc.zip` |
+| macOS on Apple silicon | `zacess-profile-v0.2.2-aarch64-apple-darwin.tar.gz` |
+| macOS on Intel | `zacess-profile-v0.2.2-x86_64-apple-darwin.tar.gz` |
+| Linux on x86-64 | `zacess-profile-v0.2.2-x86_64-unknown-linux-musl.tar.gz` |
+| Linux on ARM64 | `zacess-profile-v0.2.2-aarch64-unknown-linux-musl.tar.gz` |
+| Windows on x86-64 | `zacess-profile-v0.2.2-x86_64-pc-windows-msvc.zip` |
 
 The Linux builds are static and the Windows build links its C runtime statically, so nothing else
 needs installing. Each archive unpacks into a folder of the same name that holds `zprf`
@@ -66,26 +66,26 @@ licence, notice, changelog, roadmap and accessibility statement.
 Download the archive and its `.sha256` file into the same folder. On macOS, for Apple silicon:
 
 ```sh
-shasum -a 256 -c zacess-profile-v0.2.0-aarch64-apple-darwin.tar.gz.sha256
-tar -xzf zacess-profile-v0.2.0-aarch64-apple-darwin.tar.gz
-install -m 755 zacess-profile-v0.2.0-aarch64-apple-darwin/zprf ~/.local/bin/
+shasum -a 256 -c zacess-profile-v0.2.2-aarch64-apple-darwin.tar.gz.sha256
+tar -xzf zacess-profile-v0.2.2-aarch64-apple-darwin.tar.gz
+install -m 755 zacess-profile-v0.2.2-aarch64-apple-darwin/zprf ~/.local/bin/
 ```
 
 `shasum` prints `OK` beside the file name when the sum matches. On Linux, for x86-64:
 
 ```sh
-sha256sum -c zacess-profile-v0.2.0-x86_64-unknown-linux-musl.tar.gz.sha256
-tar -xzf zacess-profile-v0.2.0-x86_64-unknown-linux-musl.tar.gz
-install -m 755 zacess-profile-v0.2.0-x86_64-unknown-linux-musl/zprf ~/.local/bin/
+sha256sum -c zacess-profile-v0.2.2-x86_64-unknown-linux-musl.tar.gz.sha256
+tar -xzf zacess-profile-v0.2.2-x86_64-unknown-linux-musl.tar.gz
+install -m 755 zacess-profile-v0.2.2-x86_64-unknown-linux-musl/zprf ~/.local/bin/
 ```
 
 On Windows, in PowerShell, compare the hash with the first word of the `.sha256` file, then unpack
 the zip and put `zprf.exe` in a folder on your `PATH`:
 
 ```powershell
-Get-FileHash zacess-profile-v0.2.0-x86_64-pc-windows-msvc.zip -Algorithm SHA256
-Get-Content zacess-profile-v0.2.0-x86_64-pc-windows-msvc.zip.sha256
-Expand-Archive zacess-profile-v0.2.0-x86_64-pc-windows-msvc.zip -DestinationPath .
+Get-FileHash zacess-profile-v0.2.2-x86_64-pc-windows-msvc.zip -Algorithm SHA256
+Get-Content zacess-profile-v0.2.2-x86_64-pc-windows-msvc.zip.sha256
+Expand-Archive zacess-profile-v0.2.2-x86_64-pc-windows-msvc.zip -DestinationPath .
 ```
 
 `~/.local/bin` is one common folder on the `PATH`. Any folder on yours works.
@@ -101,9 +101,18 @@ cargo install --path .
 ```
 
 The checks the project runs on every change are in its
-[contributing guide](https://github.com/zacesshq/profile/blob/v0.2.0/CONTRIBUTING.md). The browser
+[contributing guide](https://github.com/zacesshq/profile/blob/v0.2.2/CONTRIBUTING.md). The browser
 extension has its own build, described on the [browser extension](/docs/profile/browser-extension/)
 page.
+
+## The browser extension
+
+The extension that applies a profile to every web page installs from the
+[Chrome Web Store](https://chromewebstore.google.com/detail/afbflpkolnhidmopegadfnlhenhjkpdc),
+[Firefox Add-ons](https://addons.mozilla.org/firefox/addon/zacess-profile/) or
+[Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/kdihhdkcphgpaibeemcgheifijflonbg).
+Each listing opens once that store's review is done. The
+[browser extension](/docs/profile/browser-extension/) page covers loading it unpacked.
 
 ## Check the install
 
@@ -112,7 +121,7 @@ zprf --version
 zprf list-targets
 ```
 
-The first prints `zprf 0.2.0`. The second lists the seven targets `render` can write.
+The first prints `zprf 0.2.2`. The second lists the seven targets `render` can write.
 
 ## Uninstall
 

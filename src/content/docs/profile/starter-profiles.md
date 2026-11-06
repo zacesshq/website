@@ -7,9 +7,9 @@ order: 30
 product: "Zacess Profile"
 source: "profile"
 repo: "zacesshq/profile"
-ref: "v0.2.0"
-refLabel: "v0.2.0"
-release: "0.2.0"
+ref: "v0.2.2"
+refLabel: "v0.2.2"
+release: "0.2.2"
 path: "docs-src/profile/starter-profiles.md"
 sourceUrl: "https://github.com/zacesshq/website/blob/main/docs-src/profile/starter-profiles.md"
 ---
@@ -37,7 +37,7 @@ The lowest measured value in each class of pair, for every starter profile, is i
 | --- | --- |
 | Homebrew | `$(brew --prefix)/share/zacess-profile/profiles` |
 | A release archive | `profiles/` inside the unpacked folder |
-| The source | [`profiles/`](https://github.com/zacesshq/profile/tree/v0.2.0/profiles) in the repository |
+| The source | [`profiles/`](https://github.com/zacesshq/profile/tree/v0.2.2/profiles) in the repository |
 
 ## Check one
 

@@ -62,7 +62,7 @@ export const GROUPS = [
 export const PAGES = [
   // Install
   { slug: "install/reader", section: "install", source: "reader", path: "README.md", heading: "## Browser version", title: "Install the reader" },
-  { slug: "install/profile", section: "install", source: "profile", path: "", local: "docs-src/profile/install.md", checked: "v0.2.0" },
+  { slug: "install/profile", section: "install", source: "profile", path: "", local: "docs-src/profile/install.md", checked: "v0.2.2" },
   { slug: "install/scenes", section: "install", source: "scenes", path: "README.md", heading: "## Install", title: "Install Zacess Scenes" },
   { slug: "install/games", section: "install", source: "games", path: "README.md", heading: "## Install", title: "Install Zacess Games" },
   { slug: "install/themes", section: "install", source: "themes", path: "README.md", heading: "## Install", title: "Install Zacess Themes" },
@@ -74,16 +74,16 @@ export const PAGES = [
 
   // Use: the profile, partly written here since the repository's own docs are its README sections
   { slug: "profile/quick-start", section: "use", group: "profile", source: "profile", path: "README.md", heading: "## Quick start", title: "Quick start" },
-  { slug: "profile/writing-a-profile", section: "use", group: "profile", source: "profile", path: "", local: "docs-src/profile/writing-a-profile.md", checked: "v0.2.0" },
+  { slug: "profile/writing-a-profile", section: "use", group: "profile", source: "profile", path: "", local: "docs-src/profile/writing-a-profile.md", checked: "v0.2.2" },
   { slug: "profile/what-is-checked", section: "use", group: "profile", source: "profile", path: "README.md", heading: "## What is checked", title: "What is checked" },
-  { slug: "profile/colour-vision", section: "use", group: "profile", source: "profile", path: "", local: "docs-src/profile/colour-vision.md", checked: "v0.2.0" },
+  { slug: "profile/colour-vision", section: "use", group: "profile", source: "profile", path: "", local: "docs-src/profile/colour-vision.md", checked: "v0.2.2" },
   { slug: "profile/targets", section: "use", group: "profile", source: "profile", path: "README.md", heading: "## Targets", title: "Targets" },
-  { slug: "profile/load-in-each-app", section: "use", group: "profile", source: "profile", path: "", local: "docs-src/profile/load-in-each-app.md", checked: "v0.2.0" },
-  { slug: "profile/starter-profiles", section: "use", group: "profile", source: "profile", path: "", local: "docs-src/profile/starter-profiles.md", checked: "v0.2.0" },
+  { slug: "profile/load-in-each-app", section: "use", group: "profile", source: "profile", path: "", local: "docs-src/profile/load-in-each-app.md", checked: "v0.2.2" },
+  { slug: "profile/starter-profiles", section: "use", group: "profile", source: "profile", path: "", local: "docs-src/profile/starter-profiles.md", checked: "v0.2.2" },
   { slug: "profile/browser-extension", section: "use", group: "profile", source: "profile", path: "extension/README.md", title: "Browser extension" },
-  { slug: "profile/os-settings", section: "use", group: "profile", source: "profile", path: "", local: "docs-src/profile/os-settings.md", checked: "v0.2.0" },
+  { slug: "profile/os-settings", section: "use", group: "profile", source: "profile", path: "", local: "docs-src/profile/os-settings.md", checked: "v0.2.2" },
   { slug: "profile/accessibility", section: "use", group: "profile", source: "profile", path: "ACCESSIBILITY.md", title: "Accessibility of Zacess Profile" },
-  { slug: "profile/troubleshooting", section: "use", group: "profile", source: "profile", path: "", local: "docs-src/profile/troubleshooting.md", checked: "v0.2.0" },
+  { slug: "profile/troubleshooting", section: "use", group: "profile", source: "profile", path: "", local: "docs-src/profile/troubleshooting.md", checked: "v0.2.2" },
 
   // Use: the scenes
   ...["watch-mode", "follow-mode", "sounds", "themes", "snapshots", "scenes"]
@@ -111,13 +111,13 @@ export const PAGES = [
 
   // Reference
   { slug: "reference/profile-cli", section: "reference", source: "profile", path: "README.md", heading: "## Commands", title: "Profile command line" },
-  { slug: "reference/profile-check", section: "reference", source: "profile", path: "", local: "docs-src/profile/reference/check.md", checked: "v0.2.0" },
-  { slug: "reference/profile-derive", section: "reference", source: "profile", path: "", local: "docs-src/profile/reference/derive.md", checked: "v0.2.0" },
-  { slug: "reference/profile-render", section: "reference", source: "profile", path: "", local: "docs-src/profile/reference/render.md", checked: "v0.2.0" },
-  { slug: "reference/profile-apply", section: "reference", source: "profile", path: "", local: "docs-src/profile/reference/apply.md", checked: "v0.2.0" },
-  { slug: "reference/profile-watch", section: "reference", source: "profile", path: "", local: "docs-src/profile/reference/watch.md", checked: "v0.2.0" },
-  { slug: "reference/profile-os", section: "reference", source: "profile", path: "", local: "docs-src/profile/reference/os.md", checked: "v0.2.0" },
-  { slug: "reference/profile-list-targets", section: "reference", source: "profile", path: "", local: "docs-src/profile/reference/list-targets.md", checked: "v0.2.0" },
+  { slug: "reference/profile-check", section: "reference", source: "profile", path: "", local: "docs-src/profile/reference/check.md", checked: "v0.2.2" },
+  { slug: "reference/profile-derive", section: "reference", source: "profile", path: "", local: "docs-src/profile/reference/derive.md", checked: "v0.2.2" },
+  { slug: "reference/profile-render", section: "reference", source: "profile", path: "", local: "docs-src/profile/reference/render.md", checked: "v0.2.2" },
+  { slug: "reference/profile-apply", section: "reference", source: "profile", path: "", local: "docs-src/profile/reference/apply.md", checked: "v0.2.2" },
+  { slug: "reference/profile-watch", section: "reference", source: "profile", path: "", local: "docs-src/profile/reference/watch.md", checked: "v0.2.2" },
+  { slug: "reference/profile-os", section: "reference", source: "profile", path: "", local: "docs-src/profile/reference/os.md", checked: "v0.2.2" },
+  { slug: "reference/profile-list-targets", section: "reference", source: "profile", path: "", local: "docs-src/profile/reference/list-targets.md", checked: "v0.2.2" },
   { slug: "reference/profile-format", section: "reference", source: "profile", path: "spec/SPEC.md", title: "Profile format" },
   { slug: "reference/scenes-cli", section: "reference", source: "scenes", path: "docs/usage.md", title: "Scenes command line" },
   { slug: "reference/scenes-config", section: "reference", source: "scenes", path: "docs/configuration.md", title: "Scenes configuration" },

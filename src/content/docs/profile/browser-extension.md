@@ -7,30 +7,40 @@ order: 31
 product: "Zacess Profile"
 source: "profile"
 repo: "zacesshq/profile"
-ref: "v0.2.0"
-refLabel: "v0.2.0"
-release: "0.2.0"
+ref: "v0.2.2"
+refLabel: "v0.2.2"
+release: "0.2.2"
 path: "extension/README.md"
-sourceUrl: "https://github.com/zacesshq/profile/blob/v0.2.0/extension/README.md"
+sourceUrl: "https://github.com/zacesshq/profile/blob/v0.2.2/extension/README.md"
 ---
 
 A WebExtension (Manifest V3, TypeScript, no framework) that applies a
-[Zacess Profile](https://github.com/zacesshq/profile/blob/v0.2.0/README.md) to every web page through CSS custom properties. It builds for Chrome
+[Zacess Profile](https://github.com/zacesshq/profile/blob/v0.2.2/README.md) to every web page through CSS custom properties. It builds for Chrome
 and Firefox from one source.
 
 What it applies, need by need, is listed in
-[ACCESSIBILITY.md](/docs/profile/accessibility/#the-browser-extension). It is not in any store yet:
-[STORE.md](https://github.com/zacesshq/profile/blob/v0.2.0/extension/STORE.md) holds the listing text and the store assets.
+[ACCESSIBILITY.md](/docs/profile/accessibility/#the-browser-extension). [STORE.md](https://github.com/zacesshq/profile/blob/v0.2.2/extension/STORE.md) holds the
+listing text and the store assets.
+
+## Install
+
+| Browser | Store |
+| --- | --- |
+| Chrome | [Chrome Web Store](https://chromewebstore.google.com/detail/afbflpkolnhidmopegadfnlhenhjkpdc) |
+| Firefox | [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/zacess-profile/) |
+| Microsoft Edge | [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/kdihhdkcphgpaibeemcgheifijflonbg) |
+
+Each listing opens once that store's review is done. Until then, load it unpacked as below.
 
 ## How it works
 
 | Part | File | Does |
 | --- | --- | --- |
-| Options page | [`src/options.ts`](https://github.com/zacesshq/profile/blob/v0.2.0/extension/src/options.ts) | Reads a pasted or imported TOML profile, checks it and saves it in extension storage on this device |
-| Profile reader | [`src/profile.ts`](https://github.com/zacesshq/profile/blob/v0.2.0/extension/src/profile.ts), [`src/schema.ts`](https://github.com/zacesshq/profile/blob/v0.2.0/extension/src/schema.ts) | Parses TOML 1.0 and validates the result against [`spec/profile.schema.json`](https://github.com/zacesshq/profile/blob/v0.2.0/spec/profile.schema.json), the same schema `zprf` follows |
-| Style sheet | [`src/css.ts`](https://github.com/zacesshq/profile/blob/v0.2.0/extension/src/css.ts) | Turns the profile into `--zprf-*` custom properties on `:root` and the rules that use them, after checking each colour pair it draws against the profile's floors |
-| Content script | [`src/content.ts`](https://github.com/zacesshq/profile/blob/v0.2.0/extension/src/content.ts) | Keeps one style element in every frame in step with the stored profile, so a change reaches open tabs without a reload |
-| Background | [`src/background.ts`](https://github.com/zacesshq/profile/blob/v0.2.0/extension/src/background.ts) | Opens the options page on first install and from the toolbar button |
+| Options page | [`src/options.ts`](https://github.com/zacesshq/profile/blob/v0.2.2/extension/src/options.ts) | Reads a pasted or imported TOML profile, checks it and saves it in extension storage on this device |
+| Profile reader | [`src/profile.ts`](https://github.com/zacesshq/profile/blob/v0.2.2/extension/src/profile.ts), [`src/schema.ts`](https://github.com/zacesshq/profile/blob/v0.2.2/extension/src/schema.ts) | Parses TOML 1.0 and validates the result against [`spec/profile.schema.json`](https://github.com/zacesshq/profile/blob/v0.2.2/spec/profile.schema.json), the same schema `zprf` follows |
+| Style sheet | [`src/css.ts`](https://github.com/zacesshq/profile/blob/v0.2.2/extension/src/css.ts) | Turns the profile into `--zprf-*` custom properties on `:root` and the rules that use them, after checking each colour pair it draws against the profile's floors |
+| Content script | [`src/content.ts`](https://github.com/zacesshq/profile/blob/v0.2.2/extension/src/content.ts) | Keeps one style element in every frame in step with the stored profile, so a change reaches open tabs without a reload |
+| Background | [`src/background.ts`](https://github.com/zacesshq/profile/blob/v0.2.2/extension/src/background.ts) | Opens the options page on first install and from the toolbar button |
 
 A profile that leaves colours to be derived still applies its font, size, spacing, focus ring and
 motion needs. Its colours apply once every colour is set: run `zprf derive profile.toml --out

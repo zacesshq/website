@@ -7,6 +7,19 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- An In your browser section on `/themes/` with a link to each of the eight browser themes in the
+  Chrome Web Store and on Firefox Add-ons. An install card for the browser themes notes that Edge
+  installs the Chrome ones.
+- The Profile install page links the browser extension in the Chrome Web Store, on Firefox Add-ons
+  and on Microsoft Edge Add-ons. The Profile page shows the same links from the 0.2.2 release.
+
+### Changed
+
+- The Profile documentation written on this site is checked against Zacess Profile 0.2.2. The
+  release archive names, the version `zprf --version` prints and the source links follow it.
+
 ## [0.4.0] - 2026-11-05
 
 ### Added

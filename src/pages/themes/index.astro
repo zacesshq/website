@@ -9,6 +9,19 @@ import { render, THEME_IDS, THEME_NAMES } from "../../lib/highlight";
 const REPO = "https://github.com/zacesshq/themes";
 const RELEASES = `${REPO}/releases`;
 const tree = (path: string) => `${REPO}/tree/main/${path}`;
+// each browser theme's store listing; Edge Add-ons takes no themes, so Edge uses the Chrome ones
+const CHROME: Record<string, string> = {
+  light: "nnpaobhoflcmeichelgbbbdnkdmcgokn",
+  dark: "pgbncbfpkagnjdkjiljplaekolkoobgo",
+  "yellow-on-black": "nhhdbchelioanecdinloahbgkidblknc",
+  cream: "djplikakdodgljiigpjpbngpplkippgn",
+  "high-contrast-dark": "jonipbnecoekmlnojmdfnkpinflcbmja",
+  "high-contrast-light": "khmfjccebfgnbeanmknhcgjhjpojadie",
+  "deep-contrast-dark": "hempingnjhdnpkdnhhhheocbnidjlhnd",
+  "deep-contrast-light": "pdmcgfeljojjckjmoojocbljmldckahm",
+};
+const chromeUrl = (id: string) => `https://chromewebstore.google.com/detail/${CHROME[id]}`;
+const firefoxUrl = (id: string) => `https://addons.mozilla.org/firefox/addon/zacess-${id}/`;
 const ratio = (n: number) => `${(Math.floor(n * 10) / 10).toFixed(1)}:1`;
 
 const FOR: Record<string, string> = {
@@ -43,6 +56,7 @@ const CARDS = [
   { name: "Eclipse", status: "On the Eclipse Marketplace", how: "Install Zacess Themes from Help, Eclipse Marketplace. It also installs from Help, Install New Software with the update site https://zacesshq.github.io/themes/eclipse/. Restart Eclipse, then choose a Zacess theme under Preferences, General, Appearance. Covers the Java and properties editors, the colours every text editor shares, the Terminal view and the Console.", path: "editors/eclipse", links: [{ label: "Zacess Themes on the Eclipse Marketplace", url: "https://marketplace.eclipse.org/content/zacess-themes-0" }, { label: "Eclipse install guide", url: "https://github.com/zacesshq/themes/blob/main/editors/eclipse/README.md" }] },
   { name: "Xcode", status: "Download from the themes repository", how: "Copy the .xccolortheme files into ~/Library/Developer/Xcode/UserData/FontAndColorThemes. In Xcode 27 bring one in with Settings, Themes, Import Classic Theme; in Xcode 26 and earlier choose it in Settings, Themes.", path: "editors/xcode", links: [{ label: "Xcode themes", url: "https://github.com/zacesshq/themes/tree/main/editors/xcode" }, { label: "Xcode install guide", url: "https://github.com/zacesshq/themes/blob/main/editors/xcode/README.md" }] },
   { name: "Terminals", status: "All eight in the iTerm2 Color Schemes collection", how: "All eight themes are in the iTerm2 Color Schemes collection, which Ghostty, WezTerm, Windows Terminal and other terminals draw their theme lists from. The repository has files for iTerm2, Terminal.app, Ghostty, kitty, WezTerm, Warp, Alacritty and Windows Terminal. Run install.sh in any of them (install.ps1 for Windows Terminal): it finds the terminal, copies all eight themes to the folder it reads and prints the one step that turns one on. It never edits a settings file.", path: "editors/terminals", links: [{ label: "iTerm2 Color Schemes", url: "https://github.com/mbadolato/iTerm2-Color-Schemes" }, { label: "Terminal install guide", url: "https://github.com/zacesshq/themes/blob/main/editors/terminals/README.md" }] },
+  { name: "Chrome, Edge and Firefox", status: "In review on the Chrome Web Store and Firefox Add-ons", how: "Each of the eight themes colours the browser's tab strip, toolbar, address bar and new tab page. Web pages keep their own colours. Edge Add-ons takes no themes, so Edge installs the Chrome ones once Allow extensions from other stores is turned on. Each listing opens once its review is done.", path: "browsers", links: [{ label: "Zacess themes in the Chrome Web Store", url: "https://chromewebstore.google.com/search/zacess" }, { label: "Zacess themes on Firefox Add-ons", url: "https://addons.mozilla.org/firefox/search/?q=zacess&type=statictheme" }] },
 ];
 ---
 <BaseLayout
@@ -55,7 +69,7 @@ const CARDS = [
     title="Code themes"
     lead="The eight contrast themes from the Zacess reader, for code editors and terminals: Light, Dark, Yellow on Black, Cream, High Contrast Dark, High Contrast Light, Deep Contrast Dark and Deep Contrast Light. Every text and syntax colour keeps at least 7:1 contrast."
   >
-    <p class="themes-status">We build the themes for VS Code, JetBrains IDEs, Obsidian, Neovim, Zed, Sublime Text, Helix, Emacs, Eclipse, Xcode and eight terminals. They are on the <a href="https://marketplace.visualstudio.com/items?itemName=zacess.zacess-themes">VS Code Marketplace</a>, <a href="https://open-vsx.org/extension/zacess/zacess-themes">Open VSX</a>, the <a href="https://plugins.jetbrains.com/plugin/35082-zacess-themes">JetBrains Marketplace</a> and the <a href="https://marketplace.eclipse.org/content/zacess-themes-0">Eclipse Marketplace</a> and in the <a href="https://community.obsidian.md/themes/zacess">Obsidian community directory</a> and the <a href="https://zed.dev/extensions?query=zacess">Zed extension store</a>. Neovim installs them from <a href="https://github.com/zacesshq/zacess.nvim">zacess.nvim</a>. All eight are in the <a href="https://github.com/mbadolato/iTerm2-Color-Schemes">iTerm2 Color Schemes</a> collection. Sublime Text, Helix, Emacs, Xcode and the terminals install from the releases page or the <a href={REPO}>themes repository</a>.</p>
+    <p class="themes-status">We build the themes for VS Code, JetBrains IDEs, Obsidian, Neovim, Zed, Sublime Text, Helix, Emacs, Eclipse, Xcode and eight terminals. They are on the <a href="https://marketplace.visualstudio.com/items?itemName=zacess.zacess-themes">VS Code Marketplace</a>, <a href="https://open-vsx.org/extension/zacess/zacess-themes">Open VSX</a>, the <a href="https://plugins.jetbrains.com/plugin/35082-zacess-themes">JetBrains Marketplace</a> and the <a href="https://marketplace.eclipse.org/content/zacess-themes-0">Eclipse Marketplace</a> and in the <a href="https://community.obsidian.md/themes/zacess">Obsidian community directory</a> and the <a href="https://zed.dev/extensions?query=zacess">Zed extension store</a>. Neovim installs them from <a href="https://github.com/zacesshq/zacess.nvim">zacess.nvim</a>. All eight are in the <a href="https://github.com/mbadolato/iTerm2-Color-Schemes">iTerm2 Color Schemes</a> collection. Sublime Text, Helix, Emacs, Xcode and the terminals install from the releases page or the <a href={REPO}>themes repository</a>. The <a href="#browser-title">browser themes</a> are in review on the Chrome Web Store and Firefox Add-ons.</p>
   </PageHead>
 
   <section class="playground" aria-labelledby="try-title">
@@ -144,6 +158,27 @@ const CARDS = [
         </li>
       </ul>
       <p class="more"><a href={`${REPO}/blob/main/docs/contrast.md`}>Every measurement for each theme</a></p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="browser-title">
+    <div class="wrap">
+      <h2 id="browser-title">In your browser</h2>
+      <p class="intro">All eight themes also colour Chrome and Firefox: the tab strip, the toolbar, the address bar and the new tab page. Web pages keep their own colours. Text on each part keeps at least 7:1 contrast. Edge installs the Chrome themes once Allow extensions from other stores is turned on. Each listing opens once its store's review is done.</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="browser-title">
+        <table>
+          <thead><tr><th scope="col">Theme</th><th scope="col">Chrome and Edge</th><th scope="col">Firefox</th></tr></thead>
+          <tbody>
+            {THEME_IDS.map((id) => (
+              <tr>
+                <th scope="row">{THEME_NAMES[id]}</th>
+                <td><a href={chromeUrl(id)} aria-label={`${THEME_NAMES[id]} in the Chrome Web Store`}>Chrome Web Store</a></td>
+                <td><a href={firefoxUrl(id)} aria-label={`${THEME_NAMES[id]} on Firefox Add-ons`}>Firefox Add-ons</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 

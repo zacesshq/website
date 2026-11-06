@@ -7,9 +7,9 @@ order: 25
 product: "Zacess Profile"
 source: "profile"
 repo: "zacesshq/profile"
-ref: "v0.2.0"
-refLabel: "v0.2.0"
-release: "0.2.0"
+ref: "v0.2.2"
+refLabel: "v0.2.2"
+release: "0.2.2"
 path: "docs-src/profile/writing-a-profile.md"
 sourceUrl: "https://github.com/zacesshq/website/blob/main/docs-src/profile/writing-a-profile.md"
 ---
@@ -22,7 +22,7 @@ version 1, which is a draft.
 ## The file
 
 A profile is a [TOML 1.0](https://toml.io/en/v1.0.0) file in UTF-8, usually named with `.toml`.
-The [JSON Schema](https://github.com/zacesshq/profile/blob/v0.2.0/spec/profile.schema.json)
+The [JSON Schema](https://github.com/zacesshq/profile/blob/v0.2.2/spec/profile.schema.json)
 (draft 2020-12) describes the same structure, so an app may also store a profile as JSON and
 validate it against the schema. `zprf` itself reads and writes TOML only.
 

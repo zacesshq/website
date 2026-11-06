@@ -7,12 +7,12 @@ order: 28
 product: "Zacess Profile"
 source: "profile"
 repo: "zacesshq/profile"
-ref: "v0.2.0"
-refLabel: "v0.2.0"
-release: "0.2.0"
+ref: "v0.2.2"
+refLabel: "v0.2.2"
+release: "0.2.2"
 path: "README.md"
 heading: "Targets"
-sourceUrl: "https://github.com/zacesshq/profile/blob/v0.2.0/README.md"
+sourceUrl: "https://github.com/zacesshq/profile/blob/v0.2.2/README.md"
 ---
 
 | Target | App | File written | What it sets |
@@ -28,6 +28,6 @@ sourceUrl: "https://github.com/zacesshq/profile/blob/v0.2.0/README.md"
 [ACCESSIBILITY.md](/docs/profile/accessibility/#needs-each-target-applies) lists each need per app, including
 where an app has no setting for one.
 
-Templates are [minijinja](https://github.com/mitsuhiko/minijinja) files in [templates](https://github.com/zacesshq/profile/tree/v0.2.0/templates).
-Adding a target is a template plus one entry in `src/render.rs`. [CONTRIBUTING.md](https://github.com/zacesshq/profile/blob/v0.2.0/CONTRIBUTING.md)
+Templates are [minijinja](https://github.com/mitsuhiko/minijinja) files in [templates](https://github.com/zacesshq/profile/tree/v0.2.2/templates).
+Adding a target is a template plus one entry in `src/render.rs`. [CONTRIBUTING.md](https://github.com/zacesshq/profile/blob/v0.2.2/CONTRIBUTING.md)
 has the steps.

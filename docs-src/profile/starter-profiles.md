@@ -23,7 +23,7 @@ The lowest measured value in each class of pair, for every starter profile, is i
 | --- | --- |
 | Homebrew | `$(brew --prefix)/share/zacess-profile/profiles` |
 | A release archive | `profiles/` inside the unpacked folder |
-| The source | [`profiles/`](https://github.com/zacesshq/profile/tree/v0.2.0/profiles) in the repository |
+| The source | [`profiles/`](https://github.com/zacesshq/profile/tree/v0.2.2/profiles) in the repository |
 
 ## Check one
 

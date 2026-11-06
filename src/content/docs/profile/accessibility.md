@@ -7,11 +7,11 @@ order: 33
 product: "Zacess Profile"
 source: "profile"
 repo: "zacesshq/profile"
-ref: "v0.2.0"
-refLabel: "v0.2.0"
-release: "0.2.0"
+ref: "v0.2.2"
+refLabel: "v0.2.2"
+release: "0.2.2"
 path: "ACCESSIBILITY.md"
-sourceUrl: "https://github.com/zacesshq/profile/blob/v0.2.0/ACCESSIBILITY.md"
+sourceUrl: "https://github.com/zacesshq/profile/blob/v0.2.2/ACCESSIBILITY.md"
 ---
 
 Zacess Profile exists so that a person's reading needs are written down once and kept everywhere.
@@ -150,7 +150,7 @@ blinking on. When `cursor_size` is missing or `standard` the app keeps its own c
   module ran under LuaJIT. The VS Code and Alacritty output parse as JSON and TOML in the tests.
 - Terminal colours are not yet checked against the default text in tone and under each simulation,
   as the Zacess themes check them. That needs the spec to say which slots stand for the default
-  text. See [ROADMAP.md](https://github.com/zacesshq/profile/blob/v0.2.0/ROADMAP.md).
+  text. See [ROADMAP.md](https://github.com/zacesshq/profile/blob/v0.2.2/ROADMAP.md).
 - On a mid grey the band of lightness left above the text floor is too narrow for four
   regular-style syntax roles to sit 0.05 apart in tone, so `derive` names the paired roles and the
   background instead of choosing colours. In a sweep of greys and tinted greys this happened from
@@ -172,7 +172,7 @@ blinking on. When `cursor_size` is missing or `standard` the app keeps its own c
   whenever the text floor is 7:1 or more. Read every line before running it.
 - The browser extension's styles are page styles marked important, so a page's own important rule
   that is more specific or comes later can still win, for example one that removes focus outlines.
-  Moving them to the browser's user style level is on the [roadmap](https://github.com/zacesshq/profile/blob/v0.2.0/ROADMAP.md).
+  Moving them to the browser's user style level is on the [roadmap](https://github.com/zacesshq/profile/blob/v0.2.2/ROADMAP.md).
 - With the colours applied, every element's own background is cleared so the profile background
   shows through. A fixed header, a tooltip or a menu without a dialog, menu or listbox role then
   sits over the page text with no panel behind it. Text over a background image keeps the

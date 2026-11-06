@@ -7,12 +7,12 @@ order: 24
 product: "Zacess Profile"
 source: "profile"
 repo: "zacesshq/profile"
-ref: "v0.2.0"
-refLabel: "v0.2.0"
-release: "0.2.0"
+ref: "v0.2.2"
+refLabel: "v0.2.2"
+release: "0.2.2"
 path: "README.md"
 heading: "Quick start"
-sourceUrl: "https://github.com/zacesshq/profile/blob/v0.2.0/README.md"
+sourceUrl: "https://github.com/zacesshq/profile/blob/v0.2.2/README.md"
 ---
 
 Check one of the eight starter profiles, then write its files into a folder of your choosing:

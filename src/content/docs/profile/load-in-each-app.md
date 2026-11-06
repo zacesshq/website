@@ -7,9 +7,9 @@ order: 29
 product: "Zacess Profile"
 source: "profile"
 repo: "zacesshq/profile"
-ref: "v0.2.0"
-refLabel: "v0.2.0"
-release: "0.2.0"
+ref: "v0.2.2"
+refLabel: "v0.2.2"
+release: "0.2.2"
 path: "docs-src/profile/load-in-each-app.md"
 sourceUrl: "https://github.com/zacesshq/website/blob/main/docs-src/profile/load-in-each-app.md"
 ---

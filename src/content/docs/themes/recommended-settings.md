@@ -7,11 +7,11 @@ order: 45
 product: "Zacess Themes"
 source: "themes"
 repo: "zacesshq/themes"
-ref: "v0.12.1"
-refLabel: "v0.12.1"
-release: "0.12.1"
+ref: "v1.0.0"
+refLabel: "v1.0.0"
+release: "1.0.0"
 path: "docs/recommended-settings.md"
-sourceUrl: "https://github.com/zacesshq/themes/blob/v0.12.1/docs/recommended-settings.md"
+sourceUrl: "https://github.com/zacesshq/themes/blob/v1.0.0/docs/recommended-settings.md"
 ---
 
 A theme sets colours, not how an app uses them. These settings get the most out of the Zacess
@@ -38,7 +38,7 @@ Zed, in `settings.json`:
 The JetBrains IDEs: **Settings**, **Appearance & Behavior**, **Appearance**, tick **Sync with OS**
 and choose a Zacess theme for each side. Ghostty takes
 `theme = light:zacess-deep-contrast-light,dark:zacess-deep-contrast-dark`. In Obsidian each of the
-four themes follows the system: **Settings**, **Appearance**, **Base color scheme**, **Adapt to
+five themes follows the system: **Settings**, **Appearance**, **Base color scheme**, **Adapt to
 system**, which gives the theme's light look by day and its dark look by night.
 
 ## Keep terminal text readable

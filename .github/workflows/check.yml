@@ -1,0 +1,39 @@
+name: Check
+
+# the same type check, build and verify the deploy runs, on every pull request, so a change that
+# breaks the build is caught before it merges instead of when it deploys. It reads the releases
+# the site syncs from, builds into a folder nothing serves and publishes nothing
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # the documentation sync draws each Mermaid diagram with mermaid-cli, which drives this browser
+      - run: npx puppeteer browsers install chrome
+      - name: Check, build and verify
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          npm run check
+          npm run build
+          npm run verify

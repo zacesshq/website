@@ -6,11 +6,11 @@ order: 67
 product: "Zacess Games"
 source: "games"
 repo: "zacesshq/games"
-ref: "v0.4.0"
-refLabel: "v0.4.0"
-release: "0.4.0"
+ref: "v1.1.0"
+refLabel: "v1.1.0"
+release: "1.1.0"
 path: "docs/controls.md"
-sourceUrl: "https://github.com/zacesshq/games/blob/v0.4.0/docs/controls.md"
+sourceUrl: "https://github.com/zacesshq/games/blob/v1.1.0/docs/controls.md"
 ---
 
 Every key, command, flag, variable and setting in Zacess Games on one page. Key names follow `Ctrl+C` style. Letters work in upper and lower case alike unless a row says otherwise: in the three typing games every key types exactly what it shows, so there `a` and `A` are different characters. The rules of each game are in [How to play](/docs/games/how-to-play/).
@@ -22,8 +22,8 @@ Every key, command, flag, variable and setting in Zacess Games on one page. Key 
 | `zacess-games` | The menu of all fourteen games |
 | `zacess-games <game>` | One game by name, such as `zacess-games trace` or `zacess-games through-ball`. A short start is enough, such as `zacess-games stack` |
 | `zacess-games list` | Every game and its best score, as plain text |
-| `zacess-games sounds` | Plays every effect with its name and meaning, then eight seconds of each game's music |
-| `zacess-games sounds <game>` | Plays eight seconds of one game's music |
+| `zacess-games sounds` | Plays every effect with its name and meaning, then eight seconds of each game's music and six of its background sound |
+| `zacess-games sounds <game>` | Plays eight seconds of one game's music and six of its background sound |
 | `zacess-games snap [game]` | Writes SVG stills of one game or all of them into the current folder |
 | `zacess-games snap [game] --frames <n>` | Plays each game's recording from `scripts/recordings.txt` and writes `n` frames of it as JSON, the format Zacess Scenes uses for its showcase frames |
 | `zacess-games --help` | Every option |
@@ -43,13 +43,15 @@ Most games read keys only. Termle types letters. Heatsink, Touch Typing and Lear
 | `-` or `_` | Effects volume down by 10 | The same | While paused only |
 | `]` | Music volume up by 10 | The same | While paused only |
 | `[` | Music volume down by 10 | The same | While paused only |
+| `}` | Background sound up by 10, turning it on | The same | While paused only |
+| `{` | Background sound down by 10, off at 0 | The same | While paused only |
 | `0` | Mute everything; again to bring it back | The same | While paused only |
 | `Esc` | Back to the menu | Back to the menu | Pause, with the sound keys |
 | `Q` | Back to the menu | Types `Q` | Back to the menu while paused |
 | `Ctrl+C` | Leave at once | Leave at once | Leave at once |
 | `Enter` | Play again after a game ends | The same | The same |
 
-While paused, any key that is not a sound key carries on. The right end of the status bar always shows both levels, such as `FX 35% · Music 20%` or `FX muted · Music off`. Every change is also written above the key lines as it happens.
+While paused, any key that is not a sound key carries on. The right end of the status bar always shows the effects and music levels, such as `FX 35% · Music 20%` or `FX muted · Music off`. While the background sound is on it shows that level too, such as `FX 35% · Music 20% · Background 25%`. Every change is also written above the key lines as it happens.
 
 ## The menu
 
@@ -92,6 +94,9 @@ While paused, any key that is not a sound key carries on. The right end of the s
 | `--volume <0 to 100>` | The effects volume to start with |
 | `--no-music` | Start with the music off |
 | `--music-volume <0 to 100>` | The music volume to start with |
+| `--background` | Start with the background sound on |
+| `--no-background` | Start with the background sound off, whatever was remembered |
+| `--background-volume <0 to 100>` | The background sound's volume to start with, 15 unless set |
 | `--seed <number>` | A fixed seed, for the same game twice |
 | `--colour <truecolour or 256>` | How colours reach the terminal |
 | `--basic` | Plain characters for fonts without geometric shapes |
@@ -111,6 +116,7 @@ While paused, any key that is not a sound key carries on. The right end of the s
 | `ZACESS_SOUND=0` | Start muted, as `--no-sound` |
 | `ZACESS_VOLUME` | The effects volume, 0 to 100 |
 | `ZACESS_MUSIC_VOLUME` | The music volume, 0 to 100 |
+| `ZACESS_AMBIENT=1` | Start with the background sound on, as `--background`. Zacess Scenes reads the same variable |
 | `ZACESS_KEYBOARD` | The keyboard layout: `uk-mac`, `uk-pc` or `us` |
 | `ZACESS_GAMES_STATE` | Another folder for the records and settings |
 | `ZACESS_GAMES_NO_USER_LEVELS=1` | Ignore level files in `~/.config/zacess/games` |
@@ -125,8 +131,8 @@ Every game and the menu lay themselves out for the window they are in, chosen ag
 | --- | --- |
 | Below 60 by 20 | A centred message giving the size needed and the size now |
 | From 60 by 20 (a quarter tmux window) | Compact: one status line, one key line, side panels left out where they would not fit (their facts move to the status line) and smaller boards |
-| From 100 by 30 | Standard: a status bar, two key lines and the full side panels |
-| From 160 by 45 | Large: boards drawn at twice the size, a larger Touch Typing keyboard of boxed keys with a progress panel and wider text in the typing and coding games |
+| From 100 by 30 | Standard: a status bar, two key lines, the full side panels and pixel boards that grow to fill the room beside them |
+| From 160 by 45 | Large: pixel boards drawn larger still with finer shapes, Merge Gates drawn at twice the size, a larger Touch Typing keyboard of taller keycaps with a progress panel and wider text in the typing and coding games |
 
 ## Keyboard layouts
 
@@ -142,14 +148,14 @@ The layout comes from the `--layout` flag, then `ZACESS_KEYBOARD`, then the one 
 
 ## The theme
 
-The games are drawn in a Zacess theme picked in this order: `--theme`, then `ZACESS_THEME`, then the theme state file `$XDG_STATE_HOME/zacess/theme` or `~/.local/state/zacess/theme`, then Zacess Deep Contrast Dark. The state file is the one [Zacess Scenes](https://github.com/zacesshq/scenes/blob/main/docs/themes.md) reads, so any tool that writes it switches the games and the scenes together. It holds a theme id such as `deep-contrast-dark`. It can instead hold `auto` followed by a dark and a light id, to follow the system's dark mode. On Windows the file is under the user folder, `%USERPROFILE%\.local\state\zacess\theme`.
+The games are drawn in a Zacess theme picked in this order: `--theme`, then `ZACESS_THEME`, then the theme state file `$XDG_STATE_HOME/zacess/theme` or `~/.local/state/zacess/theme`, then Zacess Deep Contrast Dark. The state file is the one [Zacess Scenes](https://github.com/zacesshq/scenes/blob/main/docs/themes.md) reads, so any tool that writes it switches the games and the scenes together. The ten themes are Light, Dark, Yellow on Black, Cream, High Contrast Dark, High Contrast Light, Deep Contrast Dark, Deep Contrast Light, Warm Dark and Warm Light, each with a short name such as `hc-light` or `warm-dark`. It holds a theme id such as `deep-contrast-dark`. It can instead hold `auto` followed by a dark and a light id, to follow the system's dark mode. On Windows the file is under the user folder, `%USERPROFILE%\.local\state\zacess\theme`.
 
 ## Settings and records
 
-The effects and music levels and whether each is muted are remembered between runs. So are the best scores, the Termle streak, the Touch Typing lessons unlocked and keyboard layout and the Learn to Code progress for each language. They live in `~/.local/state/zacess-games/scores.txt` (`$XDG_STATE_HOME/zacess-games` when that is set and `%LOCALAPPDATA%\zacess-games` on Windows), one `key value` pair a line. Every key is listed in [the scores file](/docs/reference/scores-file/). A flag or variable wins over a remembered setting for that run.
+The effects, music and background sound levels and whether each is on are remembered between runs. So are the best scores, the Termle streak, the Touch Typing lessons unlocked and keyboard layout and the Learn to Code progress for each language. They live in `~/.local/state/zacess-games/scores.txt` (`$XDG_STATE_HOME/zacess-games` when that is set and `%LOCALAPPDATA%\zacess-games` on Windows), one `key value` pair a line. Every key is listed in [the scores file](/docs/reference/scores-file/). A flag or variable wins over a remembered setting for that run.
 
 Sound and music files are made once and kept in `~/Library/Caches/zacess-games` on macOS, `~/.cache/zacess-games` on Linux and `%LOCALAPPDATA%\zacess-games` on Windows. They are safe to delete; they are made again when needed.
 
 ## Level files
 
-Trace, Relay and Learn to Code read their levels from Lua files. Extra files go in `~/.config/zacess/games/trace`, `~/.config/zacess/games/relay` or `~/.config/zacess/games/learn-to-code` (`%APPDATA%\zacess\games` on Windows) and play after the built-in ones. The format is described at the top of each built-in file in [`levels/`](https://github.com/zacesshq/games/tree/v0.4.0/levels/).
+Trace, Relay and Learn to Code read their levels from Lua files. Extra files go in `~/.config/zacess/games/trace`, `~/.config/zacess/games/relay` or `~/.config/zacess/games/learn-to-code` (`%APPDATA%\zacess\games` on Windows) and play after the built-in ones. The format is described at the top of each built-in file in [`levels/`](https://github.com/zacesshq/games/tree/v1.1.0/levels/).

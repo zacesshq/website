@@ -23,7 +23,7 @@ import { join, dirname, posix } from "node:path";
 import { tmpdir } from "node:os";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { get, latestTag, raw } from "./lib/release.mjs";
+import { latestTag, raw, rawBytes } from "./lib/release.mjs";
 import { SOURCES, PAGES } from "./docs-manifest.mjs";
 
 const CONTENT = new URL("../src/content/docs/", import.meta.url).pathname;
@@ -327,8 +327,7 @@ async function sync() {
     for (const [path, href] of meta.images) {
       const dest = join(PUBLIC, href.replace(/^\/docs\//, ""));
       if (files.has(dest)) continue;
-      const res = await get(`https://raw.githubusercontent.com/${source.repo}/${ref}/${path}`);
-      files.set(dest, Buffer.from(await res.arrayBuffer()));
+      files.set(dest, await rawBytes(source.repo, ref, path));
     }
   }
 

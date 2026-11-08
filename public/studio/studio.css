@@ -1,0 +1,286 @@
+/* the Zacess studio (src/components/Studio.astro, driven by /studio.js). The laptop is drawn with CSS
+   3D transforms only: the lid stands up, the deck is a plane folded back under it and the whole
+   device is turned a little towards the reader. Its screen takes every colour from the chosen theme
+   through the .st-t-<theme> classes in /studio/themes.css. The page controls keep the site colours.
+   Reduced motion, the flat view and forced colours all draw the laptop face on */
+:root {
+  --st-shell: #c3c7cd;
+  --st-shell-edge: #8d939b;
+  --st-deck-top: #d7dade;
+  --st-deck: #aeb3ba;
+  --st-bezel: #0b0c0e;
+  --st-shade: rgba(17, 17, 17, 0.28);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --st-shell: #3b4048; --st-shell-edge: #626a75; --st-deck-top: #4b515a; --st-deck: #2c3137; --st-bezel: #050506; --st-shade: rgba(0, 0, 0, 0.6);
+  }
+}
+:root[data-theme="dark"] {
+  --st-shell: #3b4048; --st-shell-edge: #626a75; --st-deck-top: #4b515a; --st-deck: #2c3137; --st-bezel: #050506; --st-shade: rgba(0, 0, 0, 0.6);
+}
+
+.studio { margin: 0; scroll-margin-top: 5.5rem; }
+.st-layout { display: grid; gap: 1.5rem 2.5rem; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 64rem) {
+  .studio:not(.studio-compact) .st-layout { grid-template-columns: minmax(0, 1fr) 19.5rem; }
+}
+.st-main { min-width: 0; container-type: inline-size; }
+
+/* ---- the stage and the laptop */
+.st-stage {
+  --st-rx0: 8deg; --st-ry0: -12deg;
+  position: relative; display: flex; justify-content: center;
+  padding: 1.25rem 0 calc(1.5rem + 13cqw); perspective: 1900px; perspective-origin: 50% 30%;
+  overflow-x: clip; isolation: isolate;
+}
+/* a soft shadow on the desk, faint enough to read as depth rather than decoration */
+.st-stage::after {
+  content: ""; position: absolute; left: 12%; right: 12%; bottom: 0.6rem; height: 2.2rem; z-index: -1;
+  background: radial-gradient(closest-side, var(--st-shade), transparent);
+}
+.st-device {
+  position: relative; width: min(84cqw, 46rem); transform-style: preserve-3d;
+  transform: rotateX(var(--st-rx, var(--st-rx0))) rotateY(var(--st-ry, var(--st-ry0)));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .st-device { transition: transform 0.45s ease-out; }
+}
+.st-lid {
+  position: relative; transform-style: preserve-3d;
+  padding: clamp(0.5rem, 1.6vw, 1rem) clamp(0.5rem, 1.6vw, 1rem) clamp(0.75rem, 2vw, 1.3rem);
+  background: var(--st-bezel); border-radius: 16px 16px 6px 6px;
+  box-shadow: 0 0 0 3px var(--st-shell), 0 0 0 4px var(--st-shell-edge), 0 1.75rem 3rem -1.5rem var(--st-shade);
+}
+/* the back of the lid, set behind the screen so its edge shows as thickness when the laptop turns */
+.st-lid::after {
+  content: ""; position: absolute; inset: -4px; border-radius: 18px 18px 8px 8px;
+  background: var(--st-shell-edge); transform: translateZ(-6px);
+}
+/* the camera, a small dark mark in the top bezel */
+.st-lid::before {
+  content: ""; position: absolute; top: clamp(0.18rem, 0.6vw, 0.4rem); left: 50%; width: 0.35rem; height: 0.35rem;
+  margin-left: -0.175rem; border-radius: 50%; background: #2a2d33;
+}
+.st-base {
+  position: absolute; left: -7%; right: -7%; top: 100%; height: 34cqw;
+  transform-origin: top center; transform: rotateX(83deg);
+  background: linear-gradient(to bottom, var(--st-deck-top), var(--st-deck));
+  border-radius: 4px 4px 22px 22px; box-shadow: 0 0 0 1px var(--st-shell-edge);
+}
+.st-pad {
+  position: absolute; left: 36%; right: 36%; bottom: 7%; height: 26%; border-radius: 10px;
+  border: 1px solid var(--st-shell-edge); background: var(--st-shell);
+}
+/* face on: no turn and the deck reduced to its front edge */
+.st-flat .st-device { transform: none; width: min(92cqw, 50rem); }
+.st-flat .st-lid::after { display: none; }
+.st-flat .st-base { position: relative; top: auto; left: auto; right: auto; height: 0.9rem; margin: 0 -6%; transform: none; border-radius: 0 0 14px 14px; }
+.st-flat .st-pad { left: 42%; right: 42%; top: 0; bottom: auto; height: 0.3rem; border-radius: 0 0 6px 6px; border-top: 0; }
+.st-flat .st-stage { padding-bottom: 2rem; }
+@media (prefers-reduced-motion: reduce) {
+  .st-device { transform: none; width: min(92cqw, 50rem); }
+  .st-lid::after { display: none; }
+  .st-base { position: relative; top: auto; left: auto; right: auto; height: 0.9rem; margin: 0 -6%; transform: none; border-radius: 0 0 14px 14px; }
+  .st-pad { left: 42%; right: 42%; top: 0; bottom: auto; height: 0.3rem; border-radius: 0 0 6px 6px; border-top: 0; }
+  .st-stage { padding-bottom: 2rem; }
+}
+@media (max-width: 40rem) {
+  .st-stage { --st-rx0: 5deg; --st-ry0: -7deg; padding-top: 0.75rem; }
+}
+
+/* ---- the screen, in the chosen theme */
+.st-screen {
+  position: relative; overflow: hidden; border-radius: 3px;
+  background: var(--st-bg, #000000); color: var(--st-fg, #ffffff);
+}
+.st-bar {
+  display: flex; justify-content: space-between; gap: 1rem; margin: 0; padding: 0.3rem 0.7rem;
+  background: var(--st-surface-alt); color: var(--st-fg); border-bottom: 1px solid var(--st-border);
+  font: 700 clamp(0.62rem, 1.2vw, 0.82rem)/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, "DejaVu Sans Mono", monospace;
+}
+.st-bar span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.st-bar-theme { font-weight: 400; color: var(--st-muted); }
+.st-view { position: relative; aspect-ratio: 720 / 456; overflow: hidden; background: var(--st-bg); }
+.st-view[hidden] { display: none; }
+.st-canvas { display: block; width: 100%; height: 100%; object-fit: contain; }
+.st-canvas[hidden], .st-crop[hidden] { display: none; }
+/* the still's cells only: the crop has the cells' shape and the image inside it is shifted past its
+   own window frame. The defaults fit a scene still (80 by 24 cells); the script sets the real size */
+.st-crop {
+  --st-iw: 700; --st-ih: 466;
+  position: absolute; inset: 0; margin: auto; overflow: hidden; max-width: 100%; max-height: 100%;
+  aspect-ratio: calc(var(--st-iw) - 28) / calc(var(--st-ih) - 58);
+}
+/* a game or zprf still: 100 by 30 cells */
+.st-crop-wide { --st-iw: 868; --st-ih: 568; }
+.st-still {
+  position: absolute; display: block; max-width: none; height: auto;
+  width: calc(var(--st-iw) / (var(--st-iw) - 28) * 100%);
+  left: calc(-14 / (var(--st-iw) - 28) * 100%);
+  top: calc(-40 / (var(--st-ih) - 58) * 100%);
+}
+.st-loading {
+  position: absolute; right: 0.5rem; bottom: 0.4rem; margin: 0; padding: 0.1rem 0.45rem; border-radius: 4px;
+  background: var(--st-surface-alt); color: var(--st-fg); border: 1px solid var(--st-border);
+  font: 700 0.75rem/1.4 ui-monospace, Menlo, Consolas, monospace;
+}
+.st-loading[hidden] { display: none; }
+
+/* the editor: the playground's own render, with line numbers in the theme's gutter colour */
+.st-code { height: 100%; overflow: hidden; }
+.st-code pre {
+  margin: 0; height: 100%; overflow: auto; padding: 0.6rem 0.75rem;
+  font: 400 clamp(0.6rem, 1.25vw, 0.86rem)/1.55 ui-monospace, "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace; tab-size: 4;
+}
+.st-code code { font: inherit; counter-reset: st-line; }
+.st-code .line::before {
+  counter-increment: st-line; content: counter(st-line); display: inline-block; width: 2.4ch; margin-right: 1.4ch;
+  text-align: right; color: var(--st-lnum);
+}
+.st-code pre:focus-visible, .st-toml:focus-visible, .st-term:focus-visible { outline: var(--st-ring, 3px) solid var(--st-focus, var(--st-fg)); outline-offset: -4px; }
+
+/* the profile: its TOML above, zprf check below, in the profile's own palette and needs */
+.st-view-profile { display: flex; flex-direction: column; }
+.st-view-profile[hidden] { display: none; }
+.st-pane { min-height: 0; overflow: hidden; }
+.st-pane .st-pre {
+  margin: 0; padding: 0.45rem 0.75rem; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere;
+  font: 400 calc(clamp(0.56rem, 1.1vw, 0.8rem) * var(--st-scale, 1))/var(--st-leading, 1.45) ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+.st-pane .st-pre code { font: inherit; }
+.st-pane-editor { flex: 0 0 56%; display: flex; }
+.st-toml { flex: 1 1 auto; min-height: 0; }
+.st-pane-term { flex: 1 1 44%; display: flex; flex-direction: column; background: var(--st-surface); border-top: 1px solid var(--st-border); }
+.st-term { flex: 1 1 auto; min-height: 0; }
+.st-c { color: var(--st-s-comment); font-style: italic; }
+.st-h { color: var(--st-s-type); font-weight: 700; }
+.st-k { color: var(--st-s-property); }
+.st-s { color: var(--st-s-string); }
+.st-n { color: var(--st-s-number); }
+.st-b { color: var(--st-s-keyword); font-weight: 700; }
+.st-prompt { color: var(--st-accent); font-weight: 700; }
+.st-cursor { display: inline-block; width: var(--st-cursor-w, 0.55ch); height: 1.1em; vertical-align: text-bottom; background: var(--st-cursor); }
+.st-ansi {
+  list-style: none; display: grid; grid-template-columns: repeat(16, minmax(0, 1fr)); gap: 0.15rem;
+  flex: none; margin: 0; padding: 0.15rem 0.75rem 0.45rem; color: var(--st-muted);
+  font: 400 clamp(0.45rem, 0.9vw, 0.66rem)/1.2 ui-monospace, Menlo, Consolas, monospace; text-align: center;
+}
+.st-ansi li { display: flex; flex-direction: column; align-items: center; gap: 0.1rem; }
+.st-chip { display: block; width: 100%; height: clamp(0.4rem, 1vw, 0.75rem); border: 1px solid var(--st-border); border-radius: 2px; }
+
+/* ---- what is on screen with the buttons for it */
+.st-now { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 0.75rem 1.5rem; }
+.st-now-text { flex: 1 1 20rem; min-width: 0; }
+.st-title { margin: 0 0 0.2rem; font-size: 1.25rem; font-weight: 700; line-height: 1.3; }
+.st-desc { margin: 0 0 0.3rem; max-width: 42rem; }
+.st-desc:empty { display: none; }
+.st-note { margin: 0; color: var(--muted); font-size: 0.95rem; max-width: 42rem; }
+.st-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.st-actions .button { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; min-width: 5.5rem; justify-content: center; font: inherit; font-weight: 700; background: var(--bg); cursor: pointer; }
+.st-actions .button[hidden] { display: none; }
+/* the 3D view button carries a square that is filled while it is on, so its state is a shape too */
+.st-check { width: 0.85rem; height: 0.85rem; border: 2px solid currentColor; border-radius: 2px; flex: none; }
+.st-tilt[aria-pressed="true"] .st-check { background: currentColor; }
+
+/* without the script nothing here would answer, so the controls stay hidden and the still shows */
+.studio:not(.st-ready) .st-controls, .studio:not(.st-ready) .st-actions { display: none; }
+
+/* ---- the mode switch: native radios under a legend, each a 44 pixel target with a square that
+   fills when chosen, like the built and coming marks elsewhere on the site */
+.st-field { border: 0; margin: 0 0 1.25rem; padding: 0; min-width: 0; }
+.st-field legend { padding: 0; margin: 0 0 0.45rem; font-weight: 700; }
+.st-mode-row { display: grid; gap: 0.4rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 30rem) { .st-mode-row { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 64rem) { .studio:not(.studio-compact) .st-mode-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.st-opt { position: relative; display: block; min-width: 0; }
+.st-opt input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.st-box {
+  display: flex; align-items: center; gap: 0.55rem; min-height: 2.75rem; padding: 0.4rem 0.65rem;
+  border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text);
+  font-size: 0.98rem; font-weight: 700; line-height: 1.25;
+}
+.st-box::before { content: ""; display: grid; place-items: center; flex: none; width: 1rem; height: 1rem; border: 2px solid var(--text); border-radius: 3px; font-size: 0.75rem; font-weight: 900; line-height: 1; }
+.st-opt:hover .st-box { border-color: var(--text); }
+.st-opt input:checked + .st-box { border-color: var(--text); box-shadow: inset 0 0 0 1px var(--text); }
+/* a tick in a filled square, so the choice is a shape as well as a fill */
+.st-opt input:checked + .st-box::before { content: "\2713"; background: var(--text); color: var(--bg); }
+.st-opt input:focus-visible + .st-box { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* ---- the pickers: a native select for the theme and one for the item, so phones keep their own
+   picker and keyboards and screen readers get the platform's full support. Side by side where
+   there is room, stacked in the narrow column beside the laptop */
+.st-pickers { display: grid; gap: 1.25rem 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+@media (min-width: 64rem) { .studio:not(.studio-compact) .st-pickers { grid-template-columns: minmax(0, 1fr); } }
+.st-pick { min-width: 0; }
+.st-pick[hidden] { display: none; }
+.st-label { display: block; margin: 0 0 0.45rem; font-weight: 700; }
+.st-count { font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
+.st-pick-row { display: flex; align-items: center; gap: 0.6rem; min-width: 0; }
+.st-pick-row .st-select-wrap { flex: 1; }
+/* the arrow is drawn here rather than by the platform, so it keeps the site's colours in both schemes */
+.st-select-wrap { position: relative; display: block; min-width: 0; }
+.st-select-wrap::after {
+  content: ""; position: absolute; top: 50%; right: 0.95rem; width: 0.5rem; height: 0.5rem; margin-top: -0.4rem;
+  border: solid var(--text); border-width: 0 2px 2px 0; transform: rotate(45deg); pointer-events: none;
+}
+.st-select {
+  display: block; width: 100%; min-width: 0; min-height: 2.75rem; margin: 0; padding: 0.45rem 2.5rem 0.45rem 0.75rem;
+  font: inherit; font-weight: 700; line-height: 1.25; color: var(--text); background: var(--bg);
+  border: 2px solid var(--text); border-radius: 8px; appearance: none; -webkit-appearance: none; cursor: pointer;
+  text-overflow: ellipsis;
+}
+.st-select:hover { background: var(--band); }
+.st-select:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.st-select option, .st-select optgroup { color: var(--text); background: var(--bg); }
+/* each theme's own background and text, with its accent as a bar underneath */
+.st-swatch {
+  flex: none; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 8px;
+  background: var(--st-bg); color: var(--st-fg); border: 2px solid var(--st-border); box-shadow: inset 0 -4px 0 var(--st-accent);
+  font: 700 1rem/1 "Atkinson Hyperlegible", system-ui, sans-serif;
+}
+.st-steps { display: grid; gap: 0.5rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 0.5rem; }
+.st-step {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; min-height: 2.75rem; min-width: 2.75rem;
+  padding: 0.4rem 0.75rem; font: inherit; font-weight: 700; color: var(--text); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 8px; cursor: pointer;
+}
+.st-step:hover { border-color: var(--text); background: var(--band); }
+.st-step:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.st-chev { flex: none; fill: none; stroke: currentColor; stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; }
+
+/* the sound panel: off until asked for, with its own pause and volume */
+.st-sound { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.st-sound[hidden], .st-sound-group[hidden] { display: none; }
+.st-sound h3.st-label { margin: 0 0 0.25rem; }
+.st-sound-intro, .st-sound-now { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.95rem; }
+.st-sound-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+.st-sound-toggle { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; min-width: 8rem; font: inherit; font-weight: 700; background: var(--bg); cursor: pointer; }
+.st-volume { font-weight: 700; }
+.st-volume-range { flex: 1 1 8rem; min-width: 8rem; min-height: 2.75rem; accent-color: var(--text); }
+.st-tones-label { margin: 0.75rem 0 0.4rem; font-weight: 700; }
+.st-tones { display: grid; gap: 0.5rem; grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr)); }
+.st-tone {
+  min-height: 2.75rem; padding: 0.4rem 0.6rem; font: inherit; color: var(--text); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 8px; cursor: pointer;
+}
+.st-tone:hover { border-color: var(--text); background: var(--band); }
+.st-tone:focus-visible, .st-sound-toggle:focus-visible, .st-volume-range:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* the compact form on the home page: the controls beside the laptop and a link to the full studio */
+.studio-compact .st-field { margin-bottom: 1rem; }
+.studio-compact .st-more { margin: 1rem 0 0; }
+@media (min-width: 64rem) {
+  .studio-compact .st-layout { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: center; }
+  .studio-compact .st-mode-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .studio-compact .st-pickers { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (forced-colors: active) {
+  .st-screen, .st-swatch, .st-chip { forced-color-adjust: none; }
+  .st-box, .st-step, .st-tone { border-color: CanvasText; }
+  .st-select-wrap::after { border-color: CanvasText; }
+  .st-box::before { border-color: CanvasText; }
+  .st-opt input:checked + .st-box::before { background: Highlight; color: HighlightText; }
+  .st-tilt[aria-pressed="true"] .st-check { background: ButtonText; }
+}

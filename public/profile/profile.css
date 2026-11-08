@@ -66,3 +66,4 @@
   .js .docs-code > .snippet { min-height: 0; }
   .js .docs-code > .snippet::before { content: none; }
 }
+.starter-studio-heading { margin: 2.5rem 0 0.5rem; }

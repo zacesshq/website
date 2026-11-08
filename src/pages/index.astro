@@ -7,6 +7,7 @@ import games from "../data/games.json";
 import profile from "../data/profile.json";
 import { EDITORS, TERMINALS } from "../data/theme-targets";
 import { words, cap } from "../lib/words";
+import Studio from "../components/Studio.astro";
 
 // the counts come from the synced release data, so each card stays true after a release
 const previewTheme = themes.themes.find((t) => t.id === "deep-contrast-dark") ?? themes.themes[0];
@@ -26,7 +27,7 @@ const FAMILY = [
   },
   {
     title: "Code themes",
-    line: `${cap(words(themes.themes.length))} high contrast themes for ${words(EDITORS.length)} editors and ${words(TERMINALS.length)} terminals.`,
+    line: `${cap(words(themes.themes.length))} code themes for ${words(EDITORS.length)} editors and ${words(TERMINALS.length)} terminals, from the strongest contrast to a gentler warm pair.`,
     href: "/themes/",
     link: "See the themes",
     src: `/themes/images/zacess-${previewTheme.id}.svg`,
@@ -60,6 +61,8 @@ const FAMILY = [
   title="Zacess: make every page accessible"
   description="Zacess is a free, open-source reader that turns slides, PDFs, handouts, whiteboards and web pages into notes in your own reading profile, plus an accessibility profile, code themes, terminal scenes and games in the same high contrast colours."
 >
+  <link slot="head" rel="stylesheet" href="/studio/studio.css">
+  <link slot="head" rel="stylesheet" href="/studio/themes.css">
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Pre-release: an early browser version is open to try</p>
@@ -83,7 +86,7 @@ const FAMILY = [
       <ul class="features">
         <li>
           <h3>Your reading profile</h3>
-          <p>Contrast, size, spacing, column width and colours set once and kept. Presets for low vision, dyslexia, reduced visual clutter and screen readers. Nothing changes without you.</p>
+          <p>Contrast, size, spacing, column width and colours set once and kept. Presets for low vision, dyslexia, reduced visual clutter, screen readers and a gentle warm view. Nothing changes without you.</p>
         </li>
         <li>
           <h3>Text from any page</h3>
@@ -176,7 +179,15 @@ const FAMILY = [
     </div>
   </section>
 
-  <section aria-labelledby="family-title">
+  <section aria-labelledby="studio-title">
+    <div class="wrap">
+      <h2 id="studio-title">See it in your theme</h2>
+      <p class="intro">Pick a theme, then a scene, a game, a code sample or a starter profile. The screen shows it as your terminal or editor would.</p>
+      <Studio id="home-studio" compact />
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="family-title">
     <div class="wrap">
       <h2 id="family-title">More from Zacess</h2>
       <p class="intro">An accessibility profile writes your reading needs into each terminal and editor you use. Everything we make shares one palette, checked so every colour stays readable. There are code themes for ten editors and eight terminals. Terminal scenes react to your builds and commands. Fourteen original terminal games come with their own sound and music. All of it is free and open source.</p>
@@ -194,4 +205,7 @@ const FAMILY = [
       </ul>
     </div>
   </section>
+  <script is:inline src="/scenes-player.js" defer></script>
+  <script is:inline src="/studio.js" defer></script>
+  <script is:inline src="/studio-sound.js" defer></script>
 </BaseLayout>

@@ -127,6 +127,6 @@
     if (menu.open && !event.target.closest(".site-menu")) close(false);
   });
   // the wide layout shows the list without the button, so nothing is left open behind it
-  var wide = window.matchMedia("(min-width: 68rem)");
+  var wide = window.matchMedia("(min-width: 76rem)");
   if (wide.addEventListener) wide.addEventListener("change", function (m) { if (m.matches) close(false); });
 })();

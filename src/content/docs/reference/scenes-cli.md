@@ -6,11 +6,11 @@ order: 65
 product: "Zacess Scenes"
 source: "scenes"
 repo: "zacesshq/scenes"
-ref: "v0.6.0"
-refLabel: "v0.6.0"
-release: "0.6.0"
+ref: "v1.1.0"
+refLabel: "v1.1.0"
+release: "1.1.0"
 path: "docs/usage.md"
-sourceUrl: "https://github.com/zacesshq/scenes/blob/v0.6.0/docs/usage.md"
+sourceUrl: "https://github.com/zacesshq/scenes/blob/v1.1.0/docs/usage.md"
 ---
 
 Running a scene on its own: the commands, the keys, every flag and headless rendering. The
@@ -66,18 +66,19 @@ line says so.
 | --- | --- |
 | `--theme <name>` | A Zacess theme by id, short name or full name, such as `deep-contrast-dark`, `deep-dark` or `Zacess Deep Contrast Dark` |
 | `--scene <name>` | The scene, as an alternative to naming it first |
-| `--motion <level>` | `calm`, `standard` or `lively`. Lively is faster and busier but never changes anything in place faster than standard |
+| `--motion <level>` | `calm`, `standard` or `lively`. Lively is faster and busier, while pulses, flickers and lights that change in place keep the standard pace |
 | `--list-themes` | Prints the themes and marks the one that would be used |
 | `--list-scenes` | Prints the scenes |
 | `--fps <n>` | Frames per second, 1 to 30. The default is 20 |
 | `--slow` | Half speed |
-| `--reduced-motion` | Fewer and slower movements, no lightning and no flicker, at most 12 frames a second |
+| `--reduced-motion` | Every movement at half speed or slower, no lightning, slower flicker and at most 12 frames a second |
 | `--duration <minutes>` | Stops after this many minutes, decimals allowed |
 | `--shuffle` | Moves to another scene at random every few minutes, 5 unless `--every` or the config says otherwise |
 | `--every <minutes>` | Minutes between scenes, decimals allowed. On its own it moves through the list in order |
 | `--ambient` | Plays a quiet [background sound](/docs/scenes/sounds/#background-sound) that suits the scene |
 | `--no-ambient` | No background sound, whatever the config says |
 | `--ambient-volume <n>` | The background sound's volume from 0 to 100, 20 by default |
+| `--ambient-sound <name>` | One background sound for every scene, such as `pad` or `birds`. `auto` keeps each scene's own |
 | `--colour <depth>` | `truecolor` or `256`, when the colour depth is detected wrongly. `--color` also works |
 | `--seed <n>` | Seeds the random numbers, so a run can be repeated exactly |
 | `--headless` | Draws without a terminal and prints the last frame as plain text |

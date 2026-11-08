@@ -23,7 +23,7 @@ brew install zacesshq/tap/zacess-profile
 ```
 
 The formula installs the release build for the machine, not a build from source. It puts `zprf` on
-your `PATH`, the eight starter profiles and the spec in `$(brew --prefix)/share/zacess-profile` and
+your `PATH`, the ten starter profiles and the spec in `$(brew --prefix)/share/zacess-profile` and
 the README, changelog, accessibility statement, roadmap and notice with the formula's documents.
 List the starter profiles with:
 
@@ -124,8 +124,7 @@ The extension that applies a profile to every web page installs from the
 [Chrome Web Store](https://chromewebstore.google.com/detail/afbflpkolnhidmopegadfnlhenhjkpdc),
 [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/zacess-profile/) or
 [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/kdihhdkcphgpaibeemcgheifijflonbg).
-Each listing opens once that store's review is done. The
-[browser extension](/docs/profile/browser-extension/) page covers loading it unpacked.
+The [browser extension](/docs/profile/browser-extension/) page covers loading it unpacked.
 
 ## Check the install
 

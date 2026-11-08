@@ -13,6 +13,7 @@ export const SITE = {
 export const MAIN_NAV: { href: string; label: string; external?: boolean }[] = [
   { href: "/features/", label: "Features" },
   { href: "/how-it-works/", label: "How it works" },
+  { href: "/studio/", label: "Studio" },
   { href: "/docs/", label: "Docs" },
   { href: "/roadmap/", label: "Roadmap" },
   { href: "/accessibility/", label: "Accessibility" },
@@ -30,6 +31,7 @@ export const FOOTER_COLUMNS = [
       { href: "/themes/", label: "Code themes" },
       { href: "/scenes/", label: "Terminal scenes" },
       { href: "/games/", label: "Terminal games" },
+      { href: "/studio/", label: "Studio" },
       { href: "/features/", label: "Features" },
       { href: "/how-it-works/", label: "How it works" },
       { href: "/roadmap/", label: "Roadmap" },

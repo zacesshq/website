@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHead from "../../components/PageHead.astro";
 import data from "../../data/scenes.json";
+import Studio from "../../components/Studio.astro";
 
 const REPO = "https://github.com/zacesshq/scenes";
 const RELEASES = `${REPO}/releases/latest`;
@@ -22,11 +23,6 @@ const groups = [
   { id: "fail", title: "Fail scenes", intro: "Slow, serious scenes that read as something gone wrong without ever flashing, shaking or spinning.", kind: "fail" },
 ].map((g) => ({ ...g, scenes: data.scenes.filter((s) => s.kind === g.kind) }));
 
-const byId = Object.fromEntries(data.scenes.map((s) => [s.id, s]));
-const SHOWCASE = ["koi-pond", "lanterns", "tea", "constellations", "zacess", "fog", "traffic-jam", "drought"].filter((id) => data.frames.includes(id));
-const showcase = [...SHOWCASE, ...data.frames.filter((id) => !SHOWCASE.includes(id))];
-const kindWord = (k: string) => (k === "fail" ? "fail scene" : k === "pass" ? "pass scene" : "scene");
-const first = showcase[0];
 
 const CONFIG = `[scenes]
 theme = "deep-contrast-dark"
@@ -56,9 +52,11 @@ const LUA = `return {
 ---
 <BaseLayout
   title="Terminal scenes"
-  description={`Zacess Scenes: ${data.scenes.length} calm animated scenes for the terminal in the eight Zacess themes, a build watcher with its own sounds, your own scenes in Lua and no flashing ever. Version ${data.version}.`}
+  description={`Zacess Scenes: ${data.scenes.length} calm animated scenes for the terminal in the ten Zacess themes, a build watcher with its own sounds, your own scenes in Lua and no flashing ever. Version ${data.version}.`}
 >
   <link slot="head" rel="stylesheet" href="/scenes/scenes.css">
+  <link slot="head" rel="stylesheet" href="/studio/studio.css">
+  <link slot="head" rel="stylesheet" href="/studio/themes.css">
   <PageHead
     eyebrow="Open source"
     title="Terminal scenes"
@@ -74,26 +72,8 @@ const LUA = `return {
   <section class="band" aria-labelledby="demo-heading">
     <div class="wrap">
       <h2 id="demo-heading">See it move</h2>
-      <p class="intro">A few scenes recorded at 80 by 24 in Zacess Deep Contrast Dark. The animation starts paused when your device asks for reduced motion.</p>
-      <div id="demo-controls" class="demo-controls" hidden>
-        <div class="pg-field">
-          <label for="demo-scene">Scene</label>
-          <select id="demo-scene">
-            {showcase.map((id) => (
-              <option value={id} data-label={`The ${id} ${kindWord(byId[id]?.kind ?? "")}: ${plain(byId[id]?.description ?? "")}`}>
-                {id} ({kindWord(byId[id]?.kind ?? "")})
-              </option>
-            ))}
-          </select>
-        </div>
-        <button type="button" id="demo-toggle" class="button">Pause</button>
-        <p id="demo-status" class="vh" aria-live="polite"></p>
-      </div>
-      <figure class="frame demo-frame">
-        <figcaption class="frame-bar" id="demo-title">{first} ({kindWord(byId[first]?.kind ?? "")})</figcaption>
-        <canvas id="demo" class="demo-canvas" role="img" aria-label={`The ${first} scene`} hidden></canvas>
-        <img id="demo-still" class="demo-still" src={`/scenes/images/${first}.svg`} width="700" height="466" alt={`The ${first} scene: ${plain(byId[first]?.description ?? "")}`}>
-      </figure>
+      <p class="intro">Every scene in the ten Zacess themes, recorded at 80 by 24 with the real renderer. A scene not yet recorded in the chosen theme shows its Deep Contrast Dark recording and says so. The animation starts paused when your device asks for reduced motion.</p>
+      <Studio id="scenes-studio" mode="scenes" />
     </div>
   </section>
 
@@ -228,4 +208,6 @@ const LUA = `return {
     </div>
   </section>
   <script is:inline src="/scenes-player.js" defer></script>
+  <script is:inline src="/studio.js" defer></script>
+  <script is:inline src="/studio-sound.js" defer></script>
 </BaseLayout>

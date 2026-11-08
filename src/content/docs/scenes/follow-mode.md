@@ -7,11 +7,11 @@ order: 36
 product: "Zacess Scenes"
 source: "scenes"
 repo: "zacesshq/scenes"
-ref: "v0.6.0"
-refLabel: "v0.6.0"
-release: "0.6.0"
+ref: "v1.1.0"
+refLabel: "v1.1.0"
+release: "1.1.0"
 path: "docs/follow-mode.md"
-sourceUrl: "https://github.com/zacesshq/scenes/blob/v0.6.0/docs/follow-mode.md"
+sourceUrl: "https://github.com/zacesshq/scenes/blob/v1.1.0/docs/follow-mode.md"
 ---
 
 Showing how each command typed in a shell ended: what it shows, the shell hook, how a scene finds

@@ -3,3 +3,6 @@ dist/
 .astro/
 .DS_Store
 .env
+
+# generated studio assets, served from the zacess-media bucket in production
+public/studio-assets/

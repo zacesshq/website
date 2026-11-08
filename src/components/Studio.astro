@@ -1,0 +1,257 @@
+---
+// the Zacess studio: a laptop drawn with CSS 3D transforms whose screen shows a scene, a game, a code
+// theme or a starter profile in any of the ten themes. /studio.js drives it and /scenes-player.js
+// draws the recordings, so both scripts and /studio/studio.css (with /studio/themes.css) go on any
+// page that uses it.
+//
+// everything the script needs is in the markup: the asset manifest on the root, one radio per mode
+// and one option per theme and item in native selects, each item carrying its label and whether
+// the release copy on this site has a recording or a still of it. With `mode` set the studio shows
+// that mode alone and carries only its list, so a product page stays light. Without the script the
+// screen shows a still (or, for code, the first sample) while the controls stay hidden.
+import manifest from "../data/studio-manifest.json";
+import scenesData from "../data/scenes.json";
+import gamesData from "../data/games.json";
+import profileData from "../data/profile.json";
+import { SAMPLES } from "../data/samples";
+import { render, THEME_IDS, THEME_NAMES } from "../lib/highlight";
+
+type Mode = "scenes" | "games" | "code" | "profile";
+interface Props {
+  /** a prefix for every id and radio name, so two studios can share a page */
+  id: string;
+  /** the home page form: the controls beside the laptop and a link to the full studio */
+  compact?: boolean;
+  /** keep the choice in the address, so a view can be shared; only one studio on a page should */
+  hash?: boolean;
+  /** show this mode alone, with no mode switch; without it every mode can be chosen */
+  mode?: Mode;
+  /** the mode the full studio opens on */
+  startMode?: Mode;
+  /** the theme the studio opens on */
+  theme?: string;
+}
+const { id, compact = false, hash = false, mode, startMode = "scenes", theme = "deep-contrast-dark" } = Astro.props;
+
+const plain = (s: string) => s.replace(/`/g, "");
+const short = (name: string) => name.replace(/^Zacess /, "");
+const words = (slug: string) => { const t = slug.replace(/-/g, " "); return t.charAt(0).toUpperCase() + t.slice(1); };
+const KIND: Record<string, string> = { general: "Original scenes", pass: "Pass scenes", fail: "Fail scenes" };
+
+// the release scenes first, then every scene the studio tree has that the release does not list yet;
+// scripts/studio-assets.mjs takes that list from the tool, so a new scene appears once it is generated
+const releaseIds = new Set(scenesData.scenes.map((s) => s.id));
+const sceneItems = [
+  ...scenesData.scenes.map((s) => ({ id: s.id, kind: s.kind, desc: plain(s.description), frames: scenesData.frames.includes(s.id), still: true })),
+  ...manifest.catalogue.scenes.filter((s) => !releaseIds.has(s.id)).map((s) => ({ id: s.id, kind: s.kind, desc: s.description, frames: false, still: false })),
+];
+const kinds = ["general", "pass", "fail", ...new Set(sceneItems.map((s) => s.kind).filter((k) => !(k in KIND)))];
+const sceneGroups = kinds.map((k) => ({ kind: k, title: KIND[k] ?? `${words(k)} scenes`, items: sceneItems.filter((s) => s.kind === k) }));
+// the games the same way: the release list first, then any game only the studio tree has so far
+const releaseGames = new Set(gamesData.games.map((g) => g.id));
+const gameItems = [
+  ...gamesData.games.map((g) => ({ id: g.id, name: g.name, desc: plain(g.description), frames: Boolean(g.frames), still: Boolean(g.still) })),
+  ...manifest.catalogue.games.filter((g) => !releaseGames.has(g.id)).map((g) => ({ id: g.id, name: words(g.id), desc: g.summary, frames: false, still: false })),
+];
+const EXT: Record<string, string> = {
+  typescript: "ts", javascript: "js", python: "py", rust: "rs", java: "java", c: "c", cpp: "cpp", csharp: "cs", go: "go", php: "php",
+  ruby: "rb", swift: "swift", kotlin: "kt", html: "html", css: "css", json: "json", yaml: "yaml", markdown: "md", bash: "sh", sql: "sql",
+};
+const codeItems = SAMPLES.map((s) => ({ id: s.id, name: s.name, file: `sample.${EXT[s.id] ?? "txt"}` }));
+const profileIds = new Set([...profileData.starters.map((s) => s.id), ...manifest.available.profile]);
+const profileItems = THEME_IDS.map((t) => `zacess-${t}`).filter((p) => profileIds.has(p)).map((p) => ({ id: p, theme: p.replace(/^zacess-/, ""), name: THEME_NAMES[p.replace(/^zacess-/, "")] ?? p }));
+
+const ALL_MODES: { id: Mode; label: string }[] = [
+  { id: "scenes", label: "Scenes" },
+  { id: "games", label: "Games" },
+  { id: "code", label: "Editor themes" },
+  { id: "profile", label: "Profile" },
+];
+const MODES = mode ? ALL_MODES.filter((m) => m.id === mode) : ALL_MODES;
+const current: Mode = mode ?? startMode;
+const ITEM_LEGEND: Record<string, string> = { scenes: "Scene", games: "Game", code: "Language", profile: "Starter profile" };
+
+// the asset base: the bucket in a build and the local tree under astro dev, unless PUBLIC_STUDIO_BASE is set
+const base = import.meta.env.PUBLIC_STUDIO_BASE || (import.meta.env.DEV ? manifest.base.development : manifest.base.production);
+// only the parts of the manifest the script reads, kept on the root as data
+const sounds = (manifest as { sounds?: { sets: string[]; events: string[]; effects: string[] } }).sounds;
+const config = JSON.stringify({ base, layout: manifest.layout, fallback: manifest.fallback, available: manifest.available, recording: manifest.recording, sounds });
+// the sound panel serves the scenes and games, so a studio fixed to code or a profile has none
+const hasSound = Boolean(sounds) && (!mode || mode === "scenes" || mode === "games");
+const EVENT_LABEL: Record<string, string> = { pass: "Pass", fail: "Fail", tick: "Rebuild", recovered: "Fixed", still_failing: "Still failing", warnings: "Warnings", typo: "Typo", clean: "Warnings cleared", stopped: "Stopped" };
+const EFFECT_LABEL: Record<string, string> = { tick: "Step", tap: "Place", good: "Clear", win: "Win", low: "Miss", warn: "Warning", note0: "Note" };
+const startTheme = THEME_IDS.includes(theme) ? theme : "deep-contrast-dark";
+const startItem: Record<Mode, string> = {
+  scenes: sceneItems.find((s) => s.id === "harbour")?.id ?? sceneItems[0].id,
+  games: gameItems.find((g) => g.id === "drift")?.id ?? gameItems[0].id,
+  code: codeItems[0].id,
+  profile: profileItems.find((p) => p.theme === startTheme)?.id ?? profileItems[0]?.id ?? "",
+};
+
+// each picker's "(n of N)" before the script runs; the script keeps it current
+const lists: Record<Mode, string[]> = { scenes: sceneGroups.flatMap((g) => g.items.map((s) => s.id)), games: gameItems.map((g) => g.id), code: codeItems.map((c) => c.id), profile: profileItems.map((p) => p.id) };
+const counts = Object.fromEntries(ALL_MODES.map((m) => [m.id, lists[m.id].length])) as Record<Mode, number>;
+const position = Object.fromEntries(ALL_MODES.map((m) => [m.id, lists[m.id].indexOf(startItem[m.id]) + 1])) as Record<Mode, number>;
+
+// what the screen shows before the script runs, in the mode the studio opens on
+const firstScene = sceneItems.find((s) => s.id === startItem.scenes)!;
+const firstGame = gamesData.games.find((g) => g.id === startItem.games) ?? gamesData.games[0];
+const firstCode = codeItems[0];
+const noScript =
+  current === "games" ? { bar: `zacess-games ${firstGame.id}`, src: firstGame.still, w: 868, h: 568, alt: firstGame.alt, title: firstGame.name, desc: plain(firstGame.description), note: "A still in Zacess Deep Contrast Dark from the latest release." }
+  : current === "profile" ? { bar: "zprf check", src: "/profile/stills/check-deep-dark.svg", w: 868, h: 568, alt: "zprf check in Zacess Deep Contrast Dark: the Deep Contrast Dark starter profile passes every pair", title: THEME_NAMES[startTheme], desc: "", note: "" }
+  : current === "code" ? { bar: firstCode.file, src: "", w: 0, h: 0, alt: "", title: firstCode.name, desc: `The ${firstCode.name} sample from the code themes playground.`, note: `Rendered with the ${THEME_NAMES[startTheme]} editor theme.` }
+  : { bar: `zacess-scenes ${firstScene.id}`, src: `/scenes/images/${firstScene.id}.svg`, w: 700, h: 466, alt: `The ${words(firstScene.id).toLowerCase()} scene in Zacess Deep Contrast Dark: ${firstScene.desc}`, title: words(firstScene.id), desc: firstScene.desc, note: "A still in Zacess Deep Contrast Dark from the latest release." };
+const stillTheme = current === "code" ? startTheme : "deep-contrast-dark";
+// the code sample is drawn at build time only where the studio opens on it; elsewhere it is fetched
+const codeHtml = current === "code" ? await render(startTheme, firstCode.id) : "";
+---
+<div class:list={["studio", "st-flat", { "studio-compact": compact, "studio-single": Boolean(mode) }]} id={id} data-studio data-hash={hash ? "" : undefined} data-fixed-mode={mode} data-config={config}>
+  <div class="st-layout">
+    <div class="st-main">
+      <div class="st-stage">
+        <div class="st-device">
+          <div class="st-lid">
+            <div class={`st-screen st-t-${stillTheme}`}>
+              <p class="st-bar">
+                <span class="st-bar-title">{noScript.bar}</span>
+                <span class="st-bar-theme">{THEME_NAMES[stillTheme]}</span>
+              </p>
+              <div class="st-view st-view-frames" hidden={current === "code"}>
+                <canvas class="st-canvas" role="img" aria-label="" hidden></canvas>
+                {noScript.src && (
+                  <div class:list={["st-crop", { "st-crop-wide": noScript.w === 868 }]}>
+                    <img class="st-still" src={noScript.src} width={noScript.w} height={noScript.h} loading="lazy" alt={noScript.alt}>
+                  </div>
+                )}
+                {!noScript.src && (
+                  <div class="st-crop" hidden>
+                    <img class="st-still" src="/scenes/images/garden.svg" width="700" height="466" loading="lazy" alt="">
+                  </div>
+                )}
+              </div>
+              <div class="st-view st-view-code" hidden={current !== "code"}>
+                <div class="st-code"><Fragment set:html={codeHtml} /></div>
+              </div>
+              <div class="st-view st-view-profile" hidden>
+                <div class="st-pane st-pane-editor">
+                  <div class="st-toml st-pre" tabindex="0" role="region" aria-label="The starter profile file"><code></code></div>
+                </div>
+                <div class="st-pane st-pane-term">
+                  <div class="st-term st-pre" tabindex="0" role="region" aria-label="What zprf check prints"><code></code></div>
+                  <ol class="st-ansi" aria-label="The profile's 16 terminal colours, numbered 0 to 15"></ol>
+                </div>
+              </div>
+              <p class="st-loading" hidden>Loading</p>
+            </div>
+          </div>
+          <div class="st-base" aria-hidden="true"><span class="st-pad"></span></div>
+        </div>
+      </div>
+
+      <div class="st-now">
+        <div class="st-now-text">
+          <p class="st-title">{noScript.title}</p>
+          <p class="st-desc">{noScript.desc}</p>
+          <p class="st-note">{noScript.note}</p>
+        </div>
+        <div class="st-actions">
+          <button type="button" class="button st-play" hidden>Pause</button>
+          <button type="button" class="button st-tilt" aria-pressed="false"><span class="st-check" aria-hidden="true"></span>3D view</button>
+        </div>
+      </div>
+      <p class="vh st-status" aria-live="polite"></p>
+    </div>
+
+    <div class="st-controls">
+      {!mode && (
+        <fieldset class="st-field st-modes">
+          <legend>Show</legend>
+          <div class="st-mode-row">
+            {MODES.map((m) => (
+              <label class="st-opt st-mode">
+                <input type="radio" name={`${id}-mode`} value={m.id} checked={m.id === current} data-st="mode">
+                <span class="st-box">{m.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      )}
+
+      <div class="st-pickers">
+        <div class="st-pick">
+          <label class="st-label" for={`${id}-theme`}>Theme</label>
+          <div class="st-pick-row">
+            {/* the chosen theme's own colours beside its name, so the picker shows what it will do */}
+            <span class={`st-swatch st-t-${startTheme}`} aria-hidden="true">Aa</span>
+            <span class="st-select-wrap">
+              <select class="st-select" id={`${id}-theme`} data-st="theme">
+                {THEME_IDS.map((t) => <option value={t} selected={t === startTheme} data-name={THEME_NAMES[t]}>{short(THEME_NAMES[t])}</option>)}
+              </select>
+            </span>
+          </div>
+        </div>
+        {MODES.map((m) => (
+          <div class="st-pick st-item-field" data-mode={m.id} hidden={m.id !== current}>
+            <label class="st-label" for={`${id}-item-${m.id}`}>{ITEM_LEGEND[m.id]} <span class="st-count">({position[m.id]} of {counts[m.id]})</span></label>
+            <span class="st-select-wrap">
+              <select class="st-select" id={`${id}-item-${m.id}`} data-st="item" data-mode={m.id}>
+                {m.id === "scenes" && sceneGroups.filter((g) => g.items.length).map((g) => (
+                  <optgroup label={g.title}>
+                    {g.items.map((s) => <option value={s.id} selected={s.id === startItem.scenes} data-label={words(s.id)} data-desc={s.desc} data-frames={s.frames ? "" : undefined} data-still={s.still ? "" : undefined}>{words(s.id)}</option>)}
+                  </optgroup>
+                ))}
+                {m.id === "games" && gameItems.map((g) => <option value={g.id} selected={g.id === startItem.games} data-label={g.name} data-desc={g.desc} data-frames={g.frames ? "" : undefined} data-still={g.still ? "" : undefined}>{g.name}</option>)}
+                {m.id === "code" && codeItems.map((c) => <option value={c.id} selected={c.id === startItem.code} data-label={c.name} data-file={c.file}>{c.name}</option>)}
+                {m.id === "profile" && profileItems.map((p) => <option value={p.id} selected={p.id === startItem.profile} data-label={p.name} data-theme={p.theme}>{short(p.name)}</option>)}
+              </select>
+            </span>
+            <div class="st-steps">
+              <button type="button" class="st-step" data-step="-1" data-mode={m.id} aria-label={`Previous ${ITEM_LEGEND[m.id].toLowerCase()}`}>
+                <svg class="st-chev" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M10 3 5 8l5 5" /></svg>
+                Previous
+              </button>
+              <button type="button" class="st-step" data-step="1" data-mode={m.id} aria-label={`Next ${ITEM_LEGEND[m.id].toLowerCase()}`}>
+                Next
+                <svg class="st-chev" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5" /></svg>
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+      {hasSound && (
+        <section class="st-sound" data-st-sound hidden aria-labelledby={`${id}-sound-title`}>
+          <h3 class="st-label" id={`${id}-sound-title`}>Sound</h3>
+          <p class="st-sound-intro">Off until you turn it on. The background loop and music are the ones the programs play.</p>
+          <div class="st-sound-row">
+            <button type="button" class="button st-sound-toggle" aria-pressed="false">Play sound</button>
+            <label class="st-volume" for={`${id}-volume`}>Volume</label>
+            <input class="st-volume-range" id={`${id}-volume`} type="range" min="0" max="100" step="5" value="50" aria-valuetext="50 percent">
+          </div>
+          <p class="st-sound-now" aria-live="polite"></p>
+          <div class="st-sound-group" data-for="scenes" hidden>
+            <div class="st-pick">
+              <label class="st-label" for={`${id}-set`}>Tone set</label>
+              <span class="st-select-wrap">
+                <select class="st-select st-set" id={`${id}-set`}>
+                  {sounds!.sets.map((s) => <option value={s}>{words(s)}</option>)}
+                </select>
+              </span>
+            </div>
+            <p class="st-tones-label" id={`${id}-tones-label`}>Hear a tone</p>
+            <div class="st-tones" role="group" aria-labelledby={`${id}-tones-label`}>
+              {sounds!.events.map((e) => <button type="button" class="st-tone" data-tone={e}>{EVENT_LABEL[e] ?? words(e)}</button>)}
+            </div>
+          </div>
+          <div class="st-sound-group" data-for="games" hidden>
+            <p class="st-tones-label" id={`${id}-effects-label`}>Hear an effect</p>
+            <div class="st-tones" role="group" aria-labelledby={`${id}-effects-label`}>
+              {sounds!.effects.map((e) => <button type="button" class="st-tone" data-effect={e}>{EFFECT_LABEL[e] ?? words(e)}</button>)}
+            </div>
+          </div>
+        </section>
+      )}
+      {compact && <p class="more st-more"><a href="/studio/">Open the full studio</a></p>}
+    </div>
+  </div>
+</div>

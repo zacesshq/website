@@ -1,5 +1,6 @@
 // @ts-check
-import { readFileSync } from "node:fs";
+import { cpSync, readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import { satteri } from "@astrojs/markdown-satteri";
@@ -68,6 +69,36 @@ const copyButtons = {
   },
 };
 
+// public/studio-assets is the studio's development base, about 1.4 GB generated locally and served
+// from the zacess-media bucket in production, so a build must never copy it into dist/ where
+// wrangler would upload it; Vite's public copy has no filter, so the build turns it off and copies
+// public/ itself without that folder, while astro dev still serves it from public/
+const LOCAL_ONLY = ["studio-assets"];
+/** @type {import("astro").AstroIntegration} */
+const publicWithoutLocalAssets = {
+  name: "zacess:public-without-local-assets",
+  hooks: {
+    "astro:config:setup": ({ command, updateConfig }) => {
+      if (command !== "build") return;
+      updateConfig({
+        vite: {
+          plugins: [{
+            name: "zacess:no-public-copy",
+            configEnvironment: (name) => (name === "client" ? { build: { copyPublicDir: false } } : undefined),
+          }],
+        },
+      });
+    },
+    "astro:build:done": ({ dir }) => {
+      const from = fileURLToPath(new URL("./public/", import.meta.url));
+      cpSync(from, fileURLToPath(dir), {
+        recursive: true,
+        filter: (src) => !LOCAL_ONLY.some((name) => src === `${from}${name}` || src.startsWith(`${from}${name}/`)),
+      });
+    },
+  },
+};
+
 export default defineConfig({
   site: "https://zacess.com",
   trailingSlash: "always",
@@ -77,7 +108,7 @@ export default defineConfig({
     inlineStylesheets: "never",
   },
   devToolbar: { enabled: false },
-  integrations: [sitemap({ filter: (page) => !page.includes("/404") })],
+  integrations: [publicWithoutLocalAssets, sitemap({ filter: (page) => !page.includes("/404") })],
   markdown: {
     // the documentation is written in plain punctuation and must stay that way: no curly quotes
     // and no dash a page would be failed for

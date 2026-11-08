@@ -7,11 +7,11 @@ order: 33
 product: "Zacess Profile"
 source: "profile"
 repo: "zacesshq/profile"
-ref: "v0.2.2"
-refLabel: "v0.2.2"
-release: "0.2.2"
+ref: "v1.0.0"
+refLabel: "v1.0.0"
+release: "1.0.0"
 path: "ACCESSIBILITY.md"
-sourceUrl: "https://github.com/zacesshq/profile/blob/v0.2.2/ACCESSIBILITY.md"
+sourceUrl: "https://github.com/zacesshq/profile/blob/v1.0.0/ACCESSIBILITY.md"
 ---
 
 Zacess Profile exists so that a person's reading needs are written down once and kept everywhere.
@@ -54,6 +54,12 @@ includes the accent wherever it is drawn as text. Panels are both panel colours,
 syntax colour keeps its font style in every target (bold keywords, control flow and tags, italic
 comments and parameters, underlined invalid code), so no role rests on colour alone.
 
+Eight profiles hold text, syntax and terminal colours to 7:1. Zacess Warm Dark and Warm Light are
+the gentler pair for anyone who finds high contrast too intense. They carry the themes' own 4.5:1
+text floor as `text = 4.5` and `terminal = 4.5`, so `check` holds them to 4.5:1 and every other
+floor, the colour vision checks included, stays the same. `tests/profiles.rs` fails if any other
+starter profile drops below 7:1.
+
 | Profile | Text on background | Lowest syntax colour | Lowest interface text | Lowest over a highlight | Selection | Cursor |
 | --- | --- | --- | --- | --- | --- | --- |
 | Zacess Light | 18.88:1 | 7.08:1 (comment on panels) | 7.04:1 (warning on panels) | 4.59:1 (comment on a soft selection) | 7.52:1 | 18.88:1 |
@@ -64,6 +70,8 @@ comments and parameters, underlined invalid code), so no role rests on colour al
 | Zacess High Contrast Light | 21.00:1 | 7.50:1 (comment on panels) | 8.58:1 (link on panels) | 4.61:1 (comment on a soft selection) | 7.50:1 | 21.00:1 |
 | Zacess Deep Contrast Dark | 21.00:1 | 8.49:1 (property on panels) | 7.63:1 (information on panels) | 4.60:1 (property on a soft selection) | 9.01:1 | 19.55:1 |
 | Zacess Deep Contrast Light | 21.00:1 | 7.71:1 (number) | 7.00:1 (link) | 4.88:1 (link on the current line) | 7.47:1 | 21.00:1 |
+| Zacess Warm Dark | 11.77:1 | 7.19:1 (type on panels) | 8.16:1 (error on panels) | 4.63:1 (type on a soft selection) | 7.93:1 | 11.44:1 |
+| Zacess Warm Light | 12.50:1 | 5.14:1 (added on panels) | 6.52:1 (link on panels) | 4.55:1 (added on a soft selection) | 6.50:1 | 11.42:1 |
 
 | Profile | Lowest border, focus ring or selection block | Lowest terminal colour | Current line from the background (OKLab) |
 | --- | --- | --- | --- |
@@ -75,20 +83,24 @@ comments and parameters, underlined invalid code), so no role rests on colour al
 | Zacess High Contrast Light | 7.50:1 (selection block) | 4.67:1 (bright green, a dim slot) | 0.106 |
 | Zacess Deep Contrast Dark | 9.01:1 (selection block) | 7.01:1 (blue) | 0.268 |
 | Zacess Deep Contrast Light | 6.60:1 (focus ring) | 4.52:1 (yellow, a dim slot) | 0.134 |
+| Zacess Warm Dark | 4.63:1 (border on panels) | 6.86:1 (black) | 0.091 |
+| Zacess Warm Light | 3.43:1 (border on panels) | 5.25:1 (bright yellow) | 0.091 |
 
 The closest paired colours in each profile. Of the 31 pairs, 19 apply to each starter profile: the
 rest join roles with different font styles.
 
 | Profile | Smallest tone difference (floor 0.05) | Smallest distance under a simulation (floor 0.04) |
 | --- | --- | --- |
-| Zacess Light | 0.053 (function and string) | 0.041 (error and warning, deuteranopia) |
+| Zacess Light | 0.053 (function and string) | 0.045 (error and warning, tritanopia) |
 | Zacess Dark | 0.052 (error and warning) | 0.050 (error and warning, tritanopia) |
 | Zacess Yellow on Black | 0.051 (error and warning) | 0.040 (string and number, deuteranopia) |
-| Zacess Cream | 0.053 (function and string) | 0.041 (error and warning, deuteranopia) |
+| Zacess Cream | 0.053 (function and string) | 0.047 (string and invalid, deuteranopia) |
 | Zacess High Contrast Dark | 0.053 (function and property) | 0.041 (function and property, deuteranopia) |
 | Zacess High Contrast Light | 0.052 (function and type) | 0.041 (error and warning, deuteranopia) |
 | Zacess Deep Contrast Dark | 0.052 (added and removed) | 0.045 (string and number, tritanopia) |
-| Zacess Deep Contrast Light | 0.051 (control and keyword) | 0.043 (error and warning, protanopia) |
+| Zacess Deep Contrast Light | 0.051 (control and keyword) | 0.051 (error and warning, protanopia) |
+| Zacess Warm Dark | 0.055 (removed and changed) | 0.045 (function and variable, tritanopia) |
+| Zacess Warm Light | 0.050 (function and type) | 0.041 (error and warning, deuteranopia) |
 
 > **Note**
 >
@@ -99,10 +111,11 @@ rest join roles with different font styles.
 
 > **Note**
 >
-> The four light profiles list their twelve coloured terminal slots in `palette.terminal.dim`, so
+> Four of the light profiles list their twelve coloured terminal slots in `palette.terminal.dim`, so
 > those slots are held to 4.5:1 rather than 7:1. That is the Zacess themes' own allowance, kept so
 > red, green and blue stay recognisable on white. Set `terminal_dim = 7.0` in your copy to hold every
-> slot to 7:1. `check` will then name each slot that misses.
+> slot to 7:1. `check` will then name each slot that misses. Zacess Warm Light lists no dim slots,
+> since its whole terminal floor is already 4.5:1.
 
 ## Needs each target applies
 
@@ -150,7 +163,7 @@ blinking on. When `cursor_size` is missing or `standard` the app keeps its own c
   module ran under LuaJIT. The VS Code and Alacritty output parse as JSON and TOML in the tests.
 - Terminal colours are not yet checked against the default text in tone and under each simulation,
   as the Zacess themes check them. That needs the spec to say which slots stand for the default
-  text. See [ROADMAP.md](https://github.com/zacesshq/profile/blob/v0.2.2/ROADMAP.md).
+  text. See [ROADMAP.md](https://github.com/zacesshq/profile/blob/v1.0.0/ROADMAP.md).
 - On a mid grey the band of lightness left above the text floor is too narrow for four
   regular-style syntax roles to sit 0.05 apart in tone, so `derive` names the paired roles and the
   background instead of choosing colours. In a sweep of greys and tinted greys this happened from
@@ -172,7 +185,7 @@ blinking on. When `cursor_size` is missing or `standard` the app keeps its own c
   whenever the text floor is 7:1 or more. Read every line before running it.
 - The browser extension's styles are page styles marked important, so a page's own important rule
   that is more specific or comes later can still win, for example one that removes focus outlines.
-  Moving them to the browser's user style level is on the [roadmap](https://github.com/zacesshq/profile/blob/v0.2.2/ROADMAP.md).
+  Moving them to the browser's user style level is on the [roadmap](https://github.com/zacesshq/profile/blob/v1.0.0/ROADMAP.md).
 - With the colours applied, every element's own background is cleared so the profile background
   shows through. A fixed header, a tooltip or a menu without a dialog, menu or listbox role then
   sits over the page text with no panel behind it. Text over a background image keeps the

@@ -14,7 +14,7 @@
 // PROFILE_TAG pins a tag and GITHUB_TOKEN, when set, lifts the API rate limit.
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, unlinkSync } from "node:fs";
 import { join } from "node:path";
-import { latestTag as latest, raw as fetchRaw, get, headers } from "./lib/release.mjs";
+import { latestTag as latest, raw as fetchRaw, rawBytes, isLocal, get, headers } from "./lib/release.mjs";
 
 const REPO = "zacesshq/profile";
 const DATA = new URL("../src/data/", import.meta.url).pathname;
@@ -161,15 +161,24 @@ async function sync() {
   if (!extension.length) throw new Error("the README's Browser extension section has no text");
   const later = items(section(roadmap, "## Later", "ROADMAP.md"), "ROADMAP.md's Later section").map(link);
 
-  // the release files, from the GitHub release made from the tag
-  const release = await (await get(`https://api.github.com/repos/${REPO}/releases/tags/${tag}`, { headers })).json();
-  const names = (release.assets ?? []).map((a) => a.name);
-  const downloads = names.filter((n) => !n.endsWith(".sha256")).map((file) => {
-    const triple = file.match(new RegExp(`^${crate}-${tag.replace(/\./g, "\\.")}-(.+)\\.(?:tar\\.gz|zip)$`))?.[1];
-    if (!triple || !SYSTEMS[triple]) throw new Error(`the release file ${file} is not a build this page knows`);
-    if (!names.includes(`${file}.sha256`)) throw new Error(`the release file ${file} has no .sha256 beside it`);
-    return { file, system: SYSTEMS[triple] };
-  }).sort((a, b) => Object.values(SYSTEMS).indexOf(a.system) - Object.values(SYSTEMS).indexOf(b.system));
+  // the release files, from the GitHub release made from the tag. A local checkout may be ahead of
+  // its newest tag, whose release does not exist yet, so a local preview keeps the committed list
+  // and names each file under the local tag, as the release workflow will
+  let downloads;
+  if (isLocal(REPO)) {
+    const committed = JSON.parse(readFileSync(join(DATA, "profile.json"), "utf8"));
+    if (!committed.downloads?.length) throw new Error("src/data/profile.json has no release files to keep");
+    downloads = committed.downloads.map((d) => ({ ...d, file: d.file.replace(`-${committed.tag}-`, `-${tag}-`) }));
+  } else {
+    const release = await (await get(`https://api.github.com/repos/${REPO}/releases/tags/${tag}`, { headers })).json();
+    const names = (release.assets ?? []).map((a) => a.name);
+    downloads = names.filter((n) => !n.endsWith(".sha256")).map((file) => {
+      const triple = file.match(new RegExp(`^${crate}-${tag.replace(/\./g, "\\.")}-(.+)\\.(?:tar\\.gz|zip)$`))?.[1];
+      if (!triple || !SYSTEMS[triple]) throw new Error(`the release file ${file} is not a build this page knows`);
+      if (!names.includes(`${file}.sha256`)) throw new Error(`the release file ${file} has no .sha256 beside it`);
+      return { file, system: SYSTEMS[triple] };
+    }).sort((a, b) => Object.values(SYSTEMS).indexOf(a.system) - Object.values(SYSTEMS).indexOf(b.system));
+  }
   if (!downloads.length) throw new Error(`the ${tag} release has no files attached yet`);
 
   const marks = {
@@ -179,7 +188,7 @@ async function sync() {
   const files = {};
   // the store screenshot is a real capture of the extension at work, made by npm run store:screenshot
   const shotPath = "extension/store/screenshot-1280x800.png";
-  const shot = Buffer.from(await (await get(`https://raw.githubusercontent.com/${REPO}/${tag}/${shotPath}`)).arrayBuffer());
+  const shot = await rawBytes(REPO, tag, shotPath);
   if (shot.subarray(1, 4).toString() !== "PNG" || shot.readUInt32BE(16) !== 1280 || shot.readUInt32BE(20) !== 800) {
     throw new Error(`${shotPath} at ${tag} is not a 1280 by 800 PNG`);
   }

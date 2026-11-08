@@ -7,11 +7,11 @@ order: 46
 product: "Zacess Themes"
 source: "themes"
 repo: "zacesshq/themes"
-ref: "v0.12.1"
-refLabel: "v0.12.1"
-release: "0.12.1"
+ref: "v1.0.0"
+refLabel: "v1.0.0"
+release: "1.0.0"
 path: "docs/shell-colours.md"
-sourceUrl: "https://github.com/zacesshq/themes/blob/v0.12.1/docs/shell-colours.md"
+sourceUrl: "https://github.com/zacesshq/themes/blob/v1.0.0/docs/shell-colours.md"
 ---
 
 Shell syntax highlighting can name the terminal's ANSI colours instead of fixed values, so commands

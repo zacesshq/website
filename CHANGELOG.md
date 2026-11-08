@@ -7,8 +7,53 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-08
+
 ### Added
 
+- Sound in the studio for scenes and games. It is off until someone presses Play sound, which becomes Pause sound. A volume slider keeps its level between visits. A scene plays the background loop that suits it and a game plays its music with its own loop. Tone buttons play each event in any of the eight sound sets. A game's panel plays each of its effects, the new warning tone included. The files are made by `scripts/studio-sounds.mjs` from the Scenes and Games programs themselves and served from the media bucket, so they sound the way the programs do.
+- A Check workflow that type checks, builds and verifies the site on every pull request, so a change that breaks the build is caught before it merges. It is required before a merge.
+- Zacess Warm Dark and Zacess Warm Light on `/themes/`, taking the code themes from eight to ten: in
+  the playground, the side by side grid and the browser table, plus a section with both preview
+  images that explains the gentler pair. Their body text sits at about 12:1 in warm, earthy colours
+  with a 4.5:1 floor, while the other eight keep 7:1. The playground shows each theme's own target.
+- The theme sync copies the Warm pair's preview images with the Deep Contrast Dark one.
+- A studio at `/studio/` and a compact one on the home page: a laptop whose screen shows any scene,
+  game, code sample or starter profile in any of the ten themes. Scenes and games play their real
+  recordings through the scenes player, code samples come from the themes playground and each
+  starter profile shows its TOML and `zprf check` in its own palette. It opens on Deep Contrast Dark
+  with Harbour as the scene and Drift as the game.
+- The studio's pickers: a mode switch and native selects for the theme and for each mode's item.
+  The theme picker shows the chosen theme's own colours beside its name and each item picker has
+  Previous and Next buttons with an "(n of N)" count.
+- The laptop is drawn flat by default. A 3D view button tilts it with a gentle parallax that follows
+  a mouse. Under reduced motion the button is hidden, the laptop stays flat and recordings wait for
+  Play. Every recording has a visible Pause button and pauses while the studio is off screen or the
+  tab is hidden. The two are tracked apart, so coming back to the tab never restarts a recording
+  that is off screen.
+- `src/data/studio-manifest.json`, which puts every studio asset behind one base: the R2 bucket at
+  `https://media.zacess.com` in a build and `public/studio-assets` under `astro dev`. Anything the
+  bucket lacks falls back to the release copy, with a note saying so. The CSP allows the bucket.
+- A build copies `public/` into `dist/` itself and leaves out `public/studio-assets`, the local
+  development copy of the studio's assets, so it is never uploaded with the site. `.gitignore` and
+  `public/.assetsignore` keep it out as well.
+- `ZACESS_SYNC_LOCAL`, which points the scenes, games, profile and themes syncs at a folder of local
+  checkouts so unreleased work can be previewed on the site. Each sync then reads the checkout's
+  working tree and the version in its `Cargo.toml` or `package.json` instead of the newest tag. The
+  Profile sync keeps the committed list of release files, named under the local version. The deploy
+  workflow never sets it.
+- `scripts/studio-assets.mjs`, which writes the studio's asset tree from local builds of Zacess
+  Scenes, Zacess Games and Zacess Profile and records what it wrote in the manifest.
+- The studio on each product page, opened in that page's mode: Editor themes on `/themes/`, Scenes
+  on `/scenes/`, Games on `/games/` and Profile on `/profile/`. On the themes page it chooses the
+  theme and language while the contrast figures, the copy button and the side by side grid follow
+  it. Older playground links such as `#warm-dark-rust` still open the right view. On the scenes and
+  games pages it replaces the single theme player. Play the recording under each game still plays
+  it in the studio. A scene the tool adds appears once the asset script has generated it.
+- Studio in the main navigation. The header row now starts at 76rem and may run wider than the
+  page, so the nine links stay centred clear of the logo. Narrower screens use the Menu button.
+- The studio remembers the last mode, theme and item for each mode in this browser, as the code
+  themes playground did. A link that names a view always wins. The page works without storage.
 - An In your browser section on `/themes/` with a link to each of the eight browser themes in the
   Chrome Web Store and on Firefox Add-ons. An install card for the browser themes notes that Edge
   installs the Chrome ones.
@@ -17,8 +62,27 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- The Profile install page and browser extension guide link the three store listings directly.
+- The themes page lists the browser themes as live in the Chrome Web Store and on Firefox Add-ons.
 - The Profile documentation written on this site is checked against Zacess Profile 0.2.2. The
   release archive names, the version `zprf --version` prints and the source links follow it.
+- The home page, Features, the FAQ, the roadmap and the scenes, games, themes and profile pages
+  speak of ten themes: the eight contrast themes and the gentler Warm pair. The homepage themes card
+  calls them code themes, from the strongest contrast to a gentler warm pair.
+- Features lists five reading presets, adding Gentle Warm: the system font at 14 point, 1.6 line
+  spacing, 65 characters to a line, Warm Dark and no ruler. It lists the reader's ten themes. The
+  home page names the gentle warm view among the presets.
+- The scenes, games, profile and themes pages and their documentation follow the newest work in
+  each product: 65 scenes drawn as pixel art with a still for each, the games' pixel art boards with
+  new stills and recordings, ten starter profiles and ten code themes. The scenes sync reads the
+  More general scenes table when the scenes list has one.
+- `scenes-player.js` is now only the drawing core the studio uses. It draws block glyphs as
+  rectangles, as a terminal does, so pixel art in full and half blocks shows no seams.
+
+### Removed
+
+- The single theme players on the scenes and games pages, their styles and the playground's own
+  theme and language selects, all replaced by the studio.
 
 ## [0.4.0] - 2026-11-05
 
@@ -95,7 +159,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   search needs, the canonical address of every page and the contrast floors.
 - Routine tidy-up.
 
-[Unreleased]: https://github.com/zacesshq/website/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/zacesshq/website/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/zacesshq/website/compare/v0.4.0...v1.0.0
 [0.4.0]: https://github.com/zacesshq/website/releases/tag/v0.4.0
 [0.3.0]: https://github.com/zacesshq/website/releases/tag/v0.3.0
 [0.2.0]: https://github.com/zacesshq/website/releases/tag/v0.2.0

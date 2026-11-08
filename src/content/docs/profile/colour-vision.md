@@ -55,7 +55,7 @@ The [profile format](/docs/reference/profile-format/#paired-colours) lists all 3
 
 `check_error_warning` decides whether `error` and `warning` are held to the two floors as a pair.
 It is `true` by default. The Zacess themes do not pair them, so `false` keeps a themes palette as it
-is. In five of the eight starter profiles, Zacess Light, Dark, Cream, High Contrast Light and Deep
+is. In five of the ten starter profiles, Zacess Light, Dark, Cream, High Contrast Light and Deep
 Contrast Light, the warning colour moved in lightness on its own hue so errors and warnings stay
 apart. Each file names the themes' colour beside the new one.
 

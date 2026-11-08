@@ -6,12 +6,12 @@ order: 56
 product: "Zacess Profile"
 source: "profile"
 repo: "zacesshq/profile"
-ref: "v0.2.2"
-refLabel: "v0.2.2"
-release: "0.2.2"
+ref: "v1.0.0"
+refLabel: "v1.0.0"
+release: "1.0.0"
 path: "README.md"
 heading: "Commands"
-sourceUrl: "https://github.com/zacesshq/profile/blob/v0.2.2/README.md"
+sourceUrl: "https://github.com/zacesshq/profile/blob/v1.0.0/README.md"
 ---
 
 | Command | What it does | Exit code |

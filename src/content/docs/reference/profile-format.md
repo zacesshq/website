@@ -6,18 +6,18 @@ order: 64
 product: "Zacess Profile"
 source: "profile"
 repo: "zacesshq/profile"
-ref: "v0.2.2"
-refLabel: "v0.2.2"
-release: "0.2.2"
+ref: "v1.0.0"
+refLabel: "v1.0.0"
+release: "1.0.0"
 path: "spec/SPEC.md"
-sourceUrl: "https://github.com/zacesshq/profile/blob/v0.2.2/spec/SPEC.md"
+sourceUrl: "https://github.com/zacesshq/profile/blob/v1.0.0/spec/SPEC.md"
 ---
 
 **Spec version 1, draft.** This document is versioned apart from `zprf`, the reference tool in the `zacess-profile` crate. The
-tool's version is in `Cargo.toml` and its changes are in [CHANGELOG.md](https://github.com/zacesshq/profile/blob/v0.2.2/CHANGELOG.md). A change to
+tool's version is in `Cargo.toml` and its changes are in [CHANGELOG.md](https://github.com/zacesshq/profile/blob/v1.0.0/CHANGELOG.md). A change to
 what a valid profile is raises the spec version, as does a change to what a field means.
 
-The machine-readable form is [profile.schema.json](https://github.com/zacesshq/profile/blob/v0.2.2/spec/profile.schema.json), a JSON Schema (draft
+The machine-readable form is [profile.schema.json](https://github.com/zacesshq/profile/blob/v1.0.0/spec/profile.schema.json), a JSON Schema (draft
 2020-12). Where this document and the schema differ, the schema is a bug and this document wins.
 
 ## Purpose
@@ -259,8 +259,8 @@ their meaning.
 
 ## Example
 
-[examples/minimal.toml](https://github.com/zacesshq/profile/blob/v0.2.2/spec/examples/minimal.toml) states needs and one colour. The starter profiles in
-[profiles](https://github.com/zacesshq/profile/tree/v0.2.2/profiles) are complete examples with every colour set.
+[examples/minimal.toml](https://github.com/zacesshq/profile/blob/v1.0.0/spec/examples/minimal.toml) states needs and one colour. The starter profiles in
+[profiles](https://github.com/zacesshq/profile/tree/v1.0.0/profiles) are complete examples with every colour set.
 
 ```toml
 spec_version = 1

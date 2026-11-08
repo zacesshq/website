@@ -6,11 +6,11 @@ order: 66
 product: "Zacess Scenes"
 source: "scenes"
 repo: "zacesshq/scenes"
-ref: "v0.6.0"
-refLabel: "v0.6.0"
-release: "0.6.0"
+ref: "v1.1.0"
+refLabel: "v1.1.0"
+release: "1.1.0"
 path: "docs/configuration.md"
-sourceUrl: "https://github.com/zacesshq/scenes/blob/v0.6.0/docs/configuration.md"
+sourceUrl: "https://github.com/zacesshq/scenes/blob/v1.1.0/docs/configuration.md"
 ---
 
 Every setting can live in one file:
@@ -55,12 +55,16 @@ recovered = true
 still_failing = false
 warnings = true
 typo = true             # a command a followed shell could not find
+clean = true            # the last warning cleared
+stopped = true          # bacon quit or the followed command could not start
 
 [notifications]
 enabled = true
 
 [ambient]
 enabled = true          # a quiet background sound that suits the scene
+sound = "auto"          # or one sound for every scene: water, rain, wind, fire, night, stream,
+                        # birds, hum, city or pad
 volume = 20
 
 [follow]

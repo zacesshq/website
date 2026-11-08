@@ -7,11 +7,11 @@ order: 35
 product: "Zacess Scenes"
 source: "scenes"
 repo: "zacesshq/scenes"
-ref: "v0.6.0"
-refLabel: "v0.6.0"
-release: "0.6.0"
+ref: "v1.1.0"
+refLabel: "v1.1.0"
+release: "1.1.0"
 path: "docs/watch-mode.md"
-sourceUrl: "https://github.com/zacesshq/scenes/blob/v0.6.0/docs/watch-mode.md"
+sourceUrl: "https://github.com/zacesshq/scenes/blob/v1.1.0/docs/watch-mode.md"
 ---
 
 The build monitor for projects in any language: what it shows, the command each kind of project
@@ -89,7 +89,7 @@ always says something.
 
 ## Rust and bacon
 
-bacon is a separate program, not part of Zacess Scenes (see [NOTICE.md](https://github.com/zacesshq/scenes/blob/v0.6.0/NOTICE.md)). Install it
+bacon is a separate program, not part of Zacess Scenes (see [NOTICE.md](https://github.com/zacesshq/scenes/blob/v1.1.0/NOTICE.md)). Install it
 once:
 
 ```sh

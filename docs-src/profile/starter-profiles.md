@@ -1,7 +1,8 @@
 # Starter profiles
 
-The eight Zacess themes ship as complete profiles. Each one passes `check` with no colour left to
-derive. The project's CI keeps it that way. Each measures 224 pairs.
+All ten Zacess themes ship as complete profiles. Each one passes `check` with no colour left to
+derive. The project's CI keeps it that way. Each measures 224 pairs. Zacess Warm Dark and Warm
+Light hold text to 4.5:1, the gentler floor the themes give them. The other eight hold it to 7:1.
 
 | Profile | Background | Text | Text contrast |
 | --- | --- | --- | --- |
@@ -13,6 +14,8 @@ derive. The project's CI keeps it that way. Each measures 224 pairs.
 | `zacess-high-contrast-light` | `#ffffff` | `#000000` | 21.00:1 |
 | `zacess-deep-contrast-dark` | `#000000` | `#ffffff` | 21.00:1 |
 | `zacess-deep-contrast-light` | `#ffffff` | `#000000` | 21.00:1 |
+| `zacess-warm-dark` | `#211b17` | `#e5d5b6` | 11.77:1 |
+| `zacess-warm-light` | `#f4ead5` | `#342410` | 12.50:1 |
 
 The lowest measured value in each class of pair, for every starter profile, is in the
 [accessibility statement](/docs/profile/accessibility/#the-starter-profiles).

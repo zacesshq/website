@@ -5,7 +5,7 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   X-Frame-Options: DENY
   Cross-Origin-Opener-Policy: same-origin
-  Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-XOhCjeVVuwiSz81z2SNSu+/C69Pj9HSoUUDEEQihfo4=' https://static.cloudflareinsights.com; font-src 'self'; manifest-src 'self'; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; img-src 'self' data: https://media.zacess.com; style-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-XOhCjeVVuwiSz81z2SNSu+/C69Pj9HSoUUDEEQihfo4=' https://static.cloudflareinsights.com; font-src 'self'; manifest-src 'self'; connect-src 'self' https://cloudflareinsights.com https://media.zacess.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
 
 /assets/*
   Cache-Control: public, max-age=604800

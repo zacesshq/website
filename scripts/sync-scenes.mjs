@@ -59,7 +59,10 @@ async function sync() {
     ? [sceneDoc, "docs/scenes.md"]
     : [readme, "the README"];
   const scenes = [];
-  for (const [heading, kind] of [["### The original scenes", "general"], ["### Pass scenes", "pass"], ["### Fail scenes", "fail"]]) {
+  // "More general scenes" is a second general table, added after 0.6.0, so it is read when present
+  const headings = [["### The original scenes", "general"], ["### More general scenes", "general"], ["### Pass scenes", "pass"], ["### Fail scenes", "fail"]]
+    .filter(([heading]) => heading !== "### More general scenes" || sceneText.includes(`\n${heading}\n`));
+  for (const [heading, kind] of headings) {
     for (const [name, description, reduced] of table(sceneText, heading, sceneSource)) {
       scenes.push({ id: code(name), kind, description, reduced });
     }

@@ -1,0 +1,64 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHead from "../../components/PageHead.astro";
+import Studio from "../../components/Studio.astro";
+import scenes from "../../data/scenes.json";
+import manifest from "../../data/studio-manifest.json";
+import games from "../../data/games.json";
+import { SAMPLES } from "../../data/samples";
+import { THEME_IDS } from "../../lib/highlight";
+import { words, cap } from "../../lib/words";
+// the release scenes plus any newer scene the studio tree has, so the count follows the generated set
+const sceneCount = new Set([...scenes.scenes.map((s) => s.id), ...manifest.catalogue.scenes.map((s) => s.id)]).size;
+---
+<BaseLayout
+  title="Studio"
+  description={`The Zacess studio: try every Zacess theme on the terminal scenes, the terminal games, the code themes in ${SAMPLES.length} languages and the starter profiles, drawn on a laptop screen.`}
+>
+  <link slot="head" rel="stylesheet" href="/studio/studio.css">
+  <link slot="head" rel="stylesheet" href="/studio/themes.css">
+  <PageHead
+    eyebrow="Try it"
+    title="Studio"
+    lead={`Choose one of the ${words(THEME_IDS.length)} Zacess themes with a scene, a game, a code sample or a starter profile to see it on screen as it looks in your terminal or editor.`}
+  />
+
+  <section aria-labelledby="studio-heading">
+    <div class="wrap">
+      <h2 id="studio-heading" class="vh">The studio</h2>
+      <Studio id="studio" hash />
+      <p class="intro studio-help">Scenes and games play their real recordings, made with the same renderer as the terminal. The animation starts paused when your device asks for reduced motion. The laptop is then drawn face on. The arrow keys move through each list.</p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="what-heading">
+    <div class="wrap">
+      <h2 id="what-heading">What is on screen</h2>
+      <ul class="features">
+        <li>
+          <h3>Scenes</h3>
+          <p>{cap(words(sceneCount))} calm scenes for the terminal, each recorded at 80 by 24. Each theme draws them in its own colours, with pixel art in full and half blocks.</p>
+          <p class="more"><a href="/scenes/">Terminal scenes</a></p>
+        </li>
+        <li>
+          <h3>Games</h3>
+          <p>{cap(words(games.games.length))} original games, each with a short recording of real play.</p>
+          <p class="more"><a href="/games/">Terminal games</a></p>
+        </li>
+        <li>
+          <h3>Editor themes</h3>
+          <p>The code themes on {words(SAMPLES.length)} languages, coloured by the same theme files the editor extensions ship.</p>
+          <p class="more"><a href="/themes/">Code themes</a></p>
+        </li>
+        <li>
+          <h3>Profile</h3>
+          <p>A starter profile in its own colours and needs, with what <code>zprf check</code> says about it.</p>
+          <p class="more"><a href="/profile/">Accessibility profile</a></p>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <script is:inline src="/scenes-player.js" defer></script>
+  <script is:inline src="/studio.js" defer></script>
+  <script is:inline src="/studio-sound.js" defer></script>
+</BaseLayout>

@@ -6,11 +6,11 @@ order: 68
 product: "Zacess Games"
 source: "games"
 repo: "zacesshq/games"
-ref: "v0.4.0"
-refLabel: "v0.4.0"
-release: "0.4.0"
+ref: "v1.1.0"
+refLabel: "v1.1.0"
+release: "1.1.0"
 path: "docs/scores.md"
-sourceUrl: "https://github.com/zacesshq/games/blob/v0.4.0/docs/scores.md"
+sourceUrl: "https://github.com/zacesshq/games/blob/v1.1.0/docs/scores.md"
 ---
 
 Everything Zacess Games remembers between runs is in one plain text file, `scores.txt`. It holds
@@ -43,6 +43,8 @@ number is ignored when the file is read, so a note can be left in it.
 code-language 0
 code-python 3
 learn-to-code 280
+setting-background-on 0
+setting-background-volume 15
 setting-effects-on 1
 setting-effects-volume 35
 setting-music-on 1
@@ -87,7 +89,7 @@ rows, light, moves and so on, as the How to play page of each game says).
 
 | Key | Value |
 | --- | --- |
-| `code-<track id>` | Levels done in that track, such as `code-python` or `code-rust`. The ids are the file names in [`levels/code`](https://github.com/zacesshq/games/tree/v0.4.0/levels/code/) without `.lua`. The game opens the track at this level and its level list ticks every level below it |
+| `code-<track id>` | Levels done in that track, such as `code-python` or `code-rust`. The ids are the file names in [`levels/code`](https://github.com/zacesshq/games/tree/v1.1.0/levels/code/) without `.lua`. The game opens the track at this level and its level list ticks every level below it |
 | `code-language` | The track opened last, as its place in the track list counted from zero |
 
 ### Sound
@@ -98,6 +100,8 @@ rows, light, moves and so on, as the How to play page of each game says).
 | `setting-effects-on` | `1` when the effects play and `0` when they are muted |
 | `setting-music-volume` | The music volume, 0 to 100 |
 | `setting-music-on` | `1` when the music plays and `0` when it is muted |
+| `setting-background-volume` | The background sound's volume, 0 to 100 |
+| `setting-background-on` | `1` when the background sound plays and `0` when it is off |
 
 A flag or an environment variable wins over a saved setting for that run and does not change the
 file; see [the controls sheet](/docs/reference/games-controls/#settings-and-records).

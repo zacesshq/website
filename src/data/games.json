@@ -1,6 +1,6 @@
 {
-  "version": "0.4.0",
-  "tag": "v0.4.0",
+  "version": "1.1.0",
+  "tag": "v1.1.0",
   "rust": "1.88",
   "still": {
     "width": 868,
@@ -28,7 +28,7 @@
       "ending": "There is no end to win. The game ends when a well overflows at the top.",
       "tip": "Keep upright parts together in columns you do not need to clear soon.",
       "keys": "`←` `→` (or `H` `L`) move. `↑` (or `K` or `X`) turns. `↓` (or `J`) moves one row down. `Enter` drops. `Tab` moves the piece to the other well",
-      "alt": "Stackline: circuit parts falling into two wells with the rails marked plus and minus",
+      "alt": "Stackline: copper chips falling into two circuit board wells with the rails marked plus and minus",
       "still": "/games/images/stackline-deep-dark.svg",
       "frames": "/games/frames/stackline.json"
     },
@@ -43,7 +43,7 @@
       "ending": "Each target allows 10 pushes. Missing one is a fault. The game ends at the third fault.",
       "tip": "Read the next gates on the track before you push.",
       "keys": "Arrows (or `H` `J` `K` `L`) move the cursor. `W` `A` `S` `D` push the tile up, left, down or right. `Enter` grabs; then an arrow pushes",
-      "alt": "Merge Gates: four-bit tiles on a board beside a track of logic gates and the target output",
+      "alt": "Merge Gates: rounded four-bit tiles in a tray of sockets beside a track of logic gates and the target output",
       "still": "/games/images/merge-gates-deep-dark.svg",
       "frames": "/games/frames/merge-gates.json"
     },
@@ -58,7 +58,7 @@
       "ending": "Solve the term to win. Six tries without it shows the answer and resets the streak.",
       "tip": "An arrow tells you which way to move a letter, so two guesses can place most of them.",
       "keys": "Letters type. `Backspace` deletes. `Enter` guesses. `Tab` reveals a letter for one try",
-      "alt": "Termle: guesses of the day's term with letters marked in place, elsewhere or not used",
+      "alt": "Termle: guesses of the day's term on letter tiles, marked in place, elsewhere or not used",
       "still": "/games/images/termle-deep-dark.svg",
       "frames": "/games/frames/termle.json"
     },
@@ -73,7 +73,7 @@
       "ending": "The song ends when every note has passed. There is no way to lose; the end screen shows how many were in time, close and missed.",
       "tip": "Watch the notes rather than listen; the tones are a garnish and the song plays the same muted.",
       "keys": "`↑` or `1` plays the high lane. `→` or `2` the middle lane. `↓` or `3` the low lane",
-      "alt": "Signal: notes travelling along three lanes towards the line",
+      "alt": "Signal: triangle and round notes travelling along three lanes towards their outlines on the line",
       "still": "/games/images/signal-deep-dark.svg",
       "frames": "/games/frames/signal.json"
     },
@@ -84,11 +84,11 @@
       "kind": "turn based",
       "typing": false,
       "summary": "light every node, no crossings",
-      "goal": "Light every node on the board by running wire to it from the source (◆).",
+      "goal": "Light every node on the board by running wire to it from the source, the diamond.",
       "ending": "Light every circuit to win. There is no way to lose: undo or restart a level as often as you like.",
       "tip": "Lay the long straight runs first and branch from the nodes they light.",
       "keys": "Arrows (or `H` `J` `K` `L`) lay wire. `Tab` or `Enter` moves the pen to the next lit point. `U` or `Backspace` undoes. `R` restarts",
-      "alt": "Trace: wire laid from a source to light nodes on a grid",
+      "alt": "Trace: copper traces laid from a diamond source to light ring nodes on a circuit board",
       "still": "/games/images/trace-deep-dark.svg",
       "frames": "/games/frames/trace.json"
     },
@@ -103,7 +103,7 @@
       "ending": "There is no way to lose. Enter ends the journey whenever you like and keeps the light gathered.",
       "tip": "Reduced motion halves the pace if the scrolling is too much.",
       "keys": "Arrows (or `H` `J` `K` `L`) steer. `Enter` ends the journey",
-      "alt": "Drift: a lantern over a quiet landscape gathering light",
+      "alt": "Drift: a lantern over moonlit hills with pines and reeds, gathering sparks of light",
       "still": "/games/images/drift-deep-dark.svg",
       "frames": "/games/frames/drift.json"
     },
@@ -118,7 +118,7 @@
       "ending": "Fix every room to win. The game ends if uptime reaches 0%.",
       "tip": "Glitches only move when you do, so stop and plan.",
       "keys": "Arrows (or `H` `J` `K` `L`) walk. `D` drops a part",
-      "alt": "Rooms: a room of a broken server with parts, faults and doors",
+      "alt": "Rooms: a server room of cabinets on a raised floor with parts, faults and doors",
       "still": "/games/images/rooms-deep-dark.svg",
       "frames": "/games/frames/rooms.json"
     },
@@ -133,7 +133,7 @@
       "ending": "Deliver every level to win. There is no way to lose: undo or restart a level as often as you like.",
       "tip": "Waiting is the only way to change the beat, so count the moves to each gate.",
       "keys": "Arrows (or `H` `J` `K` `L`) move. `W` or `Enter` waits a move (so does the full stop). `U` or `Backspace` undoes. `R` restarts",
-      "alt": "Relay: a packet on a track of timed gates, portals and the exit",
+      "alt": "Relay: a packet on a checkered floor of brick walls, timed gates, gems and the exit",
       "still": "/games/images/relay-deep-dark.svg",
       "frames": "/games/frames/relay.json"
     },
@@ -148,7 +148,7 @@
       "ending": "The match ends after five attacks. An attack ends with a goal, a save, a blocked shot, a tackle or the clock running out.",
       "tip": "Draw the keeper to one side, then shoot to the far row from inside the box.",
       "keys": "Arrows (or `H` `J` `K` `L`) run with the ball. `Tab` picks a teammate. `Enter` passes. `1` `2` `3` shoot at the top, middle or low row",
-      "alt": "Through Ball: three attackers, three defenders and a keeper with the open passing lane dotted",
+      "alt": "Through Ball: numbered attackers, striped defenders and a keeper on a striped pitch with the open passing lane dotted",
       "still": "/games/images/through-ball-deep-dark.svg",
       "frames": "/games/frames/through-ball.json"
     },
@@ -163,7 +163,7 @@
       "ending": "There is no finish line. The run ends after three bumps or when an empty tank coasts to a stop.",
       "tip": "Tuck in behind a car before the fuel runs low, then pit when the road is clear.",
       "keys": "`←` `→` (or `H` `L`) change lane. `↑` (or `K`) goes faster and `↓` (or `J`) slower",
-      "alt": "Slipstream: a car on a three-lane road behind traffic with the fuel gauge on the dash",
+      "alt": "Slipstream: cars seen from above on a road between tree-lined verges, with the pit lane and the fuel gauge on the dash",
       "still": "/games/images/slipstream-deep-dark.svg",
       "frames": "/games/frames/slipstream.json"
     },
@@ -178,7 +178,7 @@
       "ending": "There is no last wave. The game ends when every dish is lost.",
       "tip": "Large debris is slow; clear the small pieces first.",
       "keys": "`←` `→` (or `H` `L` or `A` `D`) move. `↑` or `F` or `Enter` fires",
-      "alt": "Array Guard: debris drifting towards five dishes with their shields",
+      "alt": "Array Guard: rocks falling from a night sky towards five radio dishes on masts, with the cannon on its rail",
       "still": "/games/images/array-guard-deep-dark.svg",
       "frames": "/games/frames/array-guard.json"
     },
@@ -193,7 +193,7 @@
       "ending": "The game ends when the chip reaches 100°C. In calm mode it ends only when you press Enter.",
       "tip": "Finish the word nearest the chip before starting another.",
       "keys": "Every character types; letters match in either case. `Backspace` takes back a letter. `Tab` switches calm mode. `Enter` ends a calm round",
-      "alt": "Heatsink: terms falling towards a chip with its heat gauge",
+      "alt": "Heatsink: terms running along copper heat pipes into a chip with its heat gauge",
       "still": "/games/images/heatsink-deep-dark.svg",
       "frames": "/games/frames/heatsink.json"
     },
@@ -208,7 +208,7 @@
       "ending": "There is no losing. Finish a lesson with 95% accuracy or better to unlock the next one. Below that, Enter tries it again with new text.",
       "tip": "Keep your fingers resting on A S D F and J K L ; and feel for the bumps on F and J.",
       "keys": "Every character types exactly. `Backspace` takes back a key. `←` `→` choose an unlocked lesson. `Enter` moves on when a lesson is done. `F2` switches the keyboard layout",
-      "alt": "Touch Typing: a lesson line with a marked slip above the keyboard and the finger for the next key",
+      "alt": "Touch Typing: a lesson line with a marked slip above a keyboard of coloured keycaps and the finger for the next key",
       "still": "/games/images/touch-typing-deep-dark.svg",
       "frames": "/games/frames/touch-typing.json"
     },
@@ -223,7 +223,7 @@
       "ending": "There is no losing. A track is complete when its last level is solved. The language list shows how many levels each language has done.",
       "tip": "Read the expected output under the code first; it tells you what each blank must do.",
       "keys": "Every character types into the marked blank at the cursor `▏`. `←` `→` move the cursor, `Home` and `End` jump to the ends of the blank, `Backspace` deletes before the cursor and `Delete` after it. `Tab` or `↓` goes to the next blank and `↑` the one before. `Enter` checks, then moves on. `PgUp` and `PgDn` go to the previous level and the next level reached. `F2` shows a hint. `F3` shows the answer after three tries. `F4` chooses a language. In the track list `→` opens the level list, where `Enter` opens any level reached and `←` goes back",
-      "alt": "Learn to Code: a Python lesson with a blank in the code and a message that teaches",
+      "alt": "Learn to Code: a Python lesson in an editor with a blank in its own slot and a message that teaches",
       "still": "/games/images/learn-to-code-deep-dark.svg",
       "frames": "/games/frames/learn-to-code.json"
     }
@@ -355,6 +355,18 @@
       "typing": "While paused only"
     },
     {
+      "key": "`}`",
+      "most": "Background sound up by 10, turning it on",
+      "termle": "The same",
+      "typing": "While paused only"
+    },
+    {
+      "key": "`{`",
+      "most": "Background sound down by 10, off at 0",
+      "termle": "The same",
+      "typing": "While paused only"
+    },
+    {
       "key": "`0`",
       "most": "Mute everything; again to bring it back",
       "termle": "The same",
@@ -396,11 +408,11 @@
     },
     {
       "size": "From 100 by 30",
-      "layout": "Standard: a status bar, two key lines and the full side panels"
+      "layout": "Standard: a status bar, two key lines, the full side panels and pixel boards that grow to fill the room beside them"
     },
     {
       "size": "From 160 by 45",
-      "layout": "Large: boards drawn at twice the size, a larger Touch Typing keyboard of boxed keys with a progress panel and wider text in the typing and coding games"
+      "layout": "Large: pixel boards drawn larger still with finer shapes, Merge Gates drawn at twice the size, a larger Touch Typing keyboard of taller keycaps with a progress panel and wider text in the typing and coding games"
     }
   ],
   "layouts": [
@@ -420,49 +432,49 @@
   "docs": [
     {
       "title": "How to play",
-      "href": "https://github.com/zacesshq/games/blob/v0.4.0/docs/how-to-play.md",
+      "href": "https://github.com/zacesshq/games/blob/v1.1.0/docs/how-to-play.md",
       "covers": "The goal, rules, scoring, winning and losing, a tip and the keys of every game, with a still of each"
     },
     {
       "title": "Controls",
-      "href": "https://github.com/zacesshq/games/blob/v0.4.0/docs/controls.md",
+      "href": "https://github.com/zacesshq/games/blob/v1.1.0/docs/controls.md",
       "covers": "Every key, command, flag, variable, setting and window size on one sheet"
     },
     {
       "title": "Scores file",
-      "href": "https://github.com/zacesshq/games/blob/v0.4.0/docs/scores.md",
+      "href": "https://github.com/zacesshq/games/blob/v1.1.0/docs/scores.md",
       "covers": "Where best scores, streaks, progress and settings are kept and what every line means"
     },
     {
       "title": "Accessibility",
-      "href": "https://github.com/zacesshq/games/blob/v0.4.0/ACCESSIBILITY.md",
+      "href": "https://github.com/zacesshq/games/blob/v1.1.0/ACCESSIBILITY.md",
       "covers": "What the games do on screen, in sound and at the keyboard"
     },
     {
       "title": "Contributing",
-      "href": "https://github.com/zacesshq/games/blob/v0.4.0/CONTRIBUTING.md",
+      "href": "https://github.com/zacesshq/games/blob/v1.1.0/CONTRIBUTING.md",
       "covers": "How a change is made, the checks, adding a game and releasing"
     }
   ],
   "downloads": [
     {
-      "file": "zacess-games-v0.4.0-aarch64-apple-darwin.tar.gz",
+      "file": "zacess-games-v1.1.0-aarch64-apple-darwin.tar.gz",
       "system": "macOS on Apple silicon"
     },
     {
-      "file": "zacess-games-v0.4.0-x86_64-apple-darwin.tar.gz",
+      "file": "zacess-games-v1.1.0-x86_64-apple-darwin.tar.gz",
       "system": "macOS on Intel"
     },
     {
-      "file": "zacess-games-v0.4.0-x86_64-unknown-linux-musl.tar.gz",
+      "file": "zacess-games-v1.1.0-x86_64-unknown-linux-musl.tar.gz",
       "system": "Linux on x86-64, no shared libraries needed"
     },
     {
-      "file": "zacess-games-v0.4.0-aarch64-unknown-linux-musl.tar.gz",
+      "file": "zacess-games-v1.1.0-aarch64-unknown-linux-musl.tar.gz",
       "system": "Linux on ARM64, no shared libraries needed"
     },
     {
-      "file": "zacess-games-v0.4.0-x86_64-pc-windows-msvc.zip",
+      "file": "zacess-games-v1.1.0-x86_64-pc-windows-msvc.zip",
       "system": "Windows on x86-64"
     }
   ]

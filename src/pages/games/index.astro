@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHead from "../../components/PageHead.astro";
 import data from "../../data/games.json";
+import Studio from "../../components/Studio.astro";
 
 const REPO = "https://github.com/zacesshq/games";
 const RELEASE = `${REPO}/releases/tag/${data.tag}`;
@@ -30,9 +31,6 @@ const H = data.still.height;
 // screen or asked to play, so the page never downloads all of them at once
 const rec = data.recording;
 const seconds = Math.round(rec.frames / rec.fps);
-const plain = (s: string) => s.replace(/`/g, "");
-const recLabel = (g: (typeof data.games)[number]) => `A ${words(seconds)} second recording of ${g.name}: ${plain(g.description)}.`;
-const firstGame = data.games[0];
 
 const QUICK = `zacess-games                  # the menu
 zacess-games trace            # one game by name; a short start such as "stack" is enough
@@ -44,13 +42,15 @@ tar -xzf ${first}`;
 ---
 <BaseLayout
   title="Terminal games"
-  description={`Zacess Games: ${data.games.length} original terminal games in the eight Zacess themes, with sound and music, no flashing and reduced motion. Learn to Code and Touch Typing included. Version ${data.version}.`}
+  description={`Zacess Games: ${data.games.length} original terminal games in the ten Zacess themes, with sound and music, no flashing and reduced motion. Learn to Code and Touch Typing included. Version ${data.version}.`}
 >
   <link slot="head" rel="stylesheet" href="/games/games.css">
+  <link slot="head" rel="stylesheet" href="/studio/studio.css">
+  <link slot="head" rel="stylesheet" href="/studio/themes.css">
   <PageHead
     eyebrow="Open source"
     title="Terminal games"
-    lead={`Zacess Games is ${words(data.games.length)} original games for the terminal, drawn in the eight Zacess high contrast themes with sound effects and calm music of their own. Version ${data.version}.`}
+    lead={`Zacess Games is ${words(data.games.length)} original games for the terminal, drawn in the ten Zacess themes with sound effects and calm music of their own. Version ${data.version}.`}
   >
     <p class="actions">
       <a class="button primary" href="#install">Install</a>
@@ -94,23 +94,8 @@ tar -xzf ${first}`;
       <p class="intro">Every still is Zacess Deep Contrast Dark at 100 by 30, part way through a game. Real time games run on a clock; turn based games wait for your next key.</p>
       <div id="demo-player" class="demo-player">
         <h3 id="demo-heading">Watch a game</h3>
-        <p>Each game has a {words(seconds)} second recording at {rec.width} by {rec.height} in the same theme. Choose one here or press Play the recording under any still. The recording starts paused when your device asks for reduced motion.</p>
-        <div id="demo-controls" class="demo-controls" hidden>
-          <div class="pg-field">
-            <label for="demo-scene">Game</label>
-            <select id="demo-scene">
-              {data.games.map((g) => <option value={g.id} data-label={recLabel(g)}>{g.name}</option>)}
-            </select>
-          </div>
-          <button type="button" id="demo-toggle" class="button">Play</button>
-          <button type="button" id="demo-next" class="button" hidden>Next game</button>
-          <p id="demo-status" class="vh" aria-live="polite"></p>
-        </div>
-        <figure class="frame demo-frame">
-          <figcaption class="frame-bar" id="demo-title">{firstGame.name}</figcaption>
-          <canvas id="demo" class="demo-canvas" role="img" aria-label={recLabel(firstGame)} data-frames="/games/frames/" data-lazy hidden></canvas>
-          <img id="demo-still" class="demo-still" src={firstGame.still} width={W} height={H} alt={firstGame.alt}>
-        </figure>
+        <p>Each game has a {words(seconds)} second recording of real play at {rec.width} by {rec.height}. Choose a game and a theme here or press Play the recording under any still. A game not yet recorded in the chosen theme shows its Deep Contrast Dark recording and says so. The recording starts paused when your device asks for reduced motion.</p>
+        <Studio id="games-studio" mode="games" />
       </div>
       <ul class="game-grid">
         {data.games.map((g) => (
@@ -302,4 +287,6 @@ tar -xzf ${first}`;
     </div>
   </section>
   <script is:inline src="/scenes-player.js" defer></script>
+  <script is:inline src="/studio.js" defer></script>
+  <script is:inline src="/studio-sound.js" defer></script>
 </BaseLayout>

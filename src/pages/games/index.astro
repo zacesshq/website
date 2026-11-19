@@ -22,7 +22,7 @@ const ltc = byId["learn-to-code"];
 const typingTrainer = byId["touch-typing"];
 const typingNames = data.games.filter((g) => g.typing).map((g) => g.name);
 const list = (names: string[]) => (names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names.at(-1)}` : names[0] ?? "");
-const turnBased = data.games.filter((g) => g.kind === "turn based").length;
+const turnBased = data.games.filter((g) => g.kind === "turn-based").length;
 const totalLevels = data.tracks.reduce((n, t) => n + t.levels, 0);
 const W = data.still.width;
 const H = data.still.height;
@@ -91,7 +91,7 @@ tar -xzf ${first}`;
   <section aria-labelledby="gallery-heading">
     <div class="wrap">
       <h2 id="gallery-heading">The games</h2>
-      <p class="intro">Every still is Zacess Deep Contrast Dark at 100 by 30, part way through a game. Real time games run on a clock; turn based games wait for your next key.</p>
+      <p class="intro">Every still is Zacess Deep Contrast Dark at 100 by 30, part way through a game. Real-time games run on a clock; turn-based games wait for your next key.</p>
       <div id="demo-player" class="demo-player">
         <h3 id="demo-heading">Watch a game</h3>
         <p>Each game has a {words(seconds)} second recording of real play at {rec.width} by {rec.height}. Choose a game and a theme here or press Play the recording under any still. A game not yet recorded in the chosen theme shows its Deep Contrast Dark recording and says so. The recording starts paused when your device asks for reduced motion.</p>
@@ -212,7 +212,7 @@ tar -xzf ${first}`;
         </li>
         <li>
           <h3>Reduced motion</h3>
-          <p><code>--reduced-motion</code>, <code>ZACESS_REDUCED_MOTION=1</code> or the system setting slows every real time game down. Every game pauses at any moment.</p>
+          <p><code>--reduced-motion</code>, <code>ZACESS_REDUCED_MOTION=1</code> or the system setting slows every real-time game down. Every game pauses at any moment.</p>
         </li>
         <li>
           <h3>Sound is never the only signal</h3>

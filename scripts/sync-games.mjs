@@ -103,7 +103,7 @@ async function sync() {
   const typing = names(typingHead);
 
   for (const g of games) {
-    g.kind = realTime.includes(g.name) ? "real time" : "turn based";
+    g.kind = realTime.includes(g.name) ? "real-time" : "turn-based";
     g.typing = typing.includes(g.name);
     const page = section(howTo, `## ${g.name}`, "docs/how-to-play.md");
     const src = `the ${g.name} section of docs/how-to-play.md`;
